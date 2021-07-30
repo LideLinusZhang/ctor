@@ -3,8 +3,7 @@
 
 enum ErrorType
 {
-    InvalidImprove,
-    InvalidBuild,
+    InvalidBuildOrImprove,
     InvalidRoll,
     InvalidCommand,
     InsufficientResource
