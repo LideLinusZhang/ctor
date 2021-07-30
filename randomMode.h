@@ -9,7 +9,7 @@ class RandomMode : public BoardFactory
 public:
     explicit RandomMode(const int seed);
 
-    std::shared_ptr<Board> createBoard() override;
+    std::shared_ptr<Board> createBoard(View* view) override;
 };
 
 #endif //CTOR_RANDOMMODE_H

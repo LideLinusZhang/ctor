@@ -4,11 +4,12 @@
 #include <memory>
 
 class Board;
+class View;
 
 class BoardFactory
 {
 public:
-    virtual std::shared_ptr<Board> createBoard() = 0;
+    virtual std::shared_ptr<Board> createBoard(View* view) = 0;
 };
 
 #endif //CTOR_BOARDFACTORY_H
