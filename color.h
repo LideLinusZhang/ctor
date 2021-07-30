@@ -9,4 +9,19 @@ enum Color
     Yellow
 };
 
+std::string toString(Color color)
+{
+    switch (color)
+    {
+        case Blue:
+            return "Blue";
+        case Red:
+            return "Red";
+        case Orange:
+            return "Orange";
+        case Yellow:
+            return "Yellow";
+    }
+}
+
 #endif //CTOR_COLOR_H
