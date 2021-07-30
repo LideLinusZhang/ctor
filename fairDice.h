@@ -9,7 +9,7 @@ class FairDice : public Dice
     std::default_random_engine engine;
     std::uniform_int_distribution<> distribution;
 public:
-    FairDice();
+    explicit FairDice(int seed);
 
     int roll() override;
 };
