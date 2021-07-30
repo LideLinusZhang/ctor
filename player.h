@@ -17,6 +17,8 @@ class Player
     std::vector<int> buildings; // value: vertex index
     View* view;
     Board* board;
+
+    int getTotalResources() const;
 public:
     Player(View* view, Board* board, Color color);
     Player(View* view, Board* board, Color color, int points, std::map<ResourceType,int> resources,
@@ -31,7 +33,7 @@ public:
 
     void loseResource();
 
-    void trade(Player* other);
+    void trade(Player* other, ResourceType give, ResourceType take); // Trade resources after other agreed.
     void steal(Player* other);
 
     void printStatus() const;
