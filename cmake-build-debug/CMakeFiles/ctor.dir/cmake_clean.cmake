@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ctor.dir/fairDice.cc.obj"
+  "CMakeFiles/ctor.dir/loadedDice.cc.obj"
   "CMakeFiles/ctor.dir/view.cc.obj"
   "ctor.exe"
   "ctor.exe.manifest"

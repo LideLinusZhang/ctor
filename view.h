@@ -2,6 +2,7 @@
 #define CTOR_VIEW_H
 
 #include "errorType.h"
+#include <string>
 
 class Board;
 
@@ -10,9 +11,9 @@ class View
 public:
     void printBoard(Board * board) const;
     void printError(ErrorType type) const;
-    // Use this to print a prompt that requires a user response. The symbol '¿' will be printed.
+    // Use this to print a prompt that requires a user response. A newline and the symbol '¿' will be printed.
     void printPrompt(std::string prompt) const;
-    // Use this to print a message that does not require a user response.
+    // Use this to print a message that does not require a user response. A newline will be printed at the end.
     void printMessage(std::string message) const;
 };
 

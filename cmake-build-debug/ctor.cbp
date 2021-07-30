@@ -82,58 +82,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/board.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/boardFactory.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/buildingType.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/color.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/dice.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/edge.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/errorType.h">
-			<Option target="ctor"/>
-		</Unit>
 		<Unit filename="C:/Users/test/CLionProjects/ctor/fairDice.cc">
 			<Option target="ctor"/>
 		</Unit>
 		<Unit filename="C:/Users/test/CLionProjects/ctor/fairDice.h">
 			<Option target="ctor"/>
 		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/fileMode.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/game.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/geese.h">
+		<Unit filename="C:/Users/test/CLionProjects/ctor/loadedDice.cc">
 			<Option target="ctor"/>
 		</Unit>
 		<Unit filename="C:/Users/test/CLionProjects/ctor/loadedDice.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/player.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/randomMode.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/resourceType.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/tile.h">
-			<Option target="ctor"/>
-		</Unit>
-		<Unit filename="C:/Users/test/CLionProjects/ctor/vertex.h">
 			<Option target="ctor"/>
 		</Unit>
 		<Unit filename="C:/Users/test/CLionProjects/ctor/view.cc">

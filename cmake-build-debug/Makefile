@@ -168,6 +168,33 @@ fairDice.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\ctor.dir\build.make CMakeFiles/ctor.dir/fairDice.cc.s
 .PHONY : fairDice.cc.s
 
+loadedDice.obj: loadedDice.cc.obj
+
+.PHONY : loadedDice.obj
+
+# target to build an object file
+loadedDice.cc.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ctor.dir\build.make CMakeFiles/ctor.dir/loadedDice.cc.obj
+.PHONY : loadedDice.cc.obj
+
+loadedDice.i: loadedDice.cc.i
+
+.PHONY : loadedDice.i
+
+# target to preprocess a source file
+loadedDice.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ctor.dir\build.make CMakeFiles/ctor.dir/loadedDice.cc.i
+.PHONY : loadedDice.cc.i
+
+loadedDice.s: loadedDice.cc.s
+
+.PHONY : loadedDice.s
+
+# target to generate assembly for a file
+loadedDice.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ctor.dir\build.make CMakeFiles/ctor.dir/loadedDice.cc.s
+.PHONY : loadedDice.cc.s
+
 view.obj: view.cc.obj
 
 .PHONY : view.obj
@@ -207,6 +234,9 @@ help:
 	@echo ... fairDice.obj
 	@echo ... fairDice.i
 	@echo ... fairDice.s
+	@echo ... loadedDice.obj
+	@echo ... loadedDice.i
+	@echo ... loadedDice.s
 	@echo ... view.obj
 	@echo ... view.i
 	@echo ... view.s
