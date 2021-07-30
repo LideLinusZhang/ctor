@@ -5,12 +5,12 @@ using namespace std;
 
 View::View(ostream &output, ostream &error) : output{output}, error{error} {}
 
-void View::printMessage(string &message) const
+void View::printMessage(string message) const
 {
     output << message << endl;
 }
 
-void View::printPrompt(string &prompt) const
+void View::printPrompt(string prompt) const
 {
     output << prompt << endl << "¿ ";
 }
