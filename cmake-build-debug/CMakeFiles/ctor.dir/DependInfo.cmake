@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/test/CLionProjects/ctor/fairDice.cc" "C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/ctor.dir/fairDice.cc.obj"
+  "C:/Users/test/CLionProjects/ctor/game.cc" "C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/ctor.dir/game.cc.obj"
   "C:/Users/test/CLionProjects/ctor/loadedDice.cc" "C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/ctor.dir/loadedDice.cc.obj"
   "C:/Users/test/CLionProjects/ctor/view.cc" "C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/ctor.dir/view.cc.obj"
   )

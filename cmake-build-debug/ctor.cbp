@@ -88,6 +88,12 @@
 		<Unit filename="C:/Users/test/CLionProjects/ctor/fairDice.h">
 			<Option target="ctor"/>
 		</Unit>
+		<Unit filename="C:/Users/test/CLionProjects/ctor/game.cc">
+			<Option target="ctor"/>
+		</Unit>
+		<Unit filename="C:/Users/test/CLionProjects/ctor/game.h">
+			<Option target="ctor"/>
+		</Unit>
 		<Unit filename="C:/Users/test/CLionProjects/ctor/loadedDice.cc">
 			<Option target="ctor"/>
 		</Unit>
