@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\ctor.dir/objects.a
-C:\PROGRA~2\EMBARC~1\Dev-Cpp\TDM-GC~1\bin\ar.exe cr CMakeFiles\ctor.dir/objects.a @CMakeFiles\ctor.dir\objects1.rsp
-C:\PROGRA~2\EMBARC~1\Dev-Cpp\TDM-GC~1\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\ctor.dir/objects.a -Wl,--no-whole-archive -o ctor.exe -Wl,--out-implib,libctor.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ctor.dir\linklibs.rsp

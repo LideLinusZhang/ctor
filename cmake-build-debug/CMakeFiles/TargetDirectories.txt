@@ -1,3 +1,0 @@
-C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/ctor.dir
-C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/test/CLionProjects/ctor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
