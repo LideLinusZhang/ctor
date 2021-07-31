@@ -12,18 +12,35 @@ enum ResourceType
     WiFi
 };
 
+std::string toStringAllCaps(ResourceType type)
+{
+    switch (type)
+    {
+        case Brick:
+            return "BRICK";
+        case Energy:
+            return "ENERGY";
+        case Glass:
+            return "GLASS";
+        case Heat:
+            return "HEAT";
+        case WiFi:
+            return "WIFI";
+    }
+}
+
 std::string toString(ResourceType type)
 {
     switch (type)
     {
         case Brick:
-            return "Brick";
+            return "brick";
         case Energy:
-            return "Energy";
+            return "energy";
         case Glass:
-            return "Glass";
+            return "glass";
         case Heat:
-            return "Heat";
+            return "heat";
         case WiFi:
             return "WiFi";
     }

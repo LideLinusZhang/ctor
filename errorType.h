@@ -6,7 +6,8 @@ enum ErrorType
     InvalidBuildOrImprove,
     InvalidRoll,
     InvalidCommand,
-    InsufficientResource
+    InsufficientResource,
+    InvalidOperation, // Fallback error option
 };
 
 #endif //CTOR_ERRORTYPE_H
