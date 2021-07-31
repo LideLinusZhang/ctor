@@ -1,10 +1,12 @@
 #include "tile.h"
+
+#include <utility>
 #include "board.h"
 #include "vertex.h"
 #include "player.h"
 
-Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type)
-    :board(board), vertices(vertices), type(type)
+Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type, int value)
+    :board(board), vertices(move(vertices)), type(type), value(value)
 {
 
 }
@@ -12,9 +14,9 @@ Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type)
 void Tile::obtainResource()
 {
     // Add resources to all players who have building around this tile.
-    for (size_t i = 0; i < vertices.size(); i++)
+    for (int vertex : vertices)
     {
-        Vertex *v = board->getVertex(vertices[i]);
+        Vertex *v = board->getVertex(vertex);
         if(nullptr == v->getOwner())
         {
             continue;
@@ -31,4 +33,9 @@ void Tile::obtainResource()
 inline ResourceType Tile::getType() const
 {
     return type;
+}
+
+int Tile::getValue() const
+{
+    return value;
 }

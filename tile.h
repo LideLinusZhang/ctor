@@ -11,11 +11,13 @@ class Tile
     Board* board;
     std::vector<int> vertices;
     ResourceType type;
+    int value;
 public:
-    Tile(Board* board, std::vector<int> vertices, ResourceType type);
+    Tile(Board* board, std::vector<int> vertices, ResourceType type, int value);
 
     void obtainResource(); // Add resources to all players who have building around this tile.
     ResourceType getType() const;
+    int getValue() const;
 };
 
 #endif //CTOR_TILE_H
