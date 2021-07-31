@@ -30,6 +30,7 @@ public:
 
     int getResource(ResourceType type) const;
     int getBuildingPoint() const;
+    Color getColor() const;
 
     void loseResource();
 

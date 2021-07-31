@@ -12,7 +12,7 @@ using namespace std;
 Player::Player(View *view, Board *board, Color color)
         : view{view}, board{board}, color{color}
 {
-    for (int i = 0; i < RESOURCE_TYPE_COUNT; i++)
+    for (int i = 0; i < resourceTypeCount; i++)
         resources.insert({static_cast<ResourceType>(i), 0});
 }
 
@@ -52,6 +52,11 @@ int Player::getTotalResources() const
     return total;
 }
 
+Color Player::getColor() const
+{
+    return color;
+}
+
 void Player::loseResource()
 {
     int total = getTotalResources();
@@ -62,7 +67,8 @@ void Player::loseResource()
     uniform_int_distribution<int> dist;
 
     int totalLost = total / 2;
-    message << "Builder " << toString(color) << " loses " << totalLost << " resources to the geese. They lose:";
+    message << "Builder " << toString(color) << " loses " << totalLost
+            << " resources to the geese. They lose:" << endl;
     view->printMessage(message.str());
 
     for (auto i : resources)
@@ -85,7 +91,7 @@ void Player::loseResource()
             totalLost -= specificLost;
 
             message.str(string());
-            message << specificLost << " " << toStringAllCaps(i.first);
+            message << specificLost << " " << toStringAllCaps(i.first) << endl;
             view->printMessage(message.str());
         }
     }
@@ -121,7 +127,7 @@ void Player::steal(Player *other)
     // Print message
     ostringstream message;
     message << "Builder " << toString(color) << " steals " << toStringAllCaps(typeToSteal)
-            << " from builder " << toString(other->color) << " .";
+            << " from builder " << toString(other->color) << " ." << endl;
     view->printMessage(message.str());
 }
 
@@ -137,21 +143,22 @@ void Player::printStatus() const
             message << ", ";
         message << i.second << " " << toString(i.first);
     }
-    message << ".";
+    message << "." << endl;
     view->printMessage(message.str());
 }
 
 void Player::printResidences() const
 {
     ostringstream message;
-    message << toString(color) << " has built:";
+    message << toString(color) << " has built:" << endl;
 
     for (auto i : buildings)
     {
-        message << endl;
         BuildingType type = board->getVertex(i)->getType();
-        message << i << " " << toString(type);
+        message << i << " " << toString(type)<<endl;
     }
     view->printMessage(message.str());
 }
+
+
 
