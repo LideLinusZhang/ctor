@@ -14,7 +14,7 @@ class Player
     Color color;
     int points=0;
     std::map<ResourceType,int> resources; // index: resource type, value: resource count
-    std::vector<int> buildings; // value: vertex index
+    std::vector<int> buildings; // value: vertex index, in ascending order
     View* view;
     Board* board;
 
@@ -34,7 +34,7 @@ public:
     void loseResource();
 
     void trade(Player* other, ResourceType give, ResourceType take); // Trade resources after other agreed.
-    void steal(Player* other);
+    void steal(Player* other); // Steal other after user selected one from the list of players to steal from.
 
     void printStatus() const;
     void printResidences() const;
