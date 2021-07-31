@@ -1,7 +1,9 @@
 #ifndef CTOR_RESOURCETYPE_H
 #define CTOR_RESOURCETYPE_H
 
-#define RESOURCE_TYPE_COUNT 5
+#include <string>
+
+const int resourceTypeCount = 5;
 
 enum ResourceType
 {
