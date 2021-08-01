@@ -1,6 +1,8 @@
 #ifndef CTOR_COLOR_H
 #define CTOR_COLOR_H
 
+#include <string>;
+
 enum Color
 {
     Blue,
@@ -9,19 +11,8 @@ enum Color
     Yellow
 };
 
-std::string toString(Color color)
-{
-    switch (color)
-    {
-        case Blue:
-            return "Blue";
-        case Red:
-            return "Red";
-        case Orange:
-            return "Orange";
-        case Yellow:
-            return "Yellow";
-    }
-}
+std::string toString(Color color);
+// If str is unrecognized, throw invalid_argument.
+Color toColor(const std::string &str);
 
 #endif //CTOR_COLOR_H
