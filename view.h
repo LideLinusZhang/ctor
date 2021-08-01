@@ -14,7 +14,6 @@ class View
 public:
     explicit View(std::ostream &output = std::cout, std::ostream &error = std::cerr);
 
-    void printBoard(Board *board) const;
     void printError(ErrorType type) const;
     // Use this to print a prompt that requires a user response.
     // A newline and the prompt symbol '¿' will be printed.
@@ -22,6 +21,8 @@ public:
     // Use this to print a message that does not require a user response.
     // A newline will NOT be printed at the end.
     void printMessage(const std::string &message) const;
+
+    void printBoard(Board *board) const;
 };
 
 #endif //CTOR_VIEW_H
