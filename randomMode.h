@@ -5,9 +5,8 @@
 
 class RandomMode : public BoardFactory
 {
-    const int seed;
 public:
-    explicit RandomMode(const int seed);
+    RandomMode();
 
     std::shared_ptr<Board> createBoard(View* view) override;
 };

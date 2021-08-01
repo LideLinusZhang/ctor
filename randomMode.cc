@@ -25,7 +25,7 @@ std::vector<ResourceType> randomMode::shuffleResource() {
     return resources;
 }
 
-std::vector<int> randomMode::shuffleValuesstd::vector<ResourceType> resources {
+std::vector<int> randomMode::shuffleValues(std::vector<ResourceType> resources) {
     std::vector<int> values;
     for (int i = 2; i < 13; i++) {
         values.push_back(i);
