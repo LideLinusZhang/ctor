@@ -32,7 +32,7 @@ public:
     int getBuildingPoint() const;
     Color getColor() const;
 
-    void loseResource();
+    void loseResource(); // If the player's total resources are less than 10, I will do nothing.
 
     void trade(Player* other, ResourceType give, ResourceType take); // Trade resources after other agreed.
     void steal(Player* other); // Steal other after user selected one from the list of players to steal from.
