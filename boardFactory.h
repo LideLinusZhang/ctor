@@ -3,15 +3,15 @@
 
 #include <vector>
 #include <memory>
+#include "board.h"
 #include "resourceType.h"
+#include "tile.h"
+#include "vertex.h"
+#include "edge.h"
 
 #define TOTAL_TILES 19
 
-class Board;
 class View;
-class Tile;
-class Edge;
-class Vertex;
 
 class BoardFactory
 {

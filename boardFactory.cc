@@ -23,11 +23,11 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
             level = true;
             mid += i % 2;
         } else if (i % 6 == 0) {
-            int m = vertices.back().getIndices()[1];
+            int m = vertices.back()->getIndices()[1];
             std::vector<int> temp = {m, m + 6, m + 9};
             vertices.push_back(std::make_shared<Vertex>(view, temp));
             base = m;
-            mid = m + 6
+            mid = m + 6;
             level = false;
             mid += i % 2;
         } else {
