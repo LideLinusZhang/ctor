@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include "resourceType.h"
 
 #define TOTAL_TILES 19
 
@@ -11,7 +12,6 @@ class View;
 class Tile;
 class Edge;
 class Vertex;
-class ResourceType;
 
 class BoardFactory
 {
@@ -19,6 +19,7 @@ public:
     static std::vector<std::shared_ptr<Vertex>> createVertices(View* view);
     static std::vector<std::shared_ptr<Edge>> createEdges(View* view, std::vector<std::shared_ptr<Vertex>>* vertices);
     static std::vector<std::vector<int>> createTileVertices();
+    int getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles);
     virtual std::shared_ptr<Board> createBoard(View* view) = 0;
 };
 
