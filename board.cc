@@ -8,15 +8,15 @@ Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles,
 }
             
 Tile* Board::getTile(int index) const {
-    return &(*(tiles[index]));
+    return tiles[index].get();
 }
 
 Edge* Board::getEdge(int index) const {
-    return &(*(edges[index]));
+    return edges[index].get();
 }
 
 Vertex* Board::getVertex(int index) const {
-    return &(*(vertices[index]));
+    return vertices[index].get();
 }
 
 bool Board::tryMoveGeese(int tileIndex) {
