@@ -24,7 +24,9 @@ public:
     // Construct by copying pre-constructed vectors.
     Board(View* view, std::vector<std::shared_ptr<Tile>> tiles, std::vector<std::shared_ptr<Edge>> edges,
           std::vector<std::shared_ptr<Vertex>> vertices, int geeseInitialPosition);
-
+    
+    void setBoard();
+    
     Tile* getTile(int index) const;
     Edge* getEdge(int index) const;
     Vertex* getVertex(int index) const;
