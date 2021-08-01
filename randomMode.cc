@@ -1,3 +1,4 @@
+#include "random.h"
 #include "randomMode.h"
 
 RandomMode::RandomMode(){}
