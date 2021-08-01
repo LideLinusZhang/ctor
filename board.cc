@@ -19,8 +19,8 @@ Vertex* Board::getVertex(int index) const {
     return &(*(vertices[index]));
 }
 
-void Board::moveGeese(int tileIndex) {
-    geese.tryMoveTo(tileIndex);
+bool Board::tryMoveGeese(int tileIndex) {
+    return geese.tryMoveTo(tileIndex);
 }
 
 void Board::print() const {

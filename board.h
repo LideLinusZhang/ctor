@@ -29,7 +29,7 @@ public:
     Edge* getEdge(int index) const;
     Vertex* getVertex(int index) const;
 
-    void moveGeese(int tileIndex);
+    bool tryMoveGeese(int tileIndex);
 
     void print() const;
 };
