@@ -65,7 +65,7 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
 std::vector<std::shared_ptr<Edge>> BoardFactory::createEdges(View* view, 
                                                             std::vector<std::shared_ptr<Vertex>>* vertices) {
     std::vector<int> edgeVertices[71];
-    std::vector<Edge> edges;
+    std::vector<std::shared_ptr<Edge>> edges;
     for (int i = 0; i < vertices->size(); i++) {
         for (auto n : vertices->at(i)->getIndices()) {
             edgeVertices[n].push_back(i);
@@ -84,7 +84,7 @@ std::vector<std::vector<int>> BoardFactory::createTileVertices() {
     tileVertices.push_back({4, 5, 9, 10, 15, 16});
     tileVertices.push_back({6, 7, 12, 13, 18, 19});
     for (int i = 4; i < 18; i++) {
-        vector<int> v;
+        std::vector<int> v;
         int base = 0;
         if ((i - 3) % 5 == 0 || (i - 6) % 5 == 0) {
             base = tileVertices[i - 1][1] + 2;
@@ -97,12 +97,11 @@ std::vector<std::vector<int>> BoardFactory::createTileVertices() {
     return tileVertices;
 }
 
-int getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
+int BoardFactory::getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
     for (auto it : tiles) {
         if (it->getType() == Park) {
             return it->getIndex();
         }
     }
-    view->printError(ErrorType::InvalidOperation);
     return 0;
 }
