@@ -1,5 +1,6 @@
 #include <utility>
 #include <sstream>
+#include <stdexcept>
 #include "fairDice.h"
 #include "loadedDice.h"
 #include "player.h"
@@ -13,11 +14,21 @@
 
 using namespace std;
 
-Game::Game(istream &input) : input{input}
-{
-    input.exceptions(ios::eofbit | ios::failbit);
+const string helpMessage = "Valid commands:\n"
+                           "board\n"
+                           "status\n"
+                           "residences\n"
+                           "build-road <edge#>\n"
+                           "build-res <housing#>\n"
+                           "improve <housing#>\n"
+                           "trade <colour> <give> <take>\n"
+                           "next\n"
+                           "save <file>\n"
+                           "help\n";
 
-    loaded = make_unique<LoadedDice>(view.get());
+Game::Game(istream &input) : Controller(input)
+{
+    loaded = make_unique<LoadedDice>(view.get(), input);
     fair = make_unique<FairDice>();
 }
 
@@ -59,7 +70,10 @@ void Game::play()
             return;
         }
 
-        // TODO
+        if(currentPlayer->getBuildingPoint()>=10)
+        {
+
+        }
     }
 }
 
@@ -179,6 +193,8 @@ void Game::duringTurn(Player *player)
     string cmd;
     string colorStr, takeStr, giveStr;
     string fileName;
+    Color otherColor;
+    ResourceType take, give;
     int index;
 
     while (true)
@@ -203,8 +219,12 @@ void Game::duringTurn(Player *player)
             { input >> index; }
             catch (ios_base::failure &)
             {
-                view->printError(ErrorType::InvalidOperation);
-                continue;
+                if (input.eof()) throw;
+                else
+                {
+                    view->printError(ErrorType::InvalidOperation);
+                    continue;
+                }
             }
 
             if (cmd == "build-road")
@@ -220,10 +240,27 @@ void Game::duringTurn(Player *player)
             { input >> colorStr >> takeStr >> giveStr; }
             catch (ios_base::failure &)
             {
+                if (input.eof()) throw;
+                else
+                {
+                    view->printError(ErrorType::InvalidOperation);
+                    continue;
+                }
+            }
+
+            try
+            {
+                otherColor = toColor(colorStr);
+                take = toResourceType(takeStr);
+                give = toResourceType(giveStr);
+            }
+            catch (invalid_argument &)
+            {
                 view->printError(ErrorType::InvalidOperation);
                 continue;
             }
-            // TODO
+
+            player->trade(players[static_cast<int>(otherColor)].get(), give, take);
         }
         else if (cmd == "next")
             return;
@@ -233,19 +270,26 @@ void Game::duringTurn(Player *player)
             { input >> fileName; }
             catch (ios_base::failure &)
             {
-                view->printError(ErrorType::InvalidOperation);
-                continue;
+                if (input.eof()) throw;
+                else
+                {
+                    view->printError(ErrorType::InvalidOperation);
+                    continue;
+                }
             }
 
             save(fileName);
         }
         else if (cmd == "help")
-        {
-            // TODO
-        }
+            view->printMessage(helpMessage);
         else
             view->printError(ErrorType::InvalidCommand);
     }
+}
+
+void Game::moveGeese(Player *player)
+{
+
 }
 
 

@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include "controller.h"
 
 class View;
 
@@ -18,12 +19,11 @@ class Dice;
 
 const int totalPlayers = 4;
 
-class Game
+class Game : public Controller
 {
     // Utilities
     std::shared_ptr<View> view;
     std::shared_ptr<BoardFactory> boardFactory;
-    std::istream &input; // Input source.
 
     // Dices
     std::shared_ptr<Dice> loaded;
