@@ -11,7 +11,8 @@ enum ResourceType
     Energy,
     Glass,
     Heat,
-    WiFi
+    WiFi,
+    None
 };
 
 std::string toStringAllCaps(ResourceType type);
