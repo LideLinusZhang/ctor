@@ -4,9 +4,23 @@ Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles,
             std::vector<std::shared_ptr<Edge>> edges,
             std::vector<std::shared_ptr<Vertex>> vertices, 
             int geeseInitialPosition)
-            : view{view}, tiles{tiles}, edges{edges}, vertices{vertices}, geese{geeseInitialPosition} {
+            : view{view}, tiles{tiles}, edges{edges}, vertices{vertices}, geese{geeseInitialPosition} 
+{
+    setBoard();
 }
-            
+    
+void Board::setBoard() {
+    for (auto it : tiles) {
+        it->setBoard(this);
+    }
+    for (auto it : vertices) {
+        it->setBoard(this);
+    }
+    for (auto it : edges) {
+        it->setBoard(this);
+    }
+}
+
 Tile* Board::getTile(int index) const {
     return tiles[index].get();
 }
