@@ -25,8 +25,6 @@ public:
     Board(View* view, std::vector<std::shared_ptr<Tile>> tiles, std::vector<std::shared_ptr<Edge>> edges,
           std::vector<std::shared_ptr<Vertex>> vertices, int geeseInitialPosition);
     
-    void setBoard();
-    
     Tile* getTile(int index) const;
     Edge* getEdge(int index) const;
     Vertex* getVertex(int index) const;
@@ -34,6 +32,10 @@ public:
     bool tryMoveGeese(int tileIndex);
 
     void print() const;
+    
+private: 
+    // Pass this board to its components.
+    void setBoard();
 };
 
 #endif //CTOR_BOARD_H
