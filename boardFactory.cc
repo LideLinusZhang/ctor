@@ -15,7 +15,7 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
         bool level = true;
         int mid = 0;
         if (i % 12 == 0) {
-            int m = vertices.back()->getIndices()[2];
+            int m = vertices.back()->getadjacentEdgeIndices()[2];
             std::vector<int> temp = {m - 5, m, m + 3};
             vertices.push_back(std::make_shared<Vertex>(view, temp));
             base = m - 5;
@@ -23,7 +23,7 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
             level = true;
             mid += i % 2;
         } else if (i % 6 == 0) {
-            int m = vertices.back()->getIndices()[1];
+            int m = vertices.back()->getadjacentEdgeIndices()[1];
             std::vector<int> temp = {m, m + 6, m + 9};
             vertices.push_back(std::make_shared<Vertex>(view, temp));
             base = m;
@@ -56,17 +56,17 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
         vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     
-    vertices[2]->getIndices().erase(vertices[2]->getIndices().begin());
-    vertices[5]->getIndices().erase(vertices[5]->getIndices().begin());
-    vertices[6]->getIndices().erase(vertices[6]->getIndices().begin());
-    vertices[11]->getIndices().erase(vertices[11]->getIndices().begin());
-    vertices[42]->getIndices().erase(vertices[42]->getIndices().end() - 1);
-    vertices[47]->getIndices().erase(vertices[47]->getIndices().end() - 1);
-    vertices[48]->getIndices().erase(vertices[48]->getIndices().end() - 1);
-    vertices[51]->getIndices().erase(vertices[51]->getIndices().end() - 1);
+    vertices[2]->getadjacentEdgeIndices().erase(vertices[2]->getadjacentEdgeIndices().begin());
+    vertices[5]->getadjacentEdgeIndices().erase(vertices[5]->getadjacentEdgeIndices().begin());
+    vertices[6]->getadjacentEdgeIndices().erase(vertices[6]->getadjacentEdgeIndices().begin());
+    vertices[11]->getadjacentEdgeIndices().erase(vertices[11]->getadjacentEdgeIndices().begin());
+    vertices[42]->getadjacentEdgeIndices().erase(vertices[42]->getadjacentEdgeIndices().end() - 1);
+    vertices[47]->getadjacentEdgeIndices().erase(vertices[47]->getadjacentEdgeIndices().end() - 1);
+    vertices[48]->getadjacentEdgeIndices().erase(vertices[48]->getadjacentEdgeIndices().end() - 1);
+    vertices[51]->getadjacentEdgeIndices().erase(vertices[51]->getadjacentEdgeIndices().end() - 1);
     for (int i = 12; i < 42; i += 6) {
-        vertices[i]->getIndices().erase(vertices[i]->getIndices().begin() + 1);
-        vertices[i + 5]->getIndices().erase(vertices[i + 5]->getIndices().begin() + 1);
+        vertices[i]->getIndices().erase(vertices[i]->getadjacentEdgeIndices().begin() + 1);
+        vertices[i + 5]->getIndices().erase(vertices[i + 5]->getadjacentEdgeIndices().begin() + 1);
     }
     return vertices;
 }
@@ -76,7 +76,7 @@ std::vector<std::shared_ptr<Edge>> BoardFactory::createEdges(View* view,
     std::vector<int> edgeVertices[71];
     std::vector<std::shared_ptr<Edge>> edges;
     for (int i = 0; i < vertices->size(); i++) {
-        for (auto n : vertices->at(i)->getIndices()) {
+        for (auto n : vertices->at(i)->getadjacentEdgeIndices()) {
             edgeVertices[n].push_back(i);
         }
     }
