@@ -31,8 +31,8 @@ void View::printError(ErrorType type) const
         case ErrorType::InsufficientResource:
             error << "You do not have enough resources." << endl;
             break;
-        case ErrorType::InvalidOperation:
-            error << "Invalid operation." << endl;
+        case ErrorType::InvalidInput:
+            error << "Invalid input." << endl;
     }
 }
 
