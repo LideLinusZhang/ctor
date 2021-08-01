@@ -1,11 +1,11 @@
 #include "randomMode.h"
 
-RandomMode::RandomMode(const int seed) : seed{seed} {}
+RandomMode::RandomMode(){}
 
 std::vector<ResourceType> RandomMode::shuffleResource() {
     std::vector<ResourceType> resources;
     for (int i = 0; i < 3; i++) {
-        resources.push_back(ResourceType::Wifi);
+        resources.push_back(ResourceType::WiFi);
     }
     for (int i = 0; i < 3; i++) {
         resources.push_back(ResourceType::Heat);
@@ -20,7 +20,7 @@ std::vector<ResourceType> RandomMode::shuffleResource() {
         resources.push_back(ResourceType::Energy);
     }
     resources.push_back(ResourceType::Park);
-    auto rng = std::default_random_engine{seed};
+    auto rng = Random::getRandomEngine();
     std::shuffle(resources.begin(), resources.end(), rng);
     return resources;
 }
@@ -33,7 +33,7 @@ std::vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources) 
             values.push_back(i);
         }
     }
-    auto rng = std::default_random_engine {seed};
+    auto rng = Random::getRandomEngine();
     std::shuffle(values.begin(), values.end(), rng);
     int parkIndex = 0;
     int sevenIndex = 0;
@@ -51,7 +51,7 @@ std::vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources) 
     return values;
 }
 
-std::shared_ptr<Board> randomMode::createBoard(View* view) {
+std::shared_ptr<Board> RandomMode::createBoard(View* view) {
     std::vector<std::shared_ptr<Vertex>> vertices = BoardFactory::createVertices(view);
     std::vector<std::shared_ptr<Edge>> edges = BoardFactory::createEdges(view, &vertices);
     std::vector<std::vector<int>> vertexTiles = BoardFactory::createTileVertices();
