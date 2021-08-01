@@ -6,11 +6,12 @@
 
 class View;
 
+// use the static Random class for random number generation.
+
 class RandomMode : public BoardFactory
 {
-    const int seed;
 public:
-    explicit RandomMode(const int seed);
+    RandomMode();
     std::shared_ptr<Board> createBoard(View* view) override;
 
 private: 
