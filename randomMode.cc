@@ -61,8 +61,9 @@ std::shared_ptr<Board> RandomMode::createBoard(View* view) {
     std::vector<int> values = shuffleValues(resources);
     
     for (int i = 0; i < TOTAL_TILES; i++) {
-        tiles.push_back(std::make_shared<Tile>(this, vertices[i], resources[i], values[i]));
+        tiles.push_back(std::make_shared<Tile>(vertexTiles[i], resources[i], values[i]));
     }
     int geesePosition = BoardFactory::getParkIndex(view, tiles);
-    return std::make_shared<Board>(view, tiles, edges, vertices, geesePosition);
+    auto board = std::make_shared<Board>(view, tiles, edges, vertices, geesePosition);
+    return board;
 }
