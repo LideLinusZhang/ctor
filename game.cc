@@ -53,11 +53,14 @@ void Game::initPlayers()
     }
 }
 
-void Game::play()
+bool Game::play()
 {
     for (;; currentPlayerIndex = (currentPlayerIndex + 1) % 4)
     {
         Player *currentPlayer = players[currentPlayerIndex].get();
+
+        if (currentPlayer->getBuildingPoint() >= 10)
+            return endGame();
 
         try
         {
@@ -67,13 +70,11 @@ void Game::play()
         catch (ios_base::failure &)
         {
             save();
-            return;
+            return false;
         }
 
-        if(currentPlayer->getBuildingPoint()>=10)
-        {
-
-        }
+        if (currentPlayer->getBuildingPoint() >= 10)
+            return endGame();
     }
 }
 
@@ -86,14 +87,145 @@ void Game::beginTurn(Player *player)
 
     int rollResult;
     try
-    { rollResult = roll(); }
+    {
+        rollResult = roll();
+        if (rollResult == 7)
+        {
+            int newGeesePosition = moveGeese(player);
+            stealFromOthers(player, newGeesePosition);
+        }
+        else
+            obtainResources(rollResult);
+    }
     catch (ios_base::failure &)
     { throw; }
+}
 
-    if (rollResult == 7)
-        moveGeese(player);
-    else
-        obtainResources(rollResult);
+int Game::roll()
+{
+    string cmd;
+    shared_ptr<Dice> dice(nullptr);
+    int rollResult;
+
+    while (true)
+    {
+        try
+        { input >> cmd; }
+        catch (ios_base::failure &)
+        { throw; }
+
+        if (cmd == "roll")
+        {
+            if (dice == nullptr)
+                view->printError(ErrorType::InvalidRoll);
+            else
+            {
+                try
+                { rollResult = dice->roll(); }
+                catch (ios_base::failure &)
+                { throw; }
+                break;
+            }
+        }
+        else if (cmd == "load")
+            dice = loaded;
+        else if (cmd == "fair")
+            dice = fair;
+        else
+            view->printError(ErrorType::InvalidCommand);
+    }
+
+    return rollResult;
+}
+
+int Game::moveGeese(Player *player)
+{
+    ostringstream message;
+    int index;
+
+    for (int i = 0; i < totalPlayers; i++)
+        players[i]->loseResource();
+
+    while (true)
+    {
+        view->printPrompt("Choose where to place the GEESE.");
+
+        try
+        { input >> index; }
+        catch (ios_base::failure &)
+        {
+            if (input.eof()) throw;
+            else
+            {
+                view->printError(ErrorType::InvalidInput);
+                continue;
+            }
+        }
+
+        if (gameBoard->tryMoveGeese(index))
+            break;
+        else
+            view->printError(ErrorType::InvalidInput);
+    }
+
+    return index;
+}
+
+void Game::stealFromOthers(Player *player, int geesePosition)
+{
+    ostringstream message;
+    Tile *geeseTile = gameBoard->getTile(geesePosition);
+    vector<Player *> playersToSteal = geeseTile->getResidenceOwners();
+
+    if (playersToSteal.empty())
+    {
+        message << "Builder" << toString(player->getColor()) << " has no builders to steal from." << endl;
+        view->printMessage(message.str());
+        return;
+    }
+
+    message << "Builder " << toString(player->getColor()) << " can choose to steal from ";
+    bool first = true;
+    for (auto p : playersToSteal)
+    {
+        if (!first)
+            message << ", ";
+        else
+            first = false;
+        message << toString(p->getColor());
+    }
+
+
+    string colorStr;
+    Color color;
+    while (true)
+    {
+        view->printPrompt("Choose a builder to steal from.");
+
+        try
+        { input >> colorStr; }
+        catch (ios_base::failure &)
+        {
+            if (input.eof()) throw;
+            else
+            {
+                view->printError(ErrorType::InvalidInput);
+                continue;
+            }
+        }
+
+        try
+        { color = toColor(colorStr); }
+        catch (invalid_argument &)
+        {
+            view->printError(ErrorType::InvalidInput);
+            continue;
+        }
+
+        break;
+    }
+
+    player->steal(players[static_cast<int>(color)].get());
 }
 
 void Game::obtainResources(int rollResult)
@@ -151,50 +283,12 @@ void Game::obtainResources(int rollResult)
     view->printMessage(message.str());
 }
 
-int Game::roll()
-{
-    string cmd;
-    shared_ptr<Dice> dice(nullptr);
-    int rollResult;
-
-    while (true)
-    {
-        try
-        { input >> cmd; }
-        catch (ios_base::failure &)
-        { throw; }
-
-        if (cmd == "roll")
-        {
-            if (dice == nullptr)
-                view->printError(ErrorType::InvalidRoll);
-            else
-            {
-                try
-                { rollResult = dice->roll(); }
-                catch (ios_base::failure &)
-                { throw; }
-                break;
-            }
-        }
-        else if (cmd == "load")
-            dice = loaded;
-        else if (cmd == "fair")
-            dice = fair;
-        else
-            view->printError(ErrorType::InvalidCommand);
-    }
-
-    return rollResult;
-}
-
 void Game::duringTurn(Player *player)
 {
     string cmd;
-    string colorStr, takeStr, giveStr;
+
     string fileName;
-    Color otherColor;
-    ResourceType take, give;
+
     int index;
 
     while (true)
@@ -222,7 +316,7 @@ void Game::duringTurn(Player *player)
                 if (input.eof()) throw;
                 else
                 {
-                    view->printError(ErrorType::InvalidOperation);
+                    view->printError(ErrorType::InvalidInput);
                     continue;
                 }
             }
@@ -235,33 +329,7 @@ void Game::duringTurn(Player *player)
                 gameBoard->getVertex(index)->improve(player);
         }
         else if (cmd == "trade")
-        {
-            try
-            { input >> colorStr >> takeStr >> giveStr; }
-            catch (ios_base::failure &)
-            {
-                if (input.eof()) throw;
-                else
-                {
-                    view->printError(ErrorType::InvalidOperation);
-                    continue;
-                }
-            }
-
-            try
-            {
-                otherColor = toColor(colorStr);
-                take = toResourceType(takeStr);
-                give = toResourceType(giveStr);
-            }
-            catch (invalid_argument &)
-            {
-                view->printError(ErrorType::InvalidOperation);
-                continue;
-            }
-
-            player->trade(players[static_cast<int>(otherColor)].get(), give, take);
-        }
+            tradeWithOthers(player);
         else if (cmd == "next")
             return;
         else if (cmd == "save")
@@ -273,7 +341,7 @@ void Game::duringTurn(Player *player)
                 if (input.eof()) throw;
                 else
                 {
-                    view->printError(ErrorType::InvalidOperation);
+                    view->printError(ErrorType::InvalidInput);
                     continue;
                 }
             }
@@ -287,9 +355,70 @@ void Game::duringTurn(Player *player)
     }
 }
 
-void Game::moveGeese(Player *player)
+void Game::tradeWithOthers(Player* player)
 {
+    string colorStr, takeStr, giveStr;
+    Color otherColor;
+    ResourceType take, give;
 
+    try
+    { input >> colorStr >> takeStr >> giveStr; }
+    catch (ios_base::failure &)
+    {
+        if (input.eof()) throw;
+        else
+        {
+            view->printError(ErrorType::InvalidInput);
+            return;
+        }
+    }
+
+    try
+    {
+        otherColor = toColor(colorStr);
+        take = toResourceType(takeStr);
+        give = toResourceType(giveStr);
+    }
+    catch (invalid_argument &)
+    {
+        view->printError(ErrorType::InvalidInput);
+        return;
+    }
+
+    player->trade(players[static_cast<int>(otherColor)].get(), give, take);
+}
+
+bool Game::endGame()
+{
+    string response;
+
+    while(true)
+    {
+        view->printPrompt("Would you like to play again?");
+
+        try
+        {input>>response;}
+        catch (ios::failure &)
+        {
+            if (input.eof())
+            {
+                save();
+                return false;
+            }
+            else
+            {
+                view->printError(ErrorType::InvalidInput);
+                continue;
+            }
+        }
+
+        if(response == "yes")
+            return true;
+        else if(response=="no")
+            return false;
+        else
+            view->printError(ErrorType::InvalidInput);
+    }
 }
 
 

@@ -34,12 +34,16 @@ class Game : public Controller
     std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Board> gameBoard;
 
-    void beginTurn(Player* player);
+    void beginTurn(Player *player);
     int roll();
+    int moveGeese(Player *player); // Returns the new position of the geese.
+    void stealFromOthers(Player *player, int geesePosition);
     void obtainResources(int rollResult);
-    void moveGeese(Player* player);
 
-    void duringTurn(Player* player);
+    void duringTurn(Player *player);
+    void tradeWithOthers(Player *player);
+
+    bool endGame(); // true: play again, false: just exit.
 
     void save(const std::string &fileName = "backup.sv");
     void initPlayers(); // Initialize players to their default state.
@@ -49,7 +53,7 @@ public:
     explicit Game(const std::string &fileName, std::istream &input = std::cin);
     explicit Game(std::shared_ptr<BoardFactory> factory, std::istream &input = std::cin);
 
-    void play();
+    bool play(); // true: play again, false: just exit.
 };
 
 #endif //CTOR_GAME_H
