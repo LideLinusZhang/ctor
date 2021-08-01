@@ -3,10 +3,12 @@
 std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
     std::vector<std::shared_ptr<Vertex>> vertices;
     for (int i = 0; i < 2; i++) {
-        vertices.push_back(std::make_shared<Vertex>(view, {0, i + 1}));
+        std::vector<int> temp = {0, i + 1};
+        vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     for (int i = 2; i < 6; i++) {
-        vertices.push_back(std::make_shared<Vertex>(view, {i - 2, (i - 2) / 2 + 3, i + 3}));
+        std::vector<int> temp = {i - 2, (i - 2) / 2 + 3, i + 3};
+        vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     for (int i = 6; i < 42; i++) {
         int base = 0;
@@ -14,37 +16,44 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
         int mid = 0;
         if (i % 12 == 0) {
             int m = vertices.back()->getIndices()[2];
-            vertices.push_back(std::make_shared<Vertex>(view, {m - 5, m, m + 3}));
+            std::vector<int> temp = {m - 5, m, m + 3};
+            vertices.push_back(std::make_shared<Vertex>(view, temp));
             base = m - 5;
             mid = m;
             level = true;
             mid += i % 2;
         } else if (i % 6 == 0) {
             int m = vertices.back().getIndices()[1];
-            vertices.push_back(std::make_shared<Vertex>(view, {m, m + 6, m + 9}));
+            std::vector<int> temp = {m, m + 6, m + 9};
+            vertices.push_back(std::make_shared<Vertex>(view, temp));
             base = m;
             mid = m + 6
             level = false;
             mid += i % 2;
         } else {
             if (level) {
-                vertices.push_back(std::make_shared<Vertex>(view, {base, mid, base + 9}));
+                std::vector<int> temp = {base, mid, base + 9};
+                vertices.push_back(std::make_shared<Vertex>(view, temp));
                 mid += i % 2;
             } else {
-                vertices.push_back(std::make_shared<Vertex>(view, {base, mid, base + 8}));
+                std::vector<int> temp = {base, mid, base + 8};
+                vertices.push_back(std::make_shared<Vertex>(view, temp));
                 mid += (i + 1) % 2;
             }
         }
         base++; 
     }
     for (int i = 42; i < 48; i++) {
-        vertices.push_back(std::make_shared<Vertex>(view, {i + 12, (i - 42) / 2 + 60, i + 20}));
+        std::vector<int> temp = {i + 12, (i - 42) / 2 + 60, i + 20};
+        vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     for (int i = 48; i < 52; i++) {
-        vertices.push_back(std::make_shared<Vertex>(view, {i + 15, (i - 48) / 2 + 67, i + 20}));
+        std::vector<int> temp = {i + 15, (i - 48) / 2 + 67, i + 20};
+        vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     for (int i = 52; i < 54; i++) {
-        vertices.push_back(std::make_shared<Vertex>(view, {i + 17, 71}));
+        std::vector<int> temp = {i + 17, 71};
+        vertices.push_back(std::make_shared<Vertex>(view, temp));
     }
     
     vertices[2]->getIndices().erase(vertices[2]->getIndices().begin());
@@ -65,7 +74,7 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
 std::vector<std::shared_ptr<Edge>> BoardFactory::createEdges(View* view, 
                                                             std::vector<std::shared_ptr<Vertex>>* vertices) {
     std::vector<int> edgeVertices[71];
-    std::vector<Edge> edges;
+    std::vector<std::shared_ptr<Edge>> edges;
     for (int i = 0; i < vertices->size(); i++) {
         for (auto n : vertices->at(i)->getIndices()) {
             edgeVertices[n].push_back(i);
@@ -84,7 +93,7 @@ std::vector<std::vector<int>> BoardFactory::createTileVertices() {
     tileVertices.push_back({4, 5, 9, 10, 15, 16});
     tileVertices.push_back({6, 7, 12, 13, 18, 19});
     for (int i = 4; i < 18; i++) {
-        vector<int> v;
+        std::vector<int> v;
         int base = 0;
         if ((i - 3) % 5 == 0 || (i - 6) % 5 == 0) {
             base = tileVertices[i - 1][1] + 2;
@@ -97,12 +106,11 @@ std::vector<std::vector<int>> BoardFactory::createTileVertices() {
     return tileVertices;
 }
 
-int getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
+int BoardFactory::getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
     for (auto it : tiles) {
         if (it->getType() == Park) {
             return it->getIndex();
         }
     }
-    view->printError(ErrorType::InvalidOperation);
     return 0;
 }

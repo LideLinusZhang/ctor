@@ -2,7 +2,7 @@
 
 RandomMode::RandomMode(const int seed) : seed{seed} {}
 
-std::vector<ResourceType> randomMode::shuffleResource() {
+std::vector<ResourceType> RandomMode::shuffleResource() {
     std::vector<ResourceType> resources;
     for (int i = 0; i < 3; i++) {
         resources.push_back(ResourceType::Wifi);
@@ -25,7 +25,7 @@ std::vector<ResourceType> randomMode::shuffleResource() {
     return resources;
 }
 
-std::vector<int> randomMode::shuffleValues(std::vector<ResourceType> resources) {
+std::vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources) {
     std::vector<int> values;
     for (int i = 2; i < 13; i++) {
         values.push_back(i);
@@ -52,16 +52,16 @@ std::vector<int> randomMode::shuffleValues(std::vector<ResourceType> resources) 
 }
 
 std::shared_ptr<Board> randomMode::createBoard(View* view) {
-    std::vector<std::shared_ptr<Vertex>> vertices = boardFactory::createVertices(view, this);
-    std::vector<std::shared_ptr<Edge>> edges = boardFactory::createVertices(view, this, vertices);
-    std::vector<std::vector<int>> vertexTiles = boardFactory::createTileVertices();
+    std::vector<std::shared_ptr<Vertex>> vertices = BoardFactory::createVertices(view);
+    std::vector<std::shared_ptr<Edge>> edges = BoardFactory::createEdges(view, &vertices);
+    std::vector<std::vector<int>> vertexTiles = BoardFactory::createTileVertices();
     std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<ResourceType> resources = shuffleResource();
-    std::vector<int> values = shuffleValues();
+    std::vector<int> values = shuffleValues(resources);
     
     for (int i = 0; i < TOTAL_TILES; i++) {
         tiles.push_back(std::make_shared<Tile>(this, vertices[i], resources[i], values[i]));
     }
-    int geesePosition = boardFactory::geeseParkIndex(view, tiles);
-    return make_shared<Board>(view, tiles, edges, vertices, geesePosition);
+    int geesePosition = BoardFactory::getParkIndex(view, tiles);
+    return std::make_shared<Board>(view, tiles, edges, vertices, geesePosition);
 }
