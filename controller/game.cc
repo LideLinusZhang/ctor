@@ -1,5 +1,6 @@
 #include <utility>
 #include <sstream>
+#include <fstream>
 #include <stdexcept>
 #include "dices/fairDice.h"
 #include "dices/loadedDice.h"
@@ -55,6 +56,8 @@ void Game::initPlayers()
 
 bool Game::play()
 {
+
+
     for (;; currentPlayerIndex = (currentPlayerIndex + 1) % 4)
     {
         Player *currentPlayer = players[currentPlayerIndex].get();
@@ -299,7 +302,7 @@ void Game::duringTurn(Player *player)
         { throw; }
 
         if (cmd == "board")
-            view->printBoard(gameBoard.get());
+            gameBoard->print();
         else if (cmd == "status")
         {
             for (auto &p : players)
@@ -419,6 +422,22 @@ bool Game::endGame()
         else
             view->printError(ErrorType::InvalidInput);
     }
+}
+
+void Game::save(const string &fileName)
+{
+    ofstream file(fileName);
+
+    file<<currentPlayerIndex<<endl;
+
+    for(auto &p : players)
+        file<<p->toString()<<endl;
+
+    file<<gameBoard->toString()<<endl;
+
+    file<<gameBoard->getGeesePosition();
+
+    file.close();
 }
 
 
