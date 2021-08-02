@@ -1,20 +1,15 @@
 #include "vertex.h"
+
+#include <utility>
 #include "view.h"
 #include "board.h"
 #include "player.h"
 
 Vertex::Vertex(View* view, Board* board, std::vector<int> edgeIndices)
-    :view(view), board(board), edgeIndices(edgeIndices)
-{
-    owner = nullptr;
-    type = BuildingType::None;
-}
+    :view(view), board(board), edgeIndices(std::move(edgeIndices)) {}
 
 Vertex::Vertex(View* view, Board* board, Player* owner, BuildingType type, std::vector<int> edgeIndices)
-    :view(view), board(board), owner(owner), type(type), edgeIndices(edgeIndices)
-{
-
-}
+    :view(view), board(board), owner(owner), type(type), edgeIndices(std::move(edgeIndices)) {}
 
 inline Player *Vertex::getOwner() const{
     return owner;
@@ -27,6 +22,7 @@ inline BuildingType Vertex::getType() const{
 void Vertex::build(Player *player){
     if(type!=BuildingType::None)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
     //cost one BRICK, one ENERGY, one GLASS, and one WIFI
@@ -48,8 +44,9 @@ void Vertex::build(Player *player){
 }
 
 void Vertex::improve(Player *player){
-    if(BuildingType::None==type || BuildingType::Tower==type || player!=owner)
+    if(BuildingType::None == type || BuildingType::Tower == type || player != owner)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
       
