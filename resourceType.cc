@@ -17,7 +17,7 @@ string toStringAllCaps(ResourceType type)
             return "HEAT";
         case WiFi:
             return "WIFI";
-        case None:
+        case Park:
             return "PARK";
     }
 }

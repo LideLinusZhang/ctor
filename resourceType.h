@@ -12,7 +12,7 @@ enum ResourceType
     Glass,
     Heat,
     WiFi,
-    None
+    Park
 };
 
 std::string toStringAllCaps(ResourceType type);
