@@ -1,9 +1,9 @@
 #include "player.h"
-#include "buildingType.h"
+#include "../buildingType.h"
 #include "board.h"
 #include "vertex.h"
-#include "random.h"
-#include "view.h"
+#include "../random.h"
+#include "../view/view.h"
 #include <sstream>
 #include <algorithm>
 

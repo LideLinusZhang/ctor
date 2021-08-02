@@ -1,8 +1,8 @@
 #ifndef CTOR_TILE_H
 #define CTOR_TILE_H
 
-#include "resourceType.h"
-#include "color.h"
+#include "../resourceType.h"
+#include "../color.h"
 #include <vector>
 
 class Board;

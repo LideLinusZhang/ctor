@@ -3,11 +3,11 @@
 
 #include <vector>
 #include <memory>
-#include "board.h"
-#include "resourceType.h"
-#include "tile.h"
-#include "vertex.h"
-#include "edge.h"
+#include "../models/board.h"
+#include "../resourceType.h"
+#include "../models/tile.h"
+#include "../models/vertex.h"
+#include "../models/edge.h"
 
 #define TOTAL_TILES 19
 

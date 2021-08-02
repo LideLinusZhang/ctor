@@ -1,7 +1,7 @@
 #ifndef CTOR_LOADEDDICE_H
 #define CTOR_LOADEDDICE_H
 
-#include "controller.h"
+#include "../controller.h"
 #include "dice.h"
 #include <iostream>
 

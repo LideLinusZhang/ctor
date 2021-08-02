@@ -1,5 +1,5 @@
 #include "loadedDice.h"
-#include "view.h"
+#include "../../view/view.h"
 #include <iostream>
 
 using namespace std;

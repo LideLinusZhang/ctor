@@ -1,16 +1,16 @@
 #include <utility>
 #include <sstream>
 #include <stdexcept>
-#include "fairDice.h"
-#include "loadedDice.h"
-#include "player.h"
+#include "dices/fairDice.h"
+#include "dices/loadedDice.h"
+#include "../models/player.h"
 #include "game.h"
-#include "boardFactory.h"
-#include "view.h"
-#include "board.h"
-#include "tile.h"
-#include "vertex.h"
-#include "edge.h"
+#include "../boardFactory/boardFactory.h"
+#include "../view/view.h"
+#include "../models/board.h"
+#include "../models/tile.h"
+#include "../models/vertex.h"
+#include "../models/edge.h"
 
 using namespace std;
 
