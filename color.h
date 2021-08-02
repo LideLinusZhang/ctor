@@ -12,6 +12,7 @@ enum Color
 };
 
 std::string toString(Color color);
+char toChar(Color color);
 // If str is unrecognized, throw invalid_argument.
 Color toColor(const std::string &str);
 

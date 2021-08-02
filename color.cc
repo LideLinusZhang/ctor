@@ -18,6 +18,21 @@ string toString(Color color)
     }
 }
 
+char toChar(Color color)
+{
+    switch (color)
+    {
+        case Blue:
+            return 'B';
+        case Red:
+            return 'R';
+        case Orange:
+            return 'O';
+        case Yellow:
+            return 'Y';
+    }
+}
+
 Color toColor(const string &str)
 {
     if (str == "Blue")
