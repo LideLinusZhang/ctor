@@ -47,7 +47,7 @@ string spaces(int total)
     return oss.str();
 }
 
-void View::printBoard(Board *board) const
+void View::printBoard(const Board *board) const
 {
     const int totalLines = 41;
     const int rowHeight = 8;

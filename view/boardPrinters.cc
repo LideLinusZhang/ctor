@@ -10,7 +10,7 @@
 
 using namespace std;
 
-string getEdgeString(int edgeIdx, Board* board)
+string getEdgeString(int edgeIdx, const Board* board)
 {
     ostringstream oss;
     Edge* edge = board->getEdge(edgeIdx);
@@ -21,7 +21,7 @@ string getEdgeString(int edgeIdx, Board* board)
     return oss.str();
 }
 
-string getVertexString(int vertexIdx, Board* board)
+string getVertexString(int vertexIdx, const Board* board)
 {
     ostringstream oss;
     Vertex* vertex = board->getVertex(vertexIdx);
@@ -32,7 +32,7 @@ string getVertexString(int vertexIdx, Board* board)
     return oss.str();
 }
 
-string getTileValueString(int tileIdx, Board* board)
+string getTileValueString(int tileIdx, const Board* board)
 {
     ostringstream oss;
     Tile* tile = board->getTile(tileIdx);
@@ -43,7 +43,7 @@ string getTileValueString(int tileIdx, Board* board)
     return oss.str();
 }
 
-string generateLineMode1(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBlocks, Board* board)
+string generateLineMode1(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     const int totalElements = 4 * totalBlocks + 1;
@@ -74,7 +74,7 @@ string generateLineMode1(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBl
     return line.str();
 }
 
-string generateLineMode2(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBlocks, Board* board)
+string generateLineMode2(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     const int totalElements = 4 * totalBlocks + 1;
@@ -114,7 +114,7 @@ string generateLineMode3(int totalSymbols)
     return line.str();
 }
 
-string generateLineMode4(int tileIdx, int totalBlocks, Board* board)
+string generateLineMode4(int tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     line<<setw(3)<<"|";
@@ -132,7 +132,7 @@ string generateLineMode4(int tileIdx, int totalBlocks, Board* board)
     return line.str();
 }
 
-string generateLineMode5(int tileIdx, int totalBlocks, Board* board)
+string generateLineMode5(int tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     line<<setw(3)<<"|";
@@ -150,7 +150,7 @@ string generateLineMode5(int tileIdx, int totalBlocks, Board* board)
     return line.str();
 }
 
-string generateLineMode6(int &edgeIdx, int tileIdx, int totalBlocks, Board* board)
+string generateLineMode6(int &edgeIdx, int tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     const int totalElements = 4 * totalBlocks + 1;
@@ -174,7 +174,7 @@ string generateLineMode6(int &edgeIdx, int tileIdx, int totalBlocks, Board* boar
     return line.str();
 }
 
-std::string generateLineMode7(int &edgeIdx, int tileIdx, int totalBlocks, Board* board)
+std::string generateLineMode7(int &edgeIdx, int tileIdx, int totalBlocks, const Board* board)
 {
     ostringstream line;
     const int totalElements = 4 * totalBlocks + 1;

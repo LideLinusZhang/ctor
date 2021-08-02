@@ -22,7 +22,7 @@ public:
     // A newline will NOT be printed at the end.
     void printMessage(const std::string &message) const;
 
-    void printBoard(Board *board) const;
+    void printBoard(const Board *board) const;
 };
 
 #endif //CTOR_VIEW_H
