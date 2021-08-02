@@ -1,8 +1,8 @@
 #ifndef CTOR_PLAYER_H
 #define CTOR_PLAYER_H
 
-#include "../color.h"
-#include "../resourceType.h"
+#include "../types/color.h"
+#include "../types/resourceType.h"
 #include <vector>
 #include <map>
 

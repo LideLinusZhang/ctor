@@ -1,5 +1,5 @@
 #include "fairDice.h"
-#include "../../random.h"
+#include "../../random/random.h"
 
 using namespace std;
 
