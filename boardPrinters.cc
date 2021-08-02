@@ -1,11 +1,47 @@
 #include "boardPrinters.h"
 #include "board.h"
 #include "tile.h"
+#include "edge.h"
+#include "vertex.h"
+#include "player.h"
 #include <string>
 #include <sstream>
 #include <iomanip>
 
 using namespace std;
+
+string getEdgeString(int edgeIdx, Board* board)
+{
+    ostringstream oss;
+    Edge* edge = board->getEdge(edgeIdx);
+    if(edge->isRoad())
+        oss<<toChar(edge->getOwner()->getColor())<<"R";
+    else
+        oss<<setw(2)<<edgeIdx;
+    return oss.str();
+}
+
+string getVertexString(int vertexIdx, Board* board)
+{
+    ostringstream oss;
+    Vertex* vertex = board->getVertex(vertexIdx);
+    if(vertex->getType()!=BuildingType::None)
+        oss<<toChar(vertex->getOwner()->getColor())<<toChar(vertex->getType());
+    else
+        oss<<setw(2)<<vertexIdx;
+    return oss.str();
+}
+
+string getTileValueString(int tileIdx, Board* board)
+{
+    ostringstream oss;
+    Tile* tile = board->getTile(tileIdx);
+    if(tile->getType()==ResourceType::Park)
+        oss<<"  ";
+    else
+        oss<<setw(2)<<tile->getValue();
+    return oss.str();
+}
 
 string generateLineMode1(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBlocks, Board* board)
 {
@@ -17,21 +53,21 @@ string generateLineMode1(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBl
         int j = i % 8;
         if(j==0||j==4)
         {
-            line<<"|"<<setw(2)<<vertexIdx<<"|";
+            line<<"|"<<getVertexString(vertexIdx,board)<<"|";
             vertexIdx++;
         }
         else if(j==1||j==3)
             line<<"--";
         else if(j==2)
         {
-            line<<setw(2)<<edgeIdx;
+            line<<getEdgeString(edgeIdx,board);
             edgeIdx++;
         }
         else if(j==5||j==7)
             line<<"  ";
         else
         {
-            line<<setw(2)<<board->getTile(tileIdx)->getValue();
+            line<<getTileValueString(tileIdx,board);
             tileIdx++;
         }
     }
@@ -48,21 +84,21 @@ string generateLineMode2(int &vertexIdx, int &edgeIdx, int &tileIdx, int totalBl
         int j = i % 8;
         if(j==0||j==4)
         {
-            line<<"|"<<setw(2)<<vertexIdx<<"|";
+            line<<"|"<<getVertexString(vertexIdx,board)<<"|";
             vertexIdx++;
         }
         else if(j==1||j==3)
             line<<"  ";
         else if(j==2)
         {
-            line<<setw(2)<<board->getTile(tileIdx)->getValue();
+            line<<getTileValueString(tileIdx,board);;
             tileIdx++;
         }
         else if(j==5||j==7)
             line<<"--";
         else
         {
-            line<<setw(2)<<edgeIdx;
+            line<<getEdgeString(edgeIdx,board);
             edgeIdx++;
         }
     }
@@ -124,7 +160,7 @@ string generateLineMode6(int &edgeIdx, int tileIdx, int totalBlocks, Board* boar
         int j = i % 8;
         if(j==0||j==4)
         {
-            line<<" "<<setw(2)<<edgeIdx<<" ";
+            line<<" "<<getEdgeString(edgeIdx,board)<<" ";
             edgeIdx++;
         }
         else if(j==2)
@@ -148,7 +184,7 @@ std::string generateLineMode7(int &edgeIdx, int tileIdx, int totalBlocks, Board*
         int j = i % 8;
         if(j==0||j==4)
         {
-            line<<" "<<setw(2)<<edgeIdx<<" ";
+            line<<" "<<getEdgeString(edgeIdx,board)<<" ";
             edgeIdx++;
         }
         else if(j==6)
