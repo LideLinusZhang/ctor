@@ -29,6 +29,12 @@ void Player::addBuilding(int vertexIndex)
     points++;
 }
 
+void Player::addRoad(int edgeIndex)
+{
+    roads.emplace_back(edgeIndex);
+    sort(roads.begin(),roads.end());
+}
+
 void Player::setResource(ResourceType type, int count)
 {
     resources[type] = count;
@@ -67,7 +73,7 @@ void Player::loseResource()
     uniform_int_distribution<int> dist;
 
     int totalLost = total / 2;
-    message << "Builder " << toString(color) << " loses " << totalLost
+    message << "Builder " << ::toString(color) << " loses " << totalLost
             << " resources to the geese. They lose:" << endl;
     view->printMessage(message.str());
 
@@ -126,22 +132,22 @@ void Player::steal(Player *other)
 
     // Print message
     ostringstream message;
-    message << "Builder " << toString(color) << " steals " << toStringAllCaps(typeToSteal)
-            << " from builder " << toString(other->color) << " ." << endl;
+    message << "Builder " << ::toString(color) << " steals " << toStringAllCaps(typeToSteal)
+            << " from builder " << ::toString(other->color) << " ." << endl;
     view->printMessage(message.str());
 }
 
 void Player::printStatus() const
 {
     ostringstream message;
-    message << toString(color) << " has " << points << " building points";
+    message << ::toString(color) << " has " << points << " building points";
     for (auto i : resources)
     {
         if (i.first == ResourceType::WiFi)
             message << ", and ";
         else
             message << ", ";
-        message << i.second << " " << toString(i.first);
+        message << i.second << " " << ::toString(i.first);
     }
     message << "." << endl;
     view->printMessage(message.str());
@@ -150,7 +156,7 @@ void Player::printStatus() const
 void Player::printResidences() const
 {
     ostringstream message;
-    message << toString(color) << " has built:" << endl;
+    message << ::toString(color) << " has built:" << endl;
 
     for (auto i : buildings)
     {
@@ -160,5 +166,23 @@ void Player::printResidences() const
     view->printMessage(message.str());
 }
 
+std::string Player::toString()
+{
+    ostringstream oss;
 
+    for(int i=0;i<resourceTypeCount;i++)
+        oss << resources[static_cast<ResourceType>(i)] << " ";
 
+    oss<<"r ";
+    for(auto i : roads)
+        oss << i << " ";
+
+    oss<<"h";
+    for(auto i : buildings)
+    {
+        oss<<" "<<i<<" ";
+        oss<<::toChar(board->getVertex(i)->getType());
+    }
+
+    return oss.str();
+}

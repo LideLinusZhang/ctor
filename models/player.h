@@ -15,6 +15,7 @@ class Player
     int points=0;
     std::map<ResourceType,int> resources; // index: resource type, value: resource count
     std::vector<int> buildings; // value: vertex index, in ascending order
+    std::vector<int> roads;
     View* view;
     Board* board;
 
@@ -25,6 +26,7 @@ public:
            std::vector<int> buildings);
 
     void addBuilding(int vertexIndex); // Add an already-built building to the player's profile.
+    void addRoad(int edgeIndex);
 
     void setResource(ResourceType type, int count);
 
@@ -39,6 +41,8 @@ public:
 
     void printStatus() const;
     void printResidences() const;
+
+    std::string toString(); // Returns the player's data for game saving.
 };
 
 #endif //CTOR_PLAYER_H

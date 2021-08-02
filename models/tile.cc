@@ -1,9 +1,10 @@
 #include "tile.h"
-
-#include <utility>
 #include "board.h"
 #include "vertex.h"
 #include "player.h"
+#include <sstream>
+
+using namespace std;
 
 Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type, int value)
     :board(board), vertices(move(vertices)), type(type), value(value)

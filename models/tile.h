@@ -14,7 +14,7 @@ class Tile
     Board* board;
     std::vector<int> vertices;
     ResourceType type;
-    int value;
+    int value; // value = 7 for Park
 public:
     Tile(Board* board, std::vector<int> vertices, ResourceType type, int value);
 

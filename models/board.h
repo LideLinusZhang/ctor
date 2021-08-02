@@ -30,9 +30,10 @@ public:
     Vertex* getVertex(int index) const;
 
     bool tryMoveGeese(int tileIndex);
+    int getGeesePosition() const;
 
     void print() const;
-    
+    std::string toString() const;
 private: 
     // Pass this board to its components.
     void setBoard();
