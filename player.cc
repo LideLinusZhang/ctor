@@ -155,7 +155,7 @@ void Player::printResidences() const
     for (auto i : buildings)
     {
         BuildingType type = board->getVertex(i)->getType();
-        message << i << " " << toString(type)<<endl;
+        message << i << " " << toChar(type) << endl;
     }
     view->printMessage(message.str());
 }

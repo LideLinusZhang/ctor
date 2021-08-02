@@ -9,18 +9,16 @@ enum BuildingType
     Tower
 };
 
-std::string toString(BuildingType type)
+char toChar(BuildingType type)
 {
     switch (type)
     {
         case Basement:
-            return "B";
+            return 'B';
         case House:
-            return "H";
+            return 'H';
         case Tower:
-            return "T";
-        default:
-            return {};
+            return 'T';
     }
 }
 
