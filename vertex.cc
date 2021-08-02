@@ -3,17 +3,22 @@
 #include "board.h"
 #include "player.h"
 
-Vertex::Vertex(View* view, Board* board, std::vector<int> edgeIndices)
-    :view(view), board(board), edgeIndices(edgeIndices)
+Vertex::Vertex(View* view, std::vector<int> edgeIndices)
+        :view(view), edgeIndices(edgeIndices)
 {
     owner = nullptr;
     type = BuildingType::None;
+    board = nullptr;
 }
 
-Vertex::Vertex(View* view, Board* board, Player* owner, BuildingType type, std::vector<int> edgeIndices)
-    :view(view), board(board), owner(owner), type(type), edgeIndices(edgeIndices)
+Vertex::Vertex(View* view, Player* owner, BuildingType type, std::vector<int> edgeIndices)
+        :view(view), owner(owner), type(type), edgeIndices(edgeIndices)
 {
+    board = nullptr;
+}
 
+void Vertex::setBoard(Board *b){
+    board = b;
 }
 
 inline Player *Vertex::getOwner() const{
@@ -50,9 +55,10 @@ void Vertex::build(Player *player){
 void Vertex::improve(Player *player){
     if(BuildingType::None==type || BuildingType::Tower==type || player!=owner)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
-      
+
     if(BuildingType::Basement == type)
     {
         //cost two GLASS, and three HEAT
@@ -70,7 +76,7 @@ void Vertex::improve(Player *player){
         //cost three BRICK, two ENERGY, two GLASS, one WIFI, and two HEAT
         int brick_num = player->getResource(ResourceType::Brick);
         int energy_num = player->getResource(ResourceType::Energy);
-        int glass_num = player->getResource(ResourceType::Glass);   
+        int glass_num = player->getResource(ResourceType::Glass);
         int wifi_num = player->getResource(ResourceType::WiFi);
         int heat_num = player->getResource(ResourceType::Heat);
 
@@ -82,9 +88,13 @@ void Vertex::improve(Player *player){
             player->setResource(ResourceType::Glass, glass_num-2);
             player->setResource(ResourceType::WiFi, wifi_num-1);
             player->setResource(ResourceType::Heat, heat_num-2);
-            
+
         }
     }
 
-    
+
+}
+
+std::vector<int> Vertex::getedgeIndices() const{
+    return edgeIndices;
 }

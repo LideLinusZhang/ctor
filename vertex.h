@@ -16,9 +16,11 @@ class Vertex
     BuildingType type = BuildingType::None;
     std::vector<int> edgeIndices;
 public:
-    Vertex(View* view, Board* board, std::vector<int> edgeIndices);
-    Vertex(View* view, Board* board, Player* owner, BuildingType type, std::vector<int> edgeIndices);
+    Vertex(View* view, std::vector<int> edgeIndices);
+    Vertex(View* view, Player* owner, BuildingType type, std::vector<int> edgeIndices);
 
+    std::vector<int> getedgeIndices() const;
+    void setBoard(Board *);
     Player* getOwner() const;
     BuildingType getType() const;
     void build(Player* player); // Check if resource is sufficient, build, and deduct resources.

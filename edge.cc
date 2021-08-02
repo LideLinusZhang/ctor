@@ -1,25 +1,32 @@
 #include "edge.h"
 #include "player.h"
+#include "view.h"
 
 // Construct as an ordinary edge
-Edge::Edge(View* view, Board* board, std::vector<int> adjacentEdgeIndices, int vertex1Index, int vertex2Index)
-    :view(view), board(board), adjacentEdgeIndices(adjacentEdgeIndices), vertex1Index(vertex1Index), vertex2Index(vertex2Index)
+Edge::Edge(View* view, std::vector<int> adjacentEdgeIndices)
+        :view(view), adjacentEdgeIndices(adjacentEdgeIndices)
 {
     road = false;
     owner = nullptr;
+    board = nullptr;
 }
 
 // Construct as a road (road = true)
-Edge::Edge(View* view, Board* board, Player* owner, std::vector<int> adjacentEdgeIndices, int vertex1Index,int vertex2Index)
-    :view(view), board(board),owner(owner), adjacentEdgeIndices(adjacentEdgeIndices), vertex1Index(vertex1Index), vertex2Index(vertex2Index)
+Edge::Edge(View* view, Player* owner, std::vector<int> adjacentEdgeIndices)
+        :view(view),owner(owner), adjacentEdgeIndices(adjacentEdgeIndices)
 {
-    road = true;    
+    road = true;
+    board = nullptr;
 }
 
+void Edge::setBoard(Board *b){
+    board = b;
+}
 
 void Edge::buildRoad(Player *p){
     if(road)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
     //cost one WiFi and one HEAT
@@ -28,9 +35,13 @@ void Edge::buildRoad(Player *p){
     if (wifi_num>=1 && heat_num>=1)
     {
         owner = p;
-        road = true; 
+        road = true;
         p->setResource(ResourceType::WiFi, --wifi_num);
-        p->setResource(ResourceType::Heat, --heat_num);  
+        p->setResource(ResourceType::Heat, --heat_num);
+    }
+    else
+    {
+        view->printError(ErrorType::InsufficientResource);
     }
 
 }
@@ -41,4 +52,9 @@ inline bool Edge::isRoad() const{
 
 inline Player* Edge::getOwner() const{
     return owner;
+}
+
+
+std::vector<int> Edge::getadjacentEdgeIndices() const{
+    return adjacentEdgeIndices;
 }
