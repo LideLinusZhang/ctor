@@ -8,9 +8,6 @@
 Vertex::Vertex(View* view, Board* board, std::vector<int> edgeIndices)
     :view(view), board(board), edgeIndices(std::move(edgeIndices)) {}
 
-Vertex::Vertex(View* view, Board* board, Player* owner, BuildingType type, std::vector<int> edgeIndices)
-    :view(view), board(board), owner(owner), type(type), edgeIndices(std::move(edgeIndices)) {}
-
 inline Player *Vertex::getOwner() const{
     return owner;
 }
@@ -82,6 +79,21 @@ void Vertex::improve(Player *player){
             
         }
     }
+}
 
-    
+bool Vertex::trySetBuilding(BuildingType buildingType, Player *buildingOwner) {
+    if(this->type!=BuildingType::None)
+    {
+        view->printError(ErrorType::InvalidBuildOrImprove);
+        return false;
+    }
+
+    setBuilding(buildingType,buildingOwner);
+    return true;
+}
+
+void Vertex::setBuilding(BuildingType buildingType, Player *buildingOwner)
+{
+    type = buildingType;
+    owner = buildingOwner;
 }
