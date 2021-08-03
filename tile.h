@@ -1,8 +1,8 @@
 #ifndef CTOR_TILE_H
 #define CTOR_TILE_H
 
-#include "resourceType.h"
-#include "color.h"
+#include "../types/resourceType.h"
+#include "../types/color.h"
 #include <vector>
 
 class Board;
@@ -14,13 +14,12 @@ class Tile
     Board* board;
     std::vector<int> vertices;
     ResourceType type;
-    int value;
+    int value; // value = 7 for Park
 public:
-    Tile(std::vector<int> vertices, ResourceType type, int value);
+    Tile(Board* board, std::vector<int> vertices, ResourceType type, int value);
 
     void obtainResource(); // Add resources to all players who have building around this tile.
     ResourceType getType() const;
-    void setBoard(Board *);
     int getValue() const;
     // Return a list that contains the players that have residences on this tile.
     // The list should be duplicate-free and sorted.

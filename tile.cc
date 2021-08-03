@@ -1,14 +1,14 @@
 #include "tile.h"
-
-#include <utility>
 #include "board.h"
 #include "vertex.h"
 #include "player.h"
+#include <sstream>
 
-Tile::Tile(std::vector<int> vertices, ResourceType type, int value)
-        :vertices(move(vertices)), type(type), value(value)
+using namespace std;
+
+Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type, int value)
+        :board(board), vertices(move(vertices)), type(type), value(value)
 {
-    board = nullptr;
 
 }
 
@@ -31,10 +31,6 @@ void Tile::obtainResource()
 
 }
 
-void Tile::setBoard(Board *b){
-    board = b;
-}
-
 inline ResourceType Tile::getType() const
 {
     return type;
@@ -45,14 +41,18 @@ int Tile::getValue() const
     return value;
 }
 
-std::vector<Player*>  Tile::getResidenceOwners() const{
-    std::vector<Player *> re;
-    for (size_t i = 0; i < vertices.size(); i++)
-    {
+std::vector<Player*>
+        Tile::getResidenceOwners()const {
+    std::vector < Player * > re;
+    for (int i = 0; i < vertices.size(); i++) {
         Player *p = board->getVertex(vertices[i])->getOwner();
-        if(p != nullptr){
-            re.push_back(p);
+        if (p != nullptr)
+        {
+            re.pushback(p);
         }
     }
-    return re;
+    return re;
 }
+
+
+
