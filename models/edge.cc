@@ -6,9 +6,8 @@
 using namespace std;
 
 // Construct as an ordinary edge
-Edge::Edge(View *view, Board *board, vector<int> adjacentEdgeIndices, vector<int> adjacentVertexIndices)
-        : view(view), board(board), adjacentEdgeIndices(std::move(adjacentEdgeIndices)),
-          adjacentVertexIndices(std::move(adjacentVertexIndices))
+Edge::Edge(View *view, Board *board, vector<int> adjacentVertexIndices)
+        : view(view), board(board), adjacentVertexIndices(std::move(adjacentVertexIndices))
 {
     road = false;
     owner = nullptr;

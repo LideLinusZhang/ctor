@@ -14,10 +14,9 @@ class Edge
     bool road = false;
     Player* owner = nullptr;
     std::vector<int> adjacentVertexIndices;
-    std::vector<int> adjacentEdgeIndices;
 public:
     // Construct as an ordinary edge
-    Edge(View* view, Board* board, std::vector<int> adjacentEdgeIndices, std::vector<int> adjacentVertexIndices);
+    Edge(View* view, Board* board, std::vector<int> adjacentVertexIndices);
 
     // Set this edge to a road without deducting resources.
     // If successful, return true. Otherwise, return false.

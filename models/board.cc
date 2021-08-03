@@ -13,11 +13,10 @@ Board::Board(View* view) : view{view} {
     for(auto &i : vertexAdjacentEdges) {
         vertices.push_back(std::make_shared<Vertex>(view,this, i));
     }
-    for (int i=0;i<totalEdges;i++) {
-        std::vector<int> adjVertices(edgeAdjacentVertexIdx[i], edgeAdjacentVertexIdx[i] + edgeAdjacentVertexNum);
-        edges.push_back(std::make_shared<Edge>(view, this,  , adjVertices));
+    for (auto i : edgeAdjacentVertexIdx) {
+        std::vector<int> adjVertices(i, i + edgeAdjacentVertexNum);
+        edges.push_back(std::make_shared<Edge>(view, this , adjVertices));
     }
-    setBoard();
 }
 
 Tile *Board::getTile(int index) const
