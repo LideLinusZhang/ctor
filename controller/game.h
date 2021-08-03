@@ -13,7 +13,7 @@ class Player;
 
 class Board;
 
-class BoardFactory;
+class BoardLayoutFactory;
 
 class Dice;
 
@@ -23,7 +23,7 @@ class Game : public Controller
 {
     // Utilities
     std::shared_ptr<View> view;
-    std::shared_ptr<BoardFactory> boardFactory;
+    std::shared_ptr<BoardLayoutFactory> boardFactory;
 
     // Dices
     std::shared_ptr<Dice> loaded;
@@ -51,7 +51,7 @@ class Game : public Controller
     explicit Game(std::istream &input); // Only initiate dices.
 public:
     explicit Game(const std::string &fileName, std::istream &input = std::cin);
-    explicit Game(std::shared_ptr<BoardFactory> factory, std::istream &input = std::cin);
+    explicit Game(std::shared_ptr<BoardLayoutFactory> factory, std::istream &input = std::cin);
 
     bool play(); // true: play again, false: just exit.
 };

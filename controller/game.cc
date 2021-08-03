@@ -6,7 +6,7 @@
 #include "dices/loadedDice.h"
 #include "../models/player.h"
 #include "game.h"
-#include "../boardFactory/boardFactory.h"
+#include "../boardFactory/boardLayoutFactory.h"
 #include "../view/view.h"
 #include "../models/board.h"
 #include "../models/tile.h"
@@ -38,7 +38,7 @@ Game::Game(const string &fileName, istream &input) : Game(input)
     read(fileName);
 }
 
-Game::Game(shared_ptr<BoardFactory> factory, istream &input) : Game(input)
+Game::Game(shared_ptr<BoardLayoutFactory> factory, istream &input) : Game(input)
 {
     boardFactory = move(factory);
     gameBoard = boardFactory->createBoard(view.get());
@@ -435,9 +435,68 @@ void Game::save(const string &fileName)
 
     file<<gameBoard->toString()<<endl;
 
-    file<<gameBoard->getGeesePosition();
+    file<<gameBoard->getGeese()->getPosition();
 
     file.close();
+}
+
+void Game::read(const string &fileName) {
+    ifstream file(fileName);
+
+    int curTurn;
+    file>>curTurn;
+    currentPlayerIndex=curTurn;
+
+    for(int i=0;i<totalPlayers;i++)
+    {
+        Player* player = players[i].get();
+
+        string playerDataLine;
+        getline(file,playerDataLine);
+
+        istringstream playerData(playerDataLine);
+        playerData.exceptions(ios_base::failbit);
+
+        for(int j=0;j<resourceTypeCount;j++)
+        {
+            auto type = static_cast<ResourceType>(j);
+            int num;
+            playerData>>num;
+            players[i]->setResource(type,num);
+        }
+
+        char c, typeChar;
+        int index;
+
+        playerData>>c; // read in 'r'.
+        while(true)
+        {
+            try {playerData>>index;}
+            catch (ios::failure &) {
+                playerData.clear();
+                break;
+            }
+
+            gameBoard->getEdge(index)->setRoad(player);
+            player->addRoad(index);
+        }
+
+        playerData>>c; // read in 'h'.
+        while(!playerData.eof())
+        {
+            playerData>>index>>typeChar;
+            BuildingType type = toBuildingType(type);
+
+            gameBoard->getVertex(index)->setBuilding(type,player);
+            player->addBuilding(index);
+        }
+    }
+
+    //TODO: reading layout with boardLayoutFactory
+
+    int geesePosition;
+    file>>geesePosition;
+    gameBoard->getGeese()->setPosition(geesePosition);
 }
 
 
