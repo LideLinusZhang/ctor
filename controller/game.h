@@ -50,6 +50,7 @@ class Game : public Controller
     void save(const std::string &fileName = "backup.sv");
     void initPlayers(); // Initialize players to their default state.
     void read(const std::string &fileName); // Read the entire class from file.
+
     explicit Game(std::istream &input); // Only initiate dices.
 public:
     explicit Game(const std::string &fileName, std::istream &input = std::cin);

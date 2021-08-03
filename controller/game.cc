@@ -7,6 +7,7 @@
 #include "../models/player.h"
 #include "game.h"
 #include "../boardFactory/boardLayoutFactory.h"
+#include "../boardFactory/fileMode.h"
 #include "../view/view.h"
 #include "../models/board.h"
 #include "../models/tile.h"
@@ -31,6 +32,8 @@ Game::Game(istream &input) : Controller(input)
 {
     loaded = make_unique<LoadedDice>(view.get(), input);
     fair = make_unique<FairDice>();
+    view = make_shared<View>();
+    gameBoard = make_shared<Board>(view.get());
 }
 
 Game::Game(const string &fileName, istream &input) : Game(input)
@@ -41,7 +44,8 @@ Game::Game(const string &fileName, istream &input) : Game(input)
 Game::Game(shared_ptr<BoardLayoutFactory> factory, istream &input) : Game(input)
 {
     boardFactory = move(factory);
-    gameBoard = boardFactory->createBoard(view.get());
+    int geeseIndex = boardFactory->createLayout(gameBoard.get());
+    gameBoard->getGeese()->setPosition(geeseIndex);
     initPlayers();
 }
 
@@ -191,7 +195,7 @@ int Game::moveGeese(Player *player)
             }
         }
 
-        if (gameBoard->tryMoveGeese(index))
+        if (gameBoard->getGeese()->tryMoveTo(index))
             break;
         else
             view->printError(ErrorType::InvalidInput);
@@ -523,7 +527,8 @@ void Game::read(const string &fileName)
         }
     }
 
-    //TODO: reading layout with boardLayoutFactory
+    boardFactory = make_shared<FileMode>(file);
+    boardFactory->createLayout(gameBoard.get());
 
     int geesePosition;
     file >> geesePosition;
