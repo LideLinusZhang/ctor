@@ -14,16 +14,16 @@
 
 class Board;
 
-std::string generateLineMode1(int &vertexIdx, int &edgeIdx, int tileIdx, int totalBlocks, const Board* board);
-std::string generateLineMode2(int &vertexIdx, int &edgeIdx, int tileIdx, int totalBlocks, const Board* board);
+std::string generateLineMode1(int &vertexIdx, int &edgeIdx, int tileIdx, int totalBlocks, const Board *board);
+std::string generateLineMode2(int &vertexIdx, int &edgeIdx, int tileIdx, int totalBlocks, const Board *board);
 
-std::string generateLineMode3(int &tileIdx, int totalBlocks, const Board* board);
-std::string generateLineMode4(int &tileIdx, int totalBlocks, const Board* board);
+std::string generateLineMode3(int &tileIdx, int totalBlocks, const Board *board);
+std::string generateLineMode4(int &tileIdx, int totalBlocks, const Board *board);
 
-std::string generateLineMode5(int tileIdx, int totalBlocks, const Board* board);
-std::string generateLineMode6(int tileIdx, int totalBlocks, const Board* board);
+std::string generateLineMode5(int tileIdx, int totalBlocks, const Board *board);
+std::string generateLineMode6(int tileIdx, int totalBlocks, const Board *board);
 
-std::string generateLineMode7(int &edgeIdx, int tileIdx, int totalBlocks, const Board* board);
-std::string generateLineMode8(int &edgeIdx, int tileIdx, int totalBlocks, const Board* board);
+std::string generateLineMode7(int &edgeIdx, int tileIdx, int totalBlocks, const Board *board);
+std::string generateLineMode8(int &edgeIdx, int tileIdx, int totalBlocks, const Board *board);
 
 #endif //CTOR_BOARDPRINTERS_H

@@ -25,14 +25,14 @@ Player::Player(View *view, Board *board, Color color, int points, std::map<Resou
 void Player::addBuilding(int vertexIndex)
 {
     buildings.emplace_back(vertexIndex);
-    sort(buildings.begin(),buildings.end());
+    sort(buildings.begin(), buildings.end());
     points++;
 }
 
 void Player::addRoad(int edgeIndex)
 {
     roads.emplace_back(edgeIndex);
-    sort(roads.begin(),roads.end());
+    sort(roads.begin(), roads.end());
 }
 
 void Player::setResource(ResourceType type, int count)
@@ -170,18 +170,18 @@ std::string Player::toString()
 {
     ostringstream oss;
 
-    for(int i=0;i<resourceTypeCount;i++)
+    for (int i = 0; i < resourceTypeCount; i++)
         oss << resources[static_cast<ResourceType>(i)] << " ";
 
-    oss<<"r ";
-    for(auto i : roads)
+    oss << "r ";
+    for (auto i : roads)
         oss << i << " ";
 
-    oss<<"h";
-    for(auto i : buildings)
+    oss << "h";
+    for (auto i : buildings)
     {
-        oss<<" "<<i<<" ";
-        oss<<::toChar(board->getVertex(i)->getType());
+        oss << " " << i << " ";
+        oss << ::toChar(board->getVertex(i)->getType());
     }
 
     return oss.str();

@@ -1,7 +1,9 @@
 #include "buildingType.h"
 
-char toChar(BuildingType type) {
-    switch (type) {
+char toChar(BuildingType type)
+{
+    switch (type)
+    {
         case Basement:
             return 'B';
         case House:
@@ -11,8 +13,10 @@ char toChar(BuildingType type) {
     }
 }
 
-BuildingType toBuildingType(char c) {
-    switch (c) {
+BuildingType toBuildingType(char c)
+{
+    switch (c)
+    {
         case 'B':
             return Basement;
         case 'H':

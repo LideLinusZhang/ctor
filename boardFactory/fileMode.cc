@@ -3,10 +3,12 @@
 
 using namespace std;
 
-FileMode::FileMode(std::istream& file) : file{file} {
+FileMode::FileMode(std::istream &file) : file{file}
+{
 }
 
-int FileMode::createLayout(Board* board) {
+int FileMode::createLayout(Board *board)
+{
     std::vector<std::shared_ptr<Tile>> tiles;
     int resource = 0;
     int value = 0;
@@ -14,10 +16,12 @@ int FileMode::createLayout(Board* board) {
 
     int parkIndex;
 
-    for (int i = 0; i < totalTiles; i++) {
+    for (int i = 0; i < totalTiles; i++)
+    {
         file >> resource;
         file >> value;
-        switch (resource) {
+        switch (resource)
+        {
             case 0:
                 type = ResourceType::Brick;
                 break;
@@ -35,7 +39,7 @@ int FileMode::createLayout(Board* board) {
                 break;
             case 5:
                 type = ResourceType::Park;
-                parkIndex=i;
+                parkIndex = i;
                 break;
         }
 
@@ -44,7 +48,7 @@ int FileMode::createLayout(Board* board) {
         tiles.emplace_back(std::make_shared<Tile>(board, vertices, type, value));
     }
 
-    setLayout(board,tiles);
+    setLayout(board, tiles);
 
     return parkIndex;
 }

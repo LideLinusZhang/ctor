@@ -41,9 +41,9 @@ string toString(ResourceType type)
 
 ResourceType toResourceType(const string &str)
 {
-    if(str == "BRICK")
+    if (str == "BRICK")
         return Brick;
-    else if (str=="ENERGY")
+    else if (str == "ENERGY")
         return Energy;
     else if (str == "GLASS")
         return Glass;

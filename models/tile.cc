@@ -6,8 +6,8 @@
 
 using namespace std;
 
-Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type, int value)
-    :board(board), vertices(move(vertices)), type(type), value(value)
+Tile::Tile(Board *board, std::vector<int> vertices, ResourceType type, int value)
+        : board(board), vertices(move(vertices)), type(type), value(value)
 {
 
 }
@@ -18,17 +18,17 @@ void Tile::obtainResource()
     for (int vertex : vertices)
     {
         Vertex *v = board->getVertex(vertex);
-        if(nullptr == v->getOwner())
+        if (nullptr == v->getOwner())
         {
             continue;
         }
         // one for basement, two for house, three for tower
-        int source_num =  v->getOwner()->getResource(type);
+        int source_num = v->getOwner()->getResource(type);
         BuildingType b_type = v->getType();
         v->getOwner()->setResource(type, source_num + b_type);
 
     }
-    
+
 }
 
 inline ResourceType Tile::getType() const

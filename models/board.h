@@ -8,7 +8,9 @@
 #include "geese.h"
 
 class View;
+
 class Tile;
+
 class BoardLayoutFactory;
 
 const int totalTiles = 19;
@@ -25,19 +27,19 @@ const int maxVertexIndex = 53;
 
 class Board
 {
-    View* view;
+    View *view;
     std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Edge>> edges;
     std::vector<std::shared_ptr<Vertex>> vertices;
     std::shared_ptr<Geese> geese;
 public:
-    explicit Board(View* view);
-    
-    Tile* getTile(int index) const;
-    Edge* getEdge(int index) const;
-    Vertex* getVertex(int index) const;
+    explicit Board(View *view);
 
-    Geese* getGeese() const;
+    Tile *getTile(int index) const;
+    Edge *getEdge(int index) const;
+    Vertex *getVertex(int index) const;
+
+    Geese *getGeese() const;
 
     void print() const;
     std::string toString() const;

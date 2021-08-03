@@ -9,9 +9,9 @@ class View;
 
 class LoadedDice : public Dice, public Controller
 {
-    View* view;
+    View *view;
 public:
-    explicit LoadedDice(View* view, std::istream& input);
+    explicit LoadedDice(View *view, std::istream &input);
 
     int roll() override;
 };

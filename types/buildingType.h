@@ -1,7 +1,8 @@
 #ifndef CTOR_BUILDINGTYPE_H
 #define CTOR_BUILDINGTYPE_H
 
-enum BuildingType {
+enum BuildingType
+{
     None,
     Basement,
     House,

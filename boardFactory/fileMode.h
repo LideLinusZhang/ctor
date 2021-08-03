@@ -6,11 +6,11 @@
 
 class FileMode : public BoardLayoutFactory
 {
-    std::istream& file;
+    std::istream &file;
 public:
-    explicit FileMode(std::istream& file);
+    explicit FileMode(std::istream &file);
 
-    int createLayout(Board* view) override;
+    int createLayout(Board *view) override;
 };
 
 #endif //CTOR_FILEMODE_H

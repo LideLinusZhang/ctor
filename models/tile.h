@@ -11,19 +11,19 @@ class Player;
 
 class Tile
 {
-    Board* board;
+    Board *board;
     std::vector<int> vertices;
     ResourceType type;
     int value; // value = 7 for Park
 public:
-    Tile(Board* board, std::vector<int> vertices, ResourceType type, int value);
+    Tile(Board *board, std::vector<int> vertices, ResourceType type, int value);
 
     void obtainResource(); // Add resources to all players who have building around this tile.
     ResourceType getType() const;
     int getValue() const;
     // Return a list that contains the players that have residences on this tile.
     // The list should be duplicate-free and sorted.
-    std::vector<Player*> getResidenceOwners() const;
+    std::vector<Player *> getResidenceOwners() const;
 };
 
 #endif //CTOR_TILE_H

@@ -84,7 +84,7 @@ int RandomMode::createLayout(Board *board)
         tiles.emplace_back(std::make_shared<Tile>(board, vertices, resources[i], values[i]));
     }
 
-    setLayout(board,tiles);
+    setLayout(board, tiles);
 
     return parkIndex;
 }

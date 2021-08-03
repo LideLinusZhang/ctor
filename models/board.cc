@@ -8,11 +8,14 @@
 
 using namespace std;
 
-Board::Board(View* view) : view{view} {
-    for(auto &i : vertexAdjacentEdges) {
-        vertices.push_back(std::make_shared<Vertex>(view,this, i));
+Board::Board(View *view) : view{view}
+{
+    for (auto &i : vertexAdjacentEdges)
+    {
+        vertices.push_back(std::make_shared<Vertex>(view, this, i));
     }
-    for (auto i : edgeAdjacentVertexIdx) {
+    for (auto i : edgeAdjacentVertexIdx)
+    {
         std::vector<int> adjVertices(i, i + edgeAdjacentVertexNum);
         edges.push_back(std::make_shared<Edge>(view, this, adjVertices));
     }
@@ -42,19 +45,19 @@ std::string Board::toString() const
 {
     ostringstream oss;
 
-    for(int i = minTileIndex; i<=maxTileIndex;i++)
+    for (int i = minTileIndex; i <= maxTileIndex; i++)
     {
-        oss<<i<<" ";
-        oss<<static_cast<int>(tiles[i]->getType())<<" ";
-        oss<<tiles[i]->getValue();
-        if(i!=maxTileIndex)
-            oss<<" ";
+        oss << i << " ";
+        oss << static_cast<int>(tiles[i]->getType()) << " ";
+        oss << tiles[i]->getValue();
+        if (i != maxTileIndex)
+            oss << " ";
     }
 
     return oss.str();
 }
 
-Geese* Board::getGeese() const
+Geese *Board::getGeese() const
 {
     return geese.get();
 }
