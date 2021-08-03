@@ -56,9 +56,9 @@ void Game::initPlayers()
 
 bool Game::play()
 {
-    for(int i=0;i<totalPlayers;i++)
+    for (int i = 0; i < totalPlayers; i++)
         buildInitial(players[i].get());
-    for(int i = totalPlayers-1;i>=0;i--)
+    for (int i = totalPlayers - 1; i >= 0; i--)
         buildInitial(players[i].get());
 
     for (;; currentPlayerIndex = (currentPlayerIndex + 1) % 4)
@@ -84,24 +84,24 @@ bool Game::play()
     }
 }
 
-void Game::buildInitial(Player* player)
+void Game::buildInitial(Player *player)
 {
     int index;
     Color color = player->getColor();
     ostringstream message;
-    message<<"Builder "<<toString(color)<<", where do you want to build a basement?";
+    message << "Builder " << toString(color) << ", where do you want to build a basement?";
 
-    while(true)
+    while (true)
     {
         view->printPrompt(message.str());
-        input>>index;
+        input >> index;
 
-        if(!(minVertexIndex<=index&&index<=maxVertexIndex))
+        if (!(minVertexIndex <= index && index <= maxVertexIndex))
             view->printError(ErrorType::InvalidBuildOrImprove);
         else
         {
-            Vertex* vertex = gameBoard->getVertex(index);
-            if(vertex->trySetBuilding(BuildingType::Basement,player))
+            Vertex *vertex = gameBoard->getVertex(index);
+            if (vertex->trySetBuilding(BuildingType::Basement, player))
                 return;
         }
     }
@@ -350,12 +350,14 @@ void Game::duringTurn(Player *player)
                 }
             }
 
-            if (cmd == "build-road")
+            if (cmd == "build-road" && (minEdgeIndex <= index && index <= maxEdgeIndex))
                 gameBoard->getEdge(index)->buildRoad(player);
-            else if (cmd == "build-res")
+            else if (cmd == "build-res" && (minVertexIndex <= index && index <= maxVertexIndex))
                 gameBoard->getVertex(index)->build(player);
-            else
+            else if (cmd == "improve" && (minVertexIndex <= index && index <= maxVertexIndex))
                 gameBoard->getVertex(index)->improve(player);
+            else
+                view->printError(ErrorType::InvalidBuildOrImprove);
         }
         else if (cmd == "trade")
             tradeWithOthers(player);
@@ -384,7 +386,7 @@ void Game::duringTurn(Player *player)
     }
 }
 
-void Game::tradeWithOthers(Player* player)
+void Game::tradeWithOthers(Player *player)
 {
     string colorStr, takeStr, giveStr;
     Color otherColor;
@@ -421,12 +423,12 @@ bool Game::endGame()
 {
     string response;
 
-    while(true)
+    while (true)
     {
         view->printPrompt("Would you like to play again?");
 
         try
-        {input>>response;}
+        { input >> response; }
         catch (ios::failure &)
         {
             if (input.eof())
@@ -441,9 +443,9 @@ bool Game::endGame()
             }
         }
 
-        if(response == "yes")
+        if (response == "yes")
             return true;
-        else if(response=="no")
+        else if (response == "no")
             return false;
         else
             view->printError(ErrorType::InvalidInput);
@@ -454,51 +456,54 @@ void Game::save(const string &fileName)
 {
     ofstream file(fileName);
 
-    file<<currentPlayerIndex<<endl;
+    file << currentPlayerIndex << endl;
 
-    for(auto &p : players)
-        file<<p->toString()<<endl;
+    for (auto &p : players)
+        file << p->toString() << endl;
 
-    file<<gameBoard->toString()<<endl;
+    file << gameBoard->toString() << endl;
 
-    file<<gameBoard->getGeese()->getPosition();
+    file << gameBoard->getGeese()->getPosition();
 
     file.close();
 }
 
-void Game::read(const string &fileName) {
+void Game::read(const string &fileName)
+{
     ifstream file(fileName);
 
     int curTurn;
-    file>>curTurn;
-    currentPlayerIndex=curTurn;
+    file >> curTurn;
+    currentPlayerIndex = curTurn;
 
-    for(int i=0;i<totalPlayers;i++)
+    for (int i = 0; i < totalPlayers; i++)
     {
-        Player* player = players[i].get();
+        Player *player = players[i].get();
 
         string playerDataLine;
-        getline(file,playerDataLine);
+        getline(file, playerDataLine);
 
         istringstream playerData(playerDataLine);
         playerData.exceptions(ios_base::failbit);
 
-        for(int j=0;j<resourceTypeCount;j++)
+        for (int j = 0; j < resourceTypeCount; j++)
         {
             auto type = static_cast<ResourceType>(j);
             int num;
-            playerData>>num;
-            players[i]->setResource(type,num);
+            playerData >> num;
+            players[i]->setResource(type, num);
         }
 
         char c, typeChar;
         int index;
 
-        playerData>>c; // read in 'r'.
-        while(true)
+        playerData >> c; // read in 'r'.
+        while (true)
         {
-            try {playerData>>index;}
-            catch (ios::failure &) {
+            try
+            { playerData >> index; }
+            catch (ios::failure &)
+            {
                 playerData.clear();
                 break;
             }
@@ -507,13 +512,13 @@ void Game::read(const string &fileName) {
             player->addRoad(index);
         }
 
-        playerData>>c; // read in 'h'.
-        while(!playerData.eof())
+        playerData >> c; // read in 'h'.
+        while (!playerData.eof())
         {
-            playerData>>index>>typeChar;
+            playerData >> index >> typeChar;
             BuildingType type = toBuildingType(type);
 
-            gameBoard->getVertex(index)->setBuilding(type,player);
+            gameBoard->getVertex(index)->setBuilding(type, player);
             player->addBuilding(index);
         }
     }
@@ -521,7 +526,7 @@ void Game::read(const string &fileName) {
     //TODO: reading layout with boardLayoutFactory
 
     int geesePosition;
-    file>>geesePosition;
+    file >> geesePosition;
     gameBoard->getGeese()->setPosition(geesePosition);
 }
 
