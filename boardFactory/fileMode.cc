@@ -3,10 +3,7 @@
 FileMode::FileMode(std::istream& file) : file{file} {
 }
 
-std::shared_ptr<Board> FileMode::createBoard(View* view) {
-    std::vector<std::shared_ptr<Vertex>> vertices = createVertices(view);
-    std::vector<std::shared_ptr<Edge>> edges = createEdges(view, &vertices);
-    std::vector<std::vector<int>> vertexTiles = createTileVertices();
+std::vector<std::shared_ptr<Tile>> FileMode::createLayout(View* view) {
     std::vector<std::shared_ptr<Tile>> tiles;
     int resource = 0;
     int value = 0;
@@ -29,9 +26,7 @@ std::shared_ptr<Board> FileMode::createBoard(View* view) {
             case 5:
                 type = ResourceType::Park;
         }
-        tiles.push_back(std::make_shared<Tile>(vertexTiles[i], type, value));
+        tiles.push_back(std::make_shared<Tile>(tileVertices[i], type, value));
     }
-    int geesePosition = BoardLayoutFactory::getParkIndex(view, tiles);
-    auto board = std::make_shared<Board>(view, tiles, edges, vertices, geesePosition);
-    return board;
+    return tiles;
 }
