@@ -1,25 +1,14 @@
 #ifndef CTOR_BUILDINGTYPE_H
 #define CTOR_BUILDINGTYPE_H
 
-enum BuildingType
-{
+enum BuildingType {
     None,
     Basement,
     House,
     Tower
 };
 
-char toChar(BuildingType type)
-{
-    switch (type)
-    {
-        case Basement:
-            return 'B';
-        case House:
-            return 'H';
-        case Tower:
-            return 'T';
-    }
-}
+char toChar(BuildingType type);
+BuildingType toBuildingType(char c);
 
 #endif //CTOR_BUILDINGTYPE_H
