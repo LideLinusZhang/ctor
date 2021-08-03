@@ -11,7 +11,7 @@ class RandomMode : public BoardLayoutFactory
 {
 public:
     RandomMode();
-    std::shared_ptr<Board> createBoard(View* view) override;
+    std::vector<std::shared_ptr<Tile>> createLayout(View* view) override;
 private:
     std::vector<ResourceType> shuffleResource();
     std::vector<int> shuffleValues(std::vector<ResourceType> resources);
