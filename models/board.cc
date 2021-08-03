@@ -20,22 +20,6 @@ Board::Board(View* view) : view{view} {
     setBoard();
 }
 
-void Board::setBoard()
-{
-    for (auto &it : tiles)
-    {
-        it->setBoard(this);
-    }
-    for (auto &it : vertices)
-    {
-        it->setBoard(this);
-    }
-    for (auto &it : edges)
-    {
-        it->setBoard(this);
-    }
-}
-
 Tile *Board::getTile(int index) const
 {
     return tiles[index].get();
@@ -49,11 +33,6 @@ Edge *Board::getEdge(int index) const
 Vertex *Board::getVertex(int index) const
 {
     return vertices[index].get();
-}
-
-bool Board::tryMoveGeese(int tileIndex)
-{
-    return geese->tryMoveTo(tileIndex);
 }
 
 void Board::print() const

@@ -37,15 +37,11 @@ public:
     Edge* getEdge(int index) const;
     Vertex* getVertex(int index) const;
 
-    bool tryMoveGeese(int tileIndex);
     Geese* getGeese() const;
 
     void print() const;
     std::string toString() const;
-private: 
-    // Pass this board to its components.
-    void setBoard();
-
+private:
     friend class BoardLayoutFactory;
 };
 
