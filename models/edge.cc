@@ -9,13 +9,6 @@ Edge::Edge(View* view, Board* board, std::vector<int> adjacentEdgeIndices, int v
     owner = nullptr;
 }
 
-// Construct as a road (road = true)
-Edge::Edge(View* view, Board* board, Player* owner, std::vector<int> adjacentEdgeIndices, int vertex1Index,int vertex2Index)
-    :view(view), board(board),owner(owner), adjacentEdgeIndices(adjacentEdgeIndices), vertex1Index(vertex1Index), vertex2Index(vertex2Index)
-{
-    road = true;    
-}
-
 
 void Edge::buildRoad(Player *p){
     if(road)
@@ -41,4 +34,9 @@ inline bool Edge::isRoad() const{
 
 inline Player* Edge::getOwner() const{
     return owner;
+}
+
+void Edge::setRoad(Player *roadOwner) {
+    road=true;
+    owner=roadOwner;
 }
