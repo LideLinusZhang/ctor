@@ -1,25 +1,12 @@
 #include "vertex.h"
-#include "view.h"
+
+#include <utility>
+#include "../view/view.h"
 #include "board.h"
 #include "player.h"
 
-Vertex::Vertex(View* view, std::vector<int> edgeIndices)
-        :view(view), edgeIndices(edgeIndices)
-{
-    owner = nullptr;
-    type = BuildingType::None;
-    board = nullptr;
-}
-
-Vertex::Vertex(View* view, Player* owner, BuildingType type, std::vector<int> edgeIndices)
-        :view(view), owner(owner), type(type), edgeIndices(edgeIndices)
-{
-    board = nullptr;
-}
-
-void Vertex::setBoard(Board *b){
-    board = b;
-}
+Vertex::Vertex(View* view, Board* board, std::vector<int> edgeIndices)
+        :view(view), board(board), edgeIndices(std::move(edgeIndices)) {}
 
 inline Player *Vertex::getOwner() const{
     return owner;
@@ -32,8 +19,26 @@ inline BuildingType Vertex::getType() const{
 void Vertex::build(Player *player){
     if(type!=BuildingType::None)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
+    bool is_link = false;
+    for(size_t i = 0; edgeIndices.size(); i++)
+    {
+        Vertex *v = board->getVertex(edgeIndices[i]);
+        if(v->getOwner() == owner)
+        {
+            is_link = true;
+            break;
+        }
+    }
+    if (!is_link)
+    {
+        view->printError(ErrorType::InvalidBuildOrImprove);
+        return;
+    }
+
+
     //cost one BRICK, one ENERGY, one GLASS, and one WIFI
     int brick_num = player->getResource(ResourceType::Brick);
     int energy_num = player->getResource(ResourceType::Energy);
@@ -53,7 +58,7 @@ void Vertex::build(Player *player){
 }
 
 void Vertex::improve(Player *player){
-    if(BuildingType::None==type || BuildingType::Tower==type || player!=owner)
+    if(BuildingType::None == type || BuildingType::Tower == type || player != owner)
     {
         view->printError(ErrorType::InvalidBuildOrImprove);
         return;
@@ -91,10 +96,21 @@ void Vertex::improve(Player *player){
 
         }
     }
-
-
 }
 
-std::vector<int> Vertex::getedgeIndices() const{
-    return edgeIndices;
+bool Vertex::trySetBuilding(BuildingType buildingType, Player *buildingOwner) {
+    if(this->type!=BuildingType::None)
+    {
+        view->printError(ErrorType::InvalidBuildOrImprove);
+        return false;
+    }
+
+    setBuilding(buildingType,buildingOwner);
+    return true;
+}
+
+void Vertex::setBuilding(BuildingType buildingType, Player *buildingOwner)
+{
+    type = buildingType;
+    owner = buildingOwner;
 }

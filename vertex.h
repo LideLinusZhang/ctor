@@ -1,7 +1,7 @@
 #ifndef CTOR_VERTEX_H
 #define CTOR_VERTEX_H
 
-#include "buildingType.h"
+#include "../types/buildingType.h"
 #include <vector>
 
 class View;
@@ -16,11 +16,16 @@ class Vertex
     BuildingType type = BuildingType::None;
     std::vector<int> edgeIndices;
 public:
-    Vertex(View* view, std::vector<int> edgeIndices);
-    Vertex(View* view, Player* owner, BuildingType type, std::vector<int> edgeIndices);
+    Vertex(View* view, Board* board, std::vector<int> edgeIndices);
 
-    std::vector<int> getedgeIndices() const;
-    void setBoard(Board *);
+    // Try to set this vertex to a building without deducting resources.
+    // If successful, return true. Otherwise, return false.
+    // Should only be used for setting initial residences at the beginning of a game.
+    bool trySetBuilding(BuildingType buildingType, Player* buildingOwner);
+    // Set this vertex to a building without deducting resources.
+    // Should only be used for reading game from file.
+    void setBuilding(BuildingType buildingType, Player* buildingOwner);
+
     Player* getOwner() const;
     BuildingType getType() const;
     void build(Player* player); // Check if resource is sufficient, build, and deduct resources.
