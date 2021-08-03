@@ -9,6 +9,7 @@
 
 class View;
 class Tile;
+class BoardLayoutFactory;
 
 const int edgeAdjacentVertices[71][2] {
     {0,1},
@@ -141,6 +142,7 @@ const std::vector<int> vertexAdjacentEdges[54] {
     std::vector<int>{70,71}
 };
 
+const int totalTiles = 19;
 const int minTileIndex = 0;
 const int maxTileIndex = 18;
 
@@ -173,6 +175,8 @@ public:
 private: 
     // Pass this board to its components.
     void setBoard();
+
+    friend class BoardLayoutFactory;
 };
 
 #endif //CTOR_BOARD_H
