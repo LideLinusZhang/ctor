@@ -1,47 +1,95 @@
 #include <iostream>
 #include <sstream>
 #include <memory>
+#include <fstream>
 #include "controller/game.h"
 #include "random/random.h"
 #include "boardFactory/fileMode.h"
 #include "boardFactory/randomMode.h"
 
-
 using namespace std;
+
+const string defaultLayoutFileName = "layout.txt";
+
+enum GameMode
+{
+    Default,
+    PureRandom,
+    CustomLayout,
+    LoadGame
+};
 
 int main(int argc, char *argv[])
 {
-    bool load = false;
-    bool board = false;
-    bool random = false;
-    string loadFile;
-    string boardFile;
+    GameMode mode = GameMode::Default;
+    string loadFileName, boardFileName;
+    for (int i = 0; i < argc; i++)
+    {
+        string option(argv[i]);
+        if (option == "-seed")
+        {
+            i++;
+            Random::init(stoi(argv[i]));
+        }
+        else if (option == "-load")
+        {
+            if (mode == GameMode::Default || mode == GameMode::PureRandom)
+            {
+                mode = GameMode::LoadGame;
+                i++;
+                loadFileName = argv[i + 1];
+            }
+            else
+                i++;
+        }
+        else if (option == "-board")
+        {
+            if (mode == GameMode::Default || mode == GameMode::PureRandom)
+            {
+                mode = GameMode::CustomLayout;
+                i++;
+                loadFileName = argv[i];
+            }
+            else
+                i++;
+        }
+        else if (option == "-random-board")
+            mode = GameMode::PureRandom;
+        else
+        {
+            return 0;
+        }
+    }
+
     shared_ptr<Game> g;
-    for (int i = 0; i < argc; i += 2) {
-        if (argv[i] == "-seed") {
-            Random::init(stoi(argv[i + 1]));
+    shared_ptr<BoardLayoutFactory> factory;
+
+    do
+    {
+        ifstream file;
+        switch (mode)
+        {
+            case GameMode::PureRandom:
+                factory = make_shared<RandomMode>();
+                g = make_shared<Game>(factory);
+                break;
+            case GameMode::CustomLayout:
+                file.open(boardFileName);
+                factory = make_shared<FileMode>(file);
+                g = make_shared<Game>(factory);
+                file.close();
+                break;
+            case GameMode::LoadGame:
+                g = make_shared<Game>(loadFileName);
+                break;
+            case GameMode::Default:
+                file.open(defaultLayoutFileName);
+                factory = make_shared<FileMode>(file);
+                g = make_shared<Game>(factory);
+                file.close();
+                break;
         }
-        if (argv[i] == "-load") {
-            load = true;
-            loadFile = argv[i + 1];
-        } else if (argv[i] == "-board") {
-            board = true;
-            boardFile = argv[i + 1];
-        } else if (argv[i] == "-random-board") {
-            random = true;
-        }
-    }
-    if (load) {
-        g = make_shared<Game>(loadFile);
-    } else if (board) {
-        istringstream file(boardFile);
-        shared_ptr<BoardLayoutFactory> factory = make_shared<FileMode>(file);
-        g = make_shared<Game>(factory);
-    } else {
-        shared_ptr<BoardLayoutFactory> factory = make_shared<RandomMode>();
-        g = make_shared<Game>(factory);
-    }
-    if (!g->play()) {
-        return 0;
-    }
+    } while (!g->play());
+
+    return 0;
 }
