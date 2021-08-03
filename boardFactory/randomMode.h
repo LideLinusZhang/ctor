@@ -10,11 +10,11 @@ class View;
 class RandomMode : public BoardLayoutFactory
 {
 public:
-    RandomMode();
-    std::vector<std::shared_ptr<Tile>> createLayout(View* view) override;
+    RandomMode() = default;
+    int createLayout(Board* board) override;
 private:
-    std::vector<ResourceType> shuffleResource();
-    std::vector<int> shuffleValues(std::vector<ResourceType> resources);
+    static std::vector<ResourceType> shuffleResource();
+    static std::vector<int> shuffleValues(std::vector<ResourceType> resources);
 };
 
 #endif //CTOR_RANDOMMODE_H

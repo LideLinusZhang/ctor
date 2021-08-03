@@ -1,32 +1,50 @@
 #include "fileMode.h"
+#include "../adjacencyTables.h"
+
+using namespace std;
 
 FileMode::FileMode(std::istream& file) : file{file} {
 }
 
-std::vector<std::shared_ptr<Tile>> FileMode::createLayout(View* view) {
+int FileMode::createLayout(Board* board) {
     std::vector<std::shared_ptr<Tile>> tiles;
     int resource = 0;
     int value = 0;
     ResourceType type;
-    for (int i = 0; i < TOTAL_TILES; i++) {
+
+    int parkIndex;
+
+    for (int i = 0; i < totalTiles; i++) {
         file >> resource;
         file >> value;
-        ResourceType type;
         switch (resource) {
             case 0:
                 type = ResourceType::Brick;
+                break;
             case 1:
                 type = ResourceType::Energy;
+                break;
             case 2:
                 type = ResourceType::Glass;
+                break;
             case 3:
                 type = ResourceType::Heat;
+                break;
             case 4:
                 type = ResourceType::WiFi;
+                break;
             case 5:
                 type = ResourceType::Park;
+                parkIndex=i;
+                break;
         }
-        tiles.push_back(std::make_shared<Tile>(tileVertices[i], type, value));
+
+        vector<int> vertices = vector<int>(tileSurroundingVertexIdx[i],
+                                           tileSurroundingVertexIdx[i] + tileSurroundingVertexNum);
+        tiles.emplace_back(std::make_shared<Tile>(board, vertices, type, value));
     }
-    return tiles;
+
+    setLayout(board,tiles);
+
+    return parkIndex;
 }
