@@ -10,7 +10,7 @@ class FileMode : public BoardLayoutFactory
 public:
     explicit FileMode(std::istream& file);
 
-    virtual std::vector<std::shared_ptr<Tile>> createLayout(View* view) override;
+    std::vector<std::shared_ptr<Tile>> createLayout(View* view) override;
 };
 
 #endif //CTOR_FILEMODE_H
