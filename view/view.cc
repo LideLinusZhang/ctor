@@ -56,29 +56,25 @@ void View::printBoard(const Board *board) const
     int curEdgeIdx = 0;
     int curVertexIdx = 0;
 
-    int totalSymbols, totalBlocks, totalSpaces;
+    int totalBlocks, totalSpaces;
 
     for (int i = 0; i < totalLines; i++)
     {
         if ((0 <= i && i <= 3) || (37 <= i && i <= 40))
         {
-            totalSymbols = 2;
             totalBlocks = 1;
             totalSpaces = 20;
         }
         else if ((4 <= i && i <= 7) || (33 <= i && i <= 36))
         {
-            totalSymbols = 4;
             totalBlocks = 3;
             totalSpaces = 10;
         }
         else
         {
-            totalSymbols = 6;
             totalBlocks = 5;
             totalSpaces = 0;
         }
-
 
         int j = i % rowHeight;
 

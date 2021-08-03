@@ -38,7 +38,7 @@ class Game : public Controller
 
     void beginTurn(Player *player);
     int roll();
-    int moveGeese(Player *player); // Returns the new position of the geese.
+    int moveGeese(); // Returns the new position of the geese.
     void stealFromOthers(Player *player, int geesePosition);
     void obtainResources(int rollResult);
 

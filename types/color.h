@@ -1,7 +1,7 @@
 #ifndef CTOR_COLOR_H
 #define CTOR_COLOR_H
 
-#include <string>;
+#include <string>
 
 enum Color
 {

@@ -91,7 +91,7 @@ string generateLineMode2(int &vertexIdx, int &edgeIdx, int tileIdx, int totalBlo
             line << "  ";
         else if (j == 2)
         {
-            line << getTileValueString(tileIdx, board);;
+            line << getTileValueString(tileIdx, board);
             tileIdx++;
         }
         else if (j == 5 || j == 7)

@@ -5,7 +5,6 @@
 #include "vertex.h"
 #include "../adjacencyTables.h"
 #include <sstream>
-#include <utility>
 
 using namespace std;
 
@@ -15,7 +14,7 @@ Board::Board(View* view) : view{view} {
     }
     for (auto i : edgeAdjacentVertexIdx) {
         std::vector<int> adjVertices(i, i + edgeAdjacentVertexNum);
-        edges.push_back(std::make_shared<Edge>(view, this , adjVertices));
+        edges.push_back(std::make_shared<Edge>(view, this, adjVertices));
     }
 }
 

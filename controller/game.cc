@@ -28,12 +28,10 @@ const string helpMessage = "Valid commands:\n"
                            "save <file>\n"
                            "help\n";
 
-Game::Game(istream &input) : Controller(input)
+Game::Game(istream &input) : Controller(input), view{make_shared<View>()},
+                             loaded{make_unique<LoadedDice>(view.get(), input)},
+                             fair{make_unique<FairDice>()}, gameBoard{make_shared<Board>(view.get())}
 {
-    loaded = make_unique<LoadedDice>(view.get(), input);
-    fair = make_unique<FairDice>();
-    view = make_shared<View>();
-    gameBoard = make_shared<Board>(view.get());
 }
 
 Game::Game(const string &fileName, istream &input) : Game(input)
@@ -124,7 +122,7 @@ void Game::beginTurn(Player *player)
         rollResult = roll();
         if (rollResult == 7)
         {
-            int newGeesePosition = moveGeese(player);
+            int newGeesePosition = moveGeese();
             stealFromOthers(player, newGeesePosition);
         }
         else
@@ -171,7 +169,7 @@ int Game::roll()
     return rollResult;
 }
 
-int Game::moveGeese(Player *player)
+int Game::moveGeese()
 {
     ostringstream message;
     int index;
