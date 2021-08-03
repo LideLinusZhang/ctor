@@ -1,5 +1,5 @@
-#ifndef CTOR_BOARDFACTORY_H
-#define CTOR_BOARDFACTORY_H
+#ifndef CTOR_BOARDLAYOUTFACTORY_H
+#define CTOR_BOARDLAYOUTFACTORY_H
 
 #include <vector>
 #include <memory>
@@ -13,7 +13,7 @@
 
 class View;
 
-class BoardFactory
+class BoardLayoutFactory
 {
 public:
     static std::vector<std::shared_ptr<Vertex>> createVertices(View* view);
@@ -23,4 +23,4 @@ public:
     virtual std::shared_ptr<Board> createBoard(View* view) = 0;
 };
 
-#endif //CTOR_BOARDFACTORY_H
+#endif //CTOR_BOARDLAYOUTFACTORY_H

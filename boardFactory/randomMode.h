@@ -3,11 +3,11 @@
 
 #include <random>
 #include <algorithm>
-#include "boardFactory.h"
+#include "boardLayoutFactory.h"
 
 class View;
 
-class RandomMode : public BoardFactory
+class RandomMode : public BoardLayoutFactory
 {
 public:
     RandomMode();

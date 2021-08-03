@@ -1,6 +1,6 @@
-#include "boardFactory.h"
+#include "boardLayoutFactory.h"
 
-std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
+std::vector<std::shared_ptr<Vertex>> BoardLayoutFactory::createVertices(View* view) {
     std::vector<std::shared_ptr<Vertex>> vertices;
     for (int i = 0; i < 2; i++) {
         std::vector<int> temp = {0, i + 1};
@@ -71,8 +71,8 @@ std::vector<std::shared_ptr<Vertex>> BoardFactory::createVertices(View* view) {
     return vertices;
 }
 
-std::vector<std::shared_ptr<Edge>> BoardFactory::createEdges(View* view, 
-                                                            std::vector<std::shared_ptr<Vertex>>* vertices) {
+std::vector<std::shared_ptr<Edge>> BoardLayoutFactory::createEdges(View* view,
+                                                                   std::vector<std::shared_ptr<Vertex>>* vertices) {
     std::vector<int> edgeVertices[71];
     std::vector<std::shared_ptr<Edge>> edges;
     for (int i = 0; i < vertices->size(); i++) {
@@ -86,7 +86,7 @@ std::vector<std::shared_ptr<Edge>> BoardFactory::createEdges(View* view,
     return edges;
 }
 
-std::vector<std::vector<int>> BoardFactory::createTileVertices() {
+std::vector<std::vector<int>> BoardLayoutFactory::createTileVertices() {
     std::vector<std::vector<int>> tileVertices;
     tileVertices.push_back({0, 1, 3, 4, 8, 9});
     tileVertices.push_back({2, 3, 7, 8, 13, 14});
@@ -106,7 +106,7 @@ std::vector<std::vector<int>> BoardFactory::createTileVertices() {
     return tileVertices;
 }
 
-int BoardFactory::getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
+int BoardLayoutFactory::getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles) {
     for (auto it : tiles) {
         if (it->getType() == Park) {
             return it->getIndex();

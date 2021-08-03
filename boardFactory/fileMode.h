@@ -1,10 +1,10 @@
 #ifndef CTOR_FILEMODE_H
 #define CTOR_FILEMODE_H
 
-#include "boardFactory.h"
+#include "boardLayoutFactory.h"
 #include <iostream>
 
-class FileMode : public BoardFactory
+class FileMode : public BoardLayoutFactory
 {
     std::istream& file;
 public:
