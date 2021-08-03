@@ -3,25 +3,20 @@
 #include "edge.h"
 #include "tile.h"
 #include "vertex.h"
+#include "../adjacencyTables.h"
 #include <sstream>
 #include <utility>
 
 using namespace std;
 
-Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles)
-            : view{view}, tiles{std::move(tiles)} {
-    for(auto i : vertexAdjacentEdges) {
-        vertices.push_back(std::make_shared<Vertex>(view, i));
+Board::Board(View* view) : view{view} {
+    for(auto &i : vertexAdjacentEdges) {
+        vertices.push_back(std::make_shared<Vertex>(view,this, i));
     }
-    for (int i = 0; i < 71; i++) {
-        std::vector<int> v(edgeAdjacentVertices[i], edgeAdjacentVertices[i] + 2);
-        edges.push_back(std::make_shared<Edge>(view, v));
+    for (int i=0;i<totalEdges;i++) {
+        std::vector<int> adjVertices(edgeAdjacentVertexIdx[i], edgeAdjacentVertexIdx[i] + edgeAdjacentVertexNum);
+        edges.push_back(std::make_shared<Edge>(view, this,  , adjVertices));
     }
-    for (int i = 0; i < tiles.size(); i++) {
-        if (tiles[i]->getType() == Park) {
-            geese = std::make_shared<Geese>(i);
-        }
-    }      
     setBoard();
 }
 
@@ -58,7 +53,7 @@ Vertex *Board::getVertex(int index) const
 
 bool Board::tryMoveGeese(int tileIndex)
 {
-    return geese.tryMoveTo(tileIndex);
+    return geese->tryMoveTo(tileIndex);
 }
 
 void Board::print() const
