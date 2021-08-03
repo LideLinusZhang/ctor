@@ -75,7 +75,7 @@ std::string Board::toString() const
     return oss.str();
 }
 
-int Board::getGeesePosition() const
+Geese* Board::getGeese() const
 {
-    return geese.getPosition();
+    return geese.get();
 }

@@ -19,7 +19,7 @@ class Board
     std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Edge>> edges;
     std::vector<std::shared_ptr<Vertex>> vertices;
-    Geese geese;
+    std::shared_ptr<Geese> geese;
 public:
     // Construct by copying pre-constructed vectors.
     Board(View* view, std::vector<std::shared_ptr<Tile>> tiles, std::vector<std::shared_ptr<Edge>> edges,
@@ -30,7 +30,7 @@ public:
     Vertex* getVertex(int index) const;
 
     bool tryMoveGeese(int tileIndex);
-    int getGeesePosition() const;
+    Geese* getGeese() const;
 
     void print() const;
     std::string toString() const;
