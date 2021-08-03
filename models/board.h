@@ -13,6 +13,12 @@ class Vertex;
 const int minTileIndex = 0;
 const int maxTileIndex = 18;
 
+const int minEdgeIndex = 0;
+const int maxEdgeIndex = 71;
+
+const int minVertexIndex = 0;
+const int maxVertexIndex = 53;
+
 class Board
 {
     View* view;
