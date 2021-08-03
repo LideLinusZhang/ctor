@@ -51,7 +51,7 @@ std::vector<Player*>
             re.pushback(p);
         }
     }
-    return re;
+    return re;
 }
 
 
