@@ -1,8 +1,6 @@
 #include "geese.h"
 
-Geese::Geese(int position):position(position){
-
-}
+Geese::Geese(int position):position(position){}
 
 bool Geese::tryMoveTo(int tileIndex){
     if(tileIndex>=0 && tileIndex<=18 && tileIndex!=position){
@@ -14,4 +12,9 @@ bool Geese::tryMoveTo(int tileIndex){
 
 inline int Geese::getPosition() const{
     return position;
+}
+
+void Geese::setPosition(int tileIndex)
+{
+    position=tileIndex;
 }
