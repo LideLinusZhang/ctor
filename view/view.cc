@@ -87,35 +87,40 @@ void View::printBoard(const Board *board) const
             output << spaces(totalSpaces)
                    << generateLineMode1(curVertexIdx, curEdgeIdx, curTileIdx, totalBlocks, board);
         }
-        else if (i == 39 || j == 1 || j == 5)
+        else if (i == 5 || (j == 1 && i != 33))
         {
             output << spaces(totalSpaces)
-                   << generateLineMode3(totalSymbols);
+                   << generateLineMode4(curTileIdx, totalBlocks, board);
         }
         else if (i == 6 || (j == 2 && i != 34))
         {
             output << spaces(totalSpaces)
-                   << generateLineMode6(curEdgeIdx, curTileIdx, totalBlocks, board);
+                   << generateLineMode7(curEdgeIdx, curTileIdx, totalBlocks, board);
         }
         else if (i == 7 || (j == 3 && i != 35))
         {
             output << spaces(totalSpaces)
-                   << generateLineMode4(curTileIdx, totalBlocks, board);
+                   << generateLineMode5(curTileIdx, totalBlocks, board);
         }
         else if (j == 4)
         {
             output << spaces(totalSpaces)
                    << generateLineMode2(curVertexIdx, curEdgeIdx, curTileIdx, totalBlocks, board);
         }
+        else if (i == 33 || j == 5)
+        {
+            output << spaces(totalSpaces)
+                   << generateLineMode3(curTileIdx, totalBlocks, board);
+        }
         else if (i == 34 || j == 6)
         {
             output << spaces(totalSpaces)
-                   << generateLineMode7(curEdgeIdx, curTileIdx, totalBlocks, board);
+                   << generateLineMode8(curEdgeIdx, curTileIdx, totalBlocks, board);
         }
         else if (i == 35 || j == 7)
         {
             output << spaces(totalSpaces)
-                   << generateLineMode5(curTileIdx, totalBlocks, board);
+                   << generateLineMode6(curTileIdx, totalBlocks, board);
         }
 
         output << endl;
