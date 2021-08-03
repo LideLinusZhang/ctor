@@ -8,9 +8,8 @@
 
 using namespace std;
 
-Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles,
-            int geeseInitialPosition)
-            : view{view}, tiles{std::move(tiles)}, geese{geeseInitialPosition} {
+Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles)
+            : view{view}, tiles{std::move(tiles)} {
     for(auto i : vertexAdjacentEdges) {
         vertices.push_back(std::make_shared<Vertex>(view, i));
     }
@@ -18,6 +17,11 @@ Board::Board(View* view, std::vector<std::shared_ptr<Tile>> tiles,
         std::vector<int> v(edgeAdjacentVertices[i], edgeAdjacentVertices[i] + 2);
         edges.push_back(std::make_shared<Edge>(view, v));
     }
+    for (int i = 0; i < tiles.size(); i++) {
+        if (tiles[i]->getType() == Park) {
+            geese = std::make_shared<Geese>(i);
+        }
+    }      
     setBoard();
 }
 
