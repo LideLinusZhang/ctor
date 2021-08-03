@@ -1,42 +1,52 @@
 #include "edge.h"
+#include "../view/view.h"
+#include <utility>
 #include "player.h"
 
+using namespace std;
+
 // Construct as an ordinary edge
-Edge::Edge(View* view, Board* board, std::vector<int> adjacentEdgeIndices, int vertex1Index, int vertex2Index)
-    :view(view), board(board), adjacentEdgeIndices(adjacentEdgeIndices), vertex1Index(vertex1Index), vertex2Index(vertex2Index)
+Edge::Edge(View *view, Board *board, vector<int> adjacentEdgeIndices, vector<int> adjacentVertexIndices)
+        : view(view), board(board), adjacentEdgeIndices(std::move(adjacentEdgeIndices)),
+          adjacentVertexIndices(std::move(adjacentVertexIndices))
 {
     road = false;
     owner = nullptr;
 }
 
 
-void Edge::buildRoad(Player *p){
-    if(road)
+void Edge::buildRoad(Player *p)
+{
+    if (road)
     {
+        view->printError(ErrorType::InvalidBuildOrImprove);
         return;
     }
     //cost one WiFi and one HEAT
     int wifi_num = p->getResource(ResourceType::WiFi);
     int heat_num = p->getResource(ResourceType::Heat);
-    if (wifi_num>=1 && heat_num>=1)
+    if (wifi_num >= 1 && heat_num >= 1)
     {
         owner = p;
-        road = true; 
+        road = true;
         p->setResource(ResourceType::WiFi, --wifi_num);
-        p->setResource(ResourceType::Heat, --heat_num);  
+        p->setResource(ResourceType::Heat, --heat_num);
     }
 
 }
 
-inline bool Edge::isRoad() const{
+inline bool Edge::isRoad() const
+{
     return road;
 }
 
-inline Player* Edge::getOwner() const{
+inline Player *Edge::getOwner() const
+{
     return owner;
 }
 
-void Edge::setRoad(Player *roadOwner) {
-    road=true;
-    owner=roadOwner;
+void Edge::setRoad(Player *roadOwner)
+{
+    road = true;
+    owner = roadOwner;
 }
