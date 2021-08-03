@@ -38,7 +38,6 @@ protected:
         {44,45,49,50,52,53}
     };
 public:
-    int getParkIndex(View *view, std::vector<std::shared_ptr<Tile>> tiles);
     virtual std::vector<std::shared_ptr<Tile>> createLayout(View* view) = 0;
 };
 
