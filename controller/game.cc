@@ -56,7 +56,10 @@ void Game::initPlayers()
 
 bool Game::play()
 {
-
+    for(int i=0;i<totalPlayers;i++)
+        buildInitial(players[i].get());
+    for(int i = totalPlayers-1;i>=0;i--)
+        buildInitial(players[i].get());
 
     for (;; currentPlayerIndex = (currentPlayerIndex + 1) % 4)
     {
@@ -78,6 +81,29 @@ bool Game::play()
 
         if (currentPlayer->getBuildingPoint() >= 10)
             return endGame();
+    }
+}
+
+void Game::buildInitial(Player* player)
+{
+    int index;
+    Color color = player->getColor();
+    ostringstream message;
+    message<<"Builder "<<toString(color)<<", where do you want to build a basement?";
+
+    while(true)
+    {
+        view->printPrompt(message.str());
+        input>>index;
+
+        if(!(minVertexIndex<=index&&index<=maxVertexIndex))
+            view->printError(ErrorType::InvalidBuildOrImprove);
+        else
+        {
+            Vertex* vertex = gameBoard->getVertex(index);
+            if(vertex->trySetBuilding(BuildingType::Basement,player))
+                return;
+        }
     }
 }
 
@@ -498,5 +524,4 @@ void Game::read(const string &fileName) {
     file>>geesePosition;
     gameBoard->getGeese()->setPosition(geesePosition);
 }
-
 

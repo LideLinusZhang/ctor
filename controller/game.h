@@ -34,6 +34,8 @@ class Game : public Controller
     std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Board> gameBoard;
 
+    void buildInitial(Player* player);
+
     void beginTurn(Player *player);
     int roll();
     int moveGeese(Player *player); // Returns the new position of the geese.
