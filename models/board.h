@@ -161,7 +161,7 @@ public:
     Vertex* getVertex(int index) const;
 
     bool tryMoveGeese(int tileIndex);
-    int getGeesePosition() const;
+    Geese* getGeese() const;
 
     void print() const;
     std::string toString() const;
