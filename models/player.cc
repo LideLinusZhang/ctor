@@ -1,9 +1,9 @@
 #include "player.h"
-#include "buildingType.h"
+#include "../types/buildingType.h"
 #include "board.h"
 #include "vertex.h"
-#include "random.h"
-#include "view.h"
+#include "../random/random.h"
+#include "../view/view.h"
 #include <sstream>
 #include <algorithm>
 
@@ -12,7 +12,7 @@ using namespace std;
 Player::Player(View *view, Board *board, Color color)
         : view{view}, board{board}, color{color}
 {
-    for (int i = 0; i < RESOURCE_TYPE_COUNT; i++)
+    for (int i = 0; i < resourceTypeCount; i++)
         resources.insert({static_cast<ResourceType>(i), 0});
 }
 
@@ -25,8 +25,14 @@ Player::Player(View *view, Board *board, Color color, int points, std::map<Resou
 void Player::addBuilding(int vertexIndex)
 {
     buildings.emplace_back(vertexIndex);
-    sort(buildings.begin(),buildings.end());
+    sort(buildings.begin(), buildings.end());
     points++;
+}
+
+void Player::addRoad(int edgeIndex)
+{
+    roads.emplace_back(edgeIndex);
+    sort(roads.begin(), roads.end());
 }
 
 void Player::setResource(ResourceType type, int count)
@@ -52,6 +58,11 @@ int Player::getTotalResources() const
     return total;
 }
 
+Color Player::getColor() const
+{
+    return color;
+}
+
 void Player::loseResource()
 {
     int total = getTotalResources();
@@ -62,7 +73,8 @@ void Player::loseResource()
     uniform_int_distribution<int> dist;
 
     int totalLost = total / 2;
-    message << "Builder " << toString(color) << " loses " << totalLost << " resources to the geese. They lose:";
+    message << "Builder " << ::toString(color) << " loses " << totalLost
+            << " resources to the geese. They lose:" << endl;
     view->printMessage(message.str());
 
     for (auto i : resources)
@@ -85,7 +97,7 @@ void Player::loseResource()
             totalLost -= specificLost;
 
             message.str(string());
-            message << specificLost << " " << toStringAllCaps(i.first);
+            message << specificLost << " " << toStringAllCaps(i.first) << endl;
             view->printMessage(message.str());
         }
     }
@@ -120,38 +132,57 @@ void Player::steal(Player *other)
 
     // Print message
     ostringstream message;
-    message << "Builder " << toString(color) << " steals " << toStringAllCaps(typeToSteal)
-            << " from builder " << toString(other->color) << " .";
+    message << "Builder " << ::toString(color) << " steals " << toStringAllCaps(typeToSteal)
+            << " from builder " << ::toString(other->color) << " ." << endl;
     view->printMessage(message.str());
 }
 
 void Player::printStatus() const
 {
     ostringstream message;
-    message << toString(color) << " has " << points << " building points";
+    message << ::toString(color) << " has " << points << " building points";
     for (auto i : resources)
     {
         if (i.first == ResourceType::WiFi)
             message << ", and ";
         else
             message << ", ";
-        message << i.second << " " << toString(i.first);
+        message << i.second << " " << ::toString(i.first);
     }
-    message << ".";
+    message << "." << endl;
     view->printMessage(message.str());
 }
 
 void Player::printResidences() const
 {
     ostringstream message;
-    message << toString(color) << " has built:";
+    message << ::toString(color) << " has built:" << endl;
 
     for (auto i : buildings)
     {
-        message << endl;
         BuildingType type = board->getVertex(i)->getType();
-        message << i << " " << toString(type);
+        message << i << " " << toChar(type) << endl;
     }
     view->printMessage(message.str());
 }
 
+std::string Player::toString()
+{
+    ostringstream oss;
+
+    for (int i = 0; i < resourceTypeCount; i++)
+        oss << resources[static_cast<ResourceType>(i)] << " ";
+
+    oss << "r ";
+    for (auto i : roads)
+        oss << i << " ";
+
+    oss << "h";
+    for (auto i : buildings)
+    {
+        oss << " " << i << " ";
+        oss << ::toChar(board->getVertex(i)->getType());
+    }
+
+    return oss.str();
+}

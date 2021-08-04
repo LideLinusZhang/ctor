@@ -1,18 +1,9 @@
-#ifndef CTOR_RESOURCETYPE_H
-#define CTOR_RESOURCETYPE_H
+#include "resourceType.h"
+#include <stdexcept>
 
-#define RESOURCE_TYPE_COUNT 5
+using namespace std;
 
-enum ResourceType
-{
-    Brick,
-    Energy,
-    Glass,
-    Heat,
-    WiFi
-};
-
-std::string toStringAllCaps(ResourceType type)
+string toStringAllCaps(ResourceType type)
 {
     switch (type)
     {
@@ -26,10 +17,12 @@ std::string toStringAllCaps(ResourceType type)
             return "HEAT";
         case WiFi:
             return "WIFI";
+        case Park:
+            return "PARK";
     }
 }
 
-std::string toString(ResourceType type)
+string toString(ResourceType type)
 {
     switch (type)
     {
@@ -46,4 +39,19 @@ std::string toString(ResourceType type)
     }
 }
 
-#endif //CTOR_RESOURCETYPE_H
+ResourceType toResourceType(const string &str)
+{
+    if (str == "BRICK")
+        return Brick;
+    else if (str == "ENERGY")
+        return Energy;
+    else if (str == "GLASS")
+        return Glass;
+    else if (str == "HEAT")
+        return Heat;
+    else if (str == "WIFI")
+        return WiFi;
+    else
+        throw invalid_argument("str");
+}
+
