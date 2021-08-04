@@ -4,11 +4,12 @@
 #include "tile.h"
 #include "vertex.h"
 #include "adjacencyTables.h"
+#include "geese.h"
 #include <sstream>
 
 using namespace std;
 
-Board::Board(View *view) : view{view}
+Board::Board(View *view) : view{view}, geese{make_shared<Geese>()}
 {
     for (auto &i : vertexAdjacentEdges)
     {

@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 {
     GameMode mode = GameMode::Default;
     string loadFileName, boardFileName;
-    for (int i = 0; i < argc; i++)
+    for (int i = 1; i < argc; i++)
     {
         string option(argv[i]);
         if (option == "-seed")
