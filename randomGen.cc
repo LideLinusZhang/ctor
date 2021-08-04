@@ -1,18 +1,20 @@
-#include "random.h"
+#include "randomGen.h"
 
 using namespace std;
 
+default_random_engine Random::engine;
+
 void Random::init(int seed)
 {
-    engine.seed(seed);
+    Random::engine.seed(seed);
 }
 
 unsigned int Random::getRandomNumber()
 {
-    return engine();
+    return Random::engine();
 }
 
 std::default_random_engine &Random::getRandomEngine()
 {
-    return engine;
+    return Random::engine;
 }

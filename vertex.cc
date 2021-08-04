@@ -1,7 +1,7 @@
 #include "vertex.h"
 
 #include <utility>
-#include "../view/view.h"
+#include "view.h"
 #include "board.h"
 #include "player.h"
 

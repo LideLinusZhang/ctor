@@ -1,9 +1,8 @@
 #ifndef CTOR_RANDOMMODE_H
 #define CTOR_RANDOMMODE_H
 
-#include <random>
-#include <algorithm>
 #include "boardLayoutFactory.h"
+#include "resourceType.h"
 
 class View;
 

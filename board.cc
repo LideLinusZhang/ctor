@@ -1,9 +1,9 @@
 #include "board.h"
-#include "../view/view.h"
+#include "view.h"
 #include "edge.h"
 #include "tile.h"
 #include "vertex.h"
-#include "../adjacencyTables.h"
+#include "adjacencyTables.h"
 #include <sstream>
 
 using namespace std;

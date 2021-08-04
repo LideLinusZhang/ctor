@@ -1,4 +1,5 @@
 #include "boardLayoutFactory.h"
+#include "board.h"
 
 void BoardLayoutFactory::setLayout(Board *board, std::vector<std::shared_ptr<Tile>> &tiles)
 {

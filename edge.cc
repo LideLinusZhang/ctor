@@ -1,5 +1,5 @@
 #include "edge.h"
-#include "../view/view.h"
+#include "view.h"
 #include <utility>
 #include "player.h"
 

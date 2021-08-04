@@ -1,7 +1,9 @@
-#include "../random/random.h"
-#include "../models/board.h"
+#include <algorithm>
+#include "randomGen.h"
+#include "board.h"
 #include "randomMode.h"
-#include "../adjacencyTables.h"
+#include "adjacencyTables.h"
+#include "tile.h"
 
 using namespace std;
 

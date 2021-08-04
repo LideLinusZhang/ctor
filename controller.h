@@ -9,7 +9,6 @@ protected:
     std::istream &input; // Input source, exceptions enabled.
 public:
     explicit Controller(std::istream &input);
-    virtual ~Controller() = 0;
 };
 
 #endif //CTOR_CONTROLLER_H

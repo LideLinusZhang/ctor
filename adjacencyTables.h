@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-#include "models/board.h"
+#include "board.h"
 
 const int tileSurroundingVertexNum = 6;
 const int tileSurroundingVertexIdx[totalTiles][tileSurroundingVertexNum]{

@@ -3,13 +3,12 @@
 
 #include <vector>
 #include <memory>
-#include "../models/board.h"
-#include "../types/resourceType.h"
-#include "../models/tile.h"
-#include "../models/vertex.h"
-#include "../models/edge.h"
 
 class View;
+
+class Board;
+
+class Tile;
 
 class BoardLayoutFactory
 {

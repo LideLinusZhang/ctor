@@ -2,10 +2,10 @@
 #include <sstream>
 #include <memory>
 #include <fstream>
-#include "controller/game.h"
-#include "random/random.h"
-#include "boardFactory/fileMode.h"
-#include "boardFactory/randomMode.h"
+#include "game.h"
+#include "randomGen.h"
+#include "fileMode.h"
+#include "randomMode.h"
 
 using namespace std;
 

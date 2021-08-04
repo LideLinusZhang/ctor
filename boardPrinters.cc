@@ -1,9 +1,10 @@
 #include "boardPrinters.h"
-#include "../models/board.h"
-#include "../models/tile.h"
-#include "../models/edge.h"
-#include "../models/vertex.h"
-#include "../models/player.h"
+#include "board.h"
+#include "tile.h"
+#include "edge.h"
+#include "vertex.h"
+#include "player.h"
+#include "geese.h"
 #include <string>
 #include <sstream>
 #include <iomanip>
