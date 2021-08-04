@@ -4,7 +4,6 @@
 #include <utility>
 #include "player.h"
 #include "vertex.h"
-
 using namespace std;
 
 // Construct as an ordinary edge
