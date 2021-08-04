@@ -6,9 +6,7 @@
 #include <vector>
 
 class Board;
-
 class Player;
-
 class Tile
 {
     Board* board;

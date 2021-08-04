@@ -6,7 +6,6 @@
 class Board;
 class View;
 class Player;
-
 class Edge
 {
     View* view;

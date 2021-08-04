@@ -93,7 +93,6 @@ void Vertex::improve(Player *player){
             player->setResource(ResourceType::Glass, glass_num-2);
             player->setResource(ResourceType::WiFi, wifi_num-1);
             player->setResource(ResourceType::Heat, heat_num-2);
-
         }
     }
 }

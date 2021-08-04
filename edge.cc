@@ -51,7 +51,6 @@ void Edge::buildRoad(Player *p)
         p->setResource(ResourceType::WiFi, --wifi_num);
         p->setResource(ResourceType::Heat, --heat_num);
     }
-
 }
 
 inline bool Edge::isRoad() const

@@ -54,5 +54,3 @@ std::vector<Player*>
     return re;
 }
 
-
-

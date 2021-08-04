@@ -31,5 +31,4 @@ public:
     void build(Player* player); // Check if resource is sufficient, build, and deduct resources.
     void improve(Player* player); // Check if resource is sufficient, improve, and deduct resources.
 };
-
 #endif //CTOR_VERTEX_H
