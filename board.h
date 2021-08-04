@@ -3,15 +3,18 @@
 
 #include <vector>
 #include <memory>
-#include "vertex.h"
-#include "edge.h"
-#include "geese.h"
 
 class View;
 
 class Tile;
 
 class BoardLayoutFactory;
+
+class Vertex;
+
+class Geese;
+
+class Edge;
 
 const int totalTiles = 19;
 const int minTileIndex = 0;

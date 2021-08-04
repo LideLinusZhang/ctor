@@ -2,17 +2,18 @@
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
-#include "dices/fairDice.h"
-#include "dices/loadedDice.h"
-#include "../models/player.h"
+#include "fairDice.h"
+#include "loadedDice.h"
+#include "player.h"
 #include "game.h"
-#include "../boardFactory/boardLayoutFactory.h"
-#include "../boardFactory/fileMode.h"
-#include "../view/view.h"
-#include "../models/board.h"
-#include "../models/tile.h"
-#include "../models/vertex.h"
-#include "../models/edge.h"
+#include "boardLayoutFactory.h"
+#include "fileMode.h"
+#include "view.h"
+#include "board.h"
+#include "tile.h"
+#include "vertex.h"
+#include "edge.h"
+#include "geese.h"
 
 using namespace std;
 

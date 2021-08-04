@@ -1,5 +1,7 @@
 #include "fileMode.h"
-#include "../adjacencyTables.h"
+#include "adjacencyTables.h"
+#include "resourceType.h"
+#include "tile.h"
 
 using namespace std;
 

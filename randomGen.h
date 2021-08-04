@@ -1,5 +1,5 @@
-#ifndef CTOR_RANDOM_H
-#define CTOR_RANDOM_H
+#ifndef CTOR_RANDOMGEN_H
+#define CTOR_RANDOMGEN_H
 
 #include <random>
 
@@ -13,4 +13,4 @@ public:
     static std::default_random_engine &getRandomEngine();
 };
 
-#endif //CTOR_RANDOM_H
+#endif //CTOR_RANDOMGEN_H
