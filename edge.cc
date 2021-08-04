@@ -16,6 +16,7 @@ Edge::Edge(View *view, Board *board, vector<int> adjacentVertexIndices)
 }
 
 
+
 void Edge::buildRoad(Player *p)
 {
     if (road)
