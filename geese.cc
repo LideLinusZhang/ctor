@@ -10,7 +10,7 @@ bool Geese::tryMoveTo(int tileIndex)
     return false;
 }
 
-inline int Geese::getPosition() const
+int Geese::getPosition() const
 {
     return position;
 }

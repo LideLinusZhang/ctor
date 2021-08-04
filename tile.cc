@@ -2,6 +2,7 @@
 #include "board.h"
 #include "vertex.h"
 #include "player.h"
+#include "buildingType.h"
 #include <sstream>
 
 using namespace std;
@@ -26,12 +27,10 @@ void Tile::obtainResource()
         int source_num =  v->getOwner()->getResource(type);
         BuildingType b_type = v->getType();
         v->getOwner()->setResource(type, source_num + b_type);
-
     }
-
 }
 
-inline ResourceType Tile::getType() const
+ResourceType Tile::getType() const
 {
     return type;
 }
@@ -41,14 +40,14 @@ int Tile::getValue() const
     return value;
 }
 
-std::vector<Player*>
-        Tile::getResidenceOwners()const {
+
+std::vector<Player*> Tile::getResidenceOwners() const {
     std::vector < Player * > re;
     for (int i = 0; i < vertices.size(); i++) {
         Player *p = board->getVertex(vertices[i])->getOwner();
         if (p != nullptr)
         {
-            re.pushback(p);
+            re.push_back(p);
         }
     }
     return re;

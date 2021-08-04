@@ -1,15 +1,15 @@
 #include "edge.h"
-#include "../view/view.h"
+#include "view.h"
 #include "board.h"
 #include <utility>
 #include "player.h"
+#include "vertex.h"
 
 using namespace std;
 
 // Construct as an ordinary edge
-Edge::Edge(View *view, Board *board, vector<int> adjacentEdgeIndices, vector<int> adjacentVertexIndices)
-        : view(view), board(board), adjacentEdgeIndices(std::move(adjacentEdgeIndices)),
-          adjacentVertexIndices(std::move(adjacentVertexIndices))
+Edge::Edge(View *view, Board *board, vector<int> adjacentVertexIndices)
+        : view(view), board(board), adjacentVertexIndices(std::move(adjacentVertexIndices))
 {
     road = false;
     owner = nullptr;
@@ -53,12 +53,12 @@ void Edge::buildRoad(Player *p)
     }
 }
 
-inline bool Edge::isRoad() const
+bool Edge::isRoad() const
 {
     return road;
 }
 
-inline Player *Edge::getOwner() const
+Player *Edge::getOwner() const
 {
     return owner;
 }

@@ -1,7 +1,7 @@
 #ifndef CTOR_VERTEX_H
 #define CTOR_VERTEX_H
 
-#include "../types/buildingType.h"
+#include "buildingType.h"
 #include <vector>
 
 class View;
