@@ -16,6 +16,7 @@ Edge::Edge(View *view, Board *board, vector<int> adjacentVertexIndices)
 }
 
 
+
 void Edge::buildRoad(Player *p)
 {
     if (road)
@@ -28,12 +29,28 @@ void Edge::buildRoad(Player *p)
     for(size_t i = 0; adjacentVertexIndices.size(); i++)
     {
         Vertex *v = board->getVertex(adjacentVertexIndices[i]);
-        if(v->getOwner() == owner)
+        if(v->getOwner() == p)
         {
             is_link = true;
             break;
         }
+        std::vector<int> vEdgeIndices = v->getEdgeIndices();
+        for(size_t k=0;k<vEdgeIndices.size();k++)
+        {
+            Edge *e = board->getEdge(vEdgeIndices[k]);
+            if(e != this && e->getOwner() == p)
+            {
+                is_link = true;
+                break;
+            }
+        }
+        if(is_link)
+        {
+            break;
+        }
+
     }
+
     if (!is_link)
     {
         view->printError(ErrorType::InvalidBuildOrImprove);
