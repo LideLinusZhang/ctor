@@ -9,7 +9,7 @@
 using namespace std;
 
 Vertex::Vertex(View *view, Board *board, const std::vector<int> & edgeIndices, int index)
-: view(view), board(board), edgeIndices(edgeIndices), index{index} {}
+: view(view), board(board), index{index}, edgeIndices(edgeIndices) {}
 
 Player *Vertex::getOwner() const
 {

@@ -10,7 +10,7 @@
 using namespace std;
 
 Player::Player(View *view, Board *board, Color color)
-        : view{view}, board{board}, color{color}
+        : color{color}, view{view}, board{board}
 {
     for (int i = 0; i < resourceTypeCount; i++)
         resources.insert({static_cast<ResourceType>(i), 0});
@@ -18,7 +18,7 @@ Player::Player(View *view, Board *board, Color color)
 
 Player::Player(View *view, Board *board, Color color, int points, std::map<ResourceType, int> resources,
                std::vector<int> buildings)
-        : view{view}, board{board}, color{color}, points{points}, resources{move(resources)}, buildings{move(buildings)}
+        : color{color}, points{points}, resources{move(resources)}, buildings{move(buildings)}, view{view}, board{board}
 {
 }
 
