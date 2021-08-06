@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
             {
                 mode = GameMode::LoadGame;
                 i++;
-                loadFileName = argv[i + 1];
+                loadFileName = argv[i];
             }
             else
                 i++;

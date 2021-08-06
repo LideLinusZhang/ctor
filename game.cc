@@ -37,6 +37,7 @@ Game::Game(istream &input) : Controller(input), view{make_shared<View>()},
 
 Game::Game(const string &fileName, istream &input) : Game(input)
 {
+    initPlayers();
     read(fileName);
 }
 
@@ -118,8 +119,6 @@ void Game::buildInitial(Player *player)
             Vertex *vertex = gameBoard->getVertex(index);
             if (vertex->trySetBuilding(BuildingType::Basement, player))
                 return;
-            else
-                view->printError(ErrorType::InvalidBuildOrImprove);
         }
     }
 }
@@ -459,9 +458,10 @@ void Game::read(const string &fileName)
 {
     ifstream file(fileName);
 
-    int curTurn;
+    int curTurn=-1;
     file >> curTurn;
     currentPlayerIndex = curTurn;
+    file.get();
 
     for (int i = 0; i < totalPlayers; i++)
     {
@@ -481,7 +481,8 @@ void Game::read(const string &fileName)
             players[i]->setResource(type, num);
         }
 
-        char c, typeChar;
+        string c;
+        char typeChar;
         int index;
 
         playerData >> c; // read in 'r'.
