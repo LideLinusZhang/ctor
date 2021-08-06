@@ -12,11 +12,17 @@ class Vertex
 {
     View* view;
     Board* board;
+    int index;
     Player* owner = nullptr;
     BuildingType type = BuildingType::None;
-    std::vector<int> edgeIndices;
+    const std::vector<int> &edgeIndices;
+
+    // Check if the player has a road adjacent to this vertex.
+    bool hasAdjacentRoad(Player *player) const;
+    // Check if this building is adjacent to any building.
+    bool isAdjacentToBuilding() const;
 public:
-    Vertex(View* view, Board* board, std::vector<int> edgeIndices);
+    Vertex(View* view, Board* board, const std::vector<int> & edgeIndices, int index);
 
     // Try to set this vertex to a building without deducting resources.
     // If successful, return true. Otherwise, return false.
@@ -26,10 +32,10 @@ public:
     // Should only be used for reading game from file.
     void setBuilding(BuildingType buildingType, Player* buildingOwner);
 
-    std::vector<int> getEdgeIndices() const;
-
+    const std::vector<int> &getEdgeIndices() const;
     Player* getOwner() const;
     BuildingType getType() const;
+
     void build(Player* player); // Check if resource is sufficient, build, and deduct resources.
     void improve(Player* player); // Check if resource is sufficient, improve, and deduct resources.
 };

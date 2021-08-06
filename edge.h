@@ -12,7 +12,7 @@ class Edge
     Board* board;
     bool road = false;
     Player* owner = nullptr;
-    std::vector<int> adjacentVertexIndices;
+    const std::vector<int> adjacentVertexIndices;
 public:
     // Construct as an ordinary edge
     Edge(View* view, Board* board, std::vector<int> adjacentVertexIndices);
@@ -21,10 +21,12 @@ public:
     // If successful, return true. Otherwise, return false.
     // Should only be used for reading game from file.
     void setRoad(Player* roadOwner);
+    // Check if resource is sufficient, build, and deduct resources.
+    void buildRoad(Player*);
 
-    void buildRoad(Player*); // Check if resource is sufficient, build, and deduct resources.
     bool isRoad() const;
     Player* getOwner() const;
+    const std::vector<int>& getAdjacentVertexIdx() const;
 };
 
 #endif //CTOR_EDGE_H

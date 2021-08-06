@@ -2,9 +2,14 @@
 #include "view.h"
 #include "board.h"
 #include "player.h"
+#include "edge.h"
+#include <algorithm>
+#include <utility>
 
-Vertex::Vertex(View *view, Board *board, std::vector<int> edgeIndices)
-        : view(view), board(board), edgeIndices(std::move(edgeIndices)) {}
+using namespace std;
+
+Vertex::Vertex(View *view, Board *board, const std::vector<int> & edgeIndices, int index)
+: view(view), board(board), edgeIndices(edgeIndices), index{index} {}
 
 Player *Vertex::getOwner() const
 {
@@ -16,14 +21,14 @@ BuildingType Vertex::getType() const
     return type;
 }
 
-std::vector<int> Vertex::getEdgeIndices() const
+const std::vector<int> &Vertex::getEdgeIndices() const
 {
     return edgeIndices;
 }
 
 void Vertex::build(Player *player)
 {
-    if (type != BuildingType::None)
+    if (type != BuildingType::None || !hasAdjacentRoad(player) || isAdjacentToBuilding())
     {
         view->printError(ErrorType::InvalidBuildOrImprove);
         return;
@@ -42,7 +47,6 @@ void Vertex::build(Player *player)
         player->setResource(ResourceType::Energy, --energy_num);
         player->setResource(ResourceType::Glass, --glass_num);
         player->setResource(ResourceType::WiFi, --wifi_num);
-
     }
 }
 
@@ -83,14 +87,13 @@ void Vertex::improve(Player *player)
             player->setResource(ResourceType::Glass, glass_num - 2);
             player->setResource(ResourceType::WiFi, wifi_num - 1);
             player->setResource(ResourceType::Heat, heat_num - 2);
-
         }
     }
 }
 
 bool Vertex::trySetBuilding(BuildingType buildingType, Player *buildingOwner)
 {
-    if (this->type != BuildingType::None)
+    if (this->type != BuildingType::None || isAdjacentToBuilding())
     {
         view->printError(ErrorType::InvalidBuildOrImprove);
         return false;
@@ -104,4 +107,34 @@ void Vertex::setBuilding(BuildingType buildingType, Player *buildingOwner)
 {
     type = buildingType;
     owner = buildingOwner;
+}
+
+bool Vertex::hasAdjacentRoad(Player *player) const
+{
+    if (std::any_of(edgeIndices.begin(), edgeIndices.end(),
+                    [player, this](int i) -> bool { return board->getEdge(i)->getOwner() == player; }))
+        return true;
+    else
+        return false;
+}
+
+bool Vertex::isAdjacentToBuilding() const
+{
+    vector<int> adjacentVertexIdx;
+
+    for(auto i : edgeIndices)
+    {
+        Edge* edge = board->getEdge(i);
+        for(auto j : edge->getAdjacentVertexIdx())
+        {
+            if(j!=index)
+                adjacentVertexIdx.push_back(j);
+        }
+    }
+
+    if (std::any_of(adjacentVertexIdx.begin(), adjacentVertexIdx.end(),
+                    [this](int i) -> bool { return board->getVertex(i)->getType() != BuildingType::None; }))
+        return true;
+    else
+        return false;
 }

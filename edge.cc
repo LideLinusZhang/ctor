@@ -1,7 +1,6 @@
 #include "edge.h"
 #include "view.h"
 #include "board.h"
-#include <utility>
 #include "player.h"
 #include "vertex.h"
 
@@ -26,18 +25,18 @@ void Edge::buildRoad(Player *p)
     }
 
     bool is_link = false;
-    for(size_t i = 0; adjacentVertexIndices.size(); i++)
+    for(int i : adjacentVertexIndices)
     {
-        Vertex *v = board->getVertex(adjacentVertexIndices[i]);
+        Vertex *v = board->getVertex(i);
         if(v->getOwner() == p)
         {
             is_link = true;
             break;
         }
         std::vector<int> vEdgeIndices = v->getEdgeIndices();
-        for(size_t k=0;k<vEdgeIndices.size();k++)
+        for(int j : vEdgeIndices)
         {
-            Edge *e = board->getEdge(vEdgeIndices[k]);
+            Edge *e = board->getEdge(j);
             if(e != this && e->getOwner() == p)
             {
                 is_link = true;
@@ -48,7 +47,6 @@ void Edge::buildRoad(Player *p)
         {
             break;
         }
-
     }
 
     if (!is_link)
@@ -84,4 +82,9 @@ void Edge::setRoad(Player *roadOwner)
 {
     road = true;
     owner = roadOwner;
+}
+
+const std::vector<int> &Edge::getAdjacentVertexIdx() const
+{
+    return adjacentVertexIndices;
 }
