@@ -9,29 +9,19 @@ using namespace std;
 
 vector<ResourceType> RandomMode::shuffleResource()
 {
-    vector<ResourceType> resources(totalTiles);
-    for (int i = 0; i < 3; i++)
+    vector<ResourceType> resources;
+    resources.reserve(totalTiles);
+
+    auto rng = Random::getRandomEngine();
+    uniform_int_distribution<int> dist(0,4);
+
+    for(int i = 0; i< totalTiles-1;i++)
     {
-        resources.push_back(ResourceType::WiFi);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        resources.push_back(ResourceType::Heat);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        resources.push_back(ResourceType::Brick);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        resources.push_back(ResourceType::Glass);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        resources.push_back(ResourceType::Energy);
+        auto type = static_cast<ResourceType>(dist(rng));
+        resources.push_back(type);
     }
     resources.push_back(ResourceType::Park);
-    auto rng = Random::getRandomEngine();
+
     shuffle(resources.begin(), resources.end(), rng);
     return resources;
 }
