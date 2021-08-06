@@ -4,14 +4,12 @@
 #include "player.h"
 #include "buildingType.h"
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
 Tile::Tile(Board* board, std::vector<int> vertices, ResourceType type, int value)
-        :board(board), vertices(move(vertices)), type(type), value(value)
-{
-
-}
+        :board(board), vertices(move(vertices)), type(type), value(value) {}
 
 void Tile::obtainResource()
 {
@@ -40,16 +38,23 @@ int Tile::getValue() const
     return value;
 }
 
-
 std::vector<Player*> Tile::getResidenceOwners() const {
-    std::vector < Player * > re;
-    for (int i = 0; i < vertices.size(); i++) {
-        Player *p = board->getVertex(vertices[i])->getOwner();
-        if (p != nullptr)
-        {
-            re.push_back(p);
-        }
+    std::vector<Player *> owners;
+
+    for (int i : vertices) {
+        Player *player = board->getVertex(i)->getOwner();
+        bool isDupe = none_of(owners.begin(), owners.end(),
+                              [player](Player *other)->bool{return other == player;});
+
+        if (!isDupe)
+            owners.push_back(player);
     }
-    return re;
+
+    sort(owners.begin(),owners.end(),[](const Player* a, const Player* b)->bool
+    {
+        return a->getColor() < b->getColor();
+    });
+
+    return owners;
 }
 
