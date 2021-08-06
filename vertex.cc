@@ -16,6 +16,11 @@ BuildingType Vertex::getType() const
     return type;
 }
 
+std::vector<int> Vertex::getEdgeIndices() const
+{
+    return edgeIndices;
+}
+
 void Vertex::build(Player *player)
 {
     if (type != BuildingType::None)
