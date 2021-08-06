@@ -59,14 +59,14 @@ void Game::initPlayers()
 
 bool Game::play()
 {
-    if(currentPlayerIndex==-1)
+    if (currentPlayerIndex == -1)
     {
         for (int i = 0; i < totalPlayers; i++)
             buildInitial(players[i].get());
         for (int i = totalPlayers - 1; i >= 0; i--)
             buildInitial(players[i].get());
 
-        currentPlayerIndex=0;
+        currentPlayerIndex = 0;
     }
 
     gameBoard->print();
@@ -78,11 +78,10 @@ bool Game::play()
         if (currentPlayer->getBuildingPoint() >= 10)
             return endGame();
 
+        beginTurn(currentPlayer);
+
         try
-        {
-            beginTurn(currentPlayer);
-            duringTurn(currentPlayer);
-        }
+        { duringTurn(currentPlayer); }
         catch (ios_base::failure &)
         {
             save();
@@ -104,7 +103,13 @@ void Game::buildInitial(Player *player)
     while (true)
     {
         view->printPrompt(message.str());
-        input >> index;
+
+        try
+        { input >> index; }
+        catch (ios_base::failure &)
+        {
+            view->printError(ErrorType::InvalidInput);
+        }
 
         if (!(minVertexIndex <= index && index <= maxVertexIndex))
             view->printError(ErrorType::InvalidBuildOrImprove);
@@ -113,6 +118,8 @@ void Game::buildInitial(Player *player)
             Vertex *vertex = gameBoard->getVertex(index);
             if (vertex->trySetBuilding(BuildingType::Basement, player))
                 return;
+            else
+                view->printError(ErrorType::InvalidBuildOrImprove);
         }
     }
 }
@@ -150,10 +157,7 @@ int Game::roll()
     {
         view->printPrompt();
 
-        try
-        { input >> cmd; }
-        catch (ios_base::failure &)
-        { throw; }
+        input >> cmd;
 
         if (cmd == "roll")
         {
@@ -161,10 +165,7 @@ int Game::roll()
                 view->printError(ErrorType::InvalidRoll);
             else
             {
-                try
-                { rollResult = dice->roll(); }
-                catch (ios_base::failure &)
-                { throw; }
+                rollResult = dice->roll();
                 break;
             }
         }
@@ -195,12 +196,8 @@ int Game::moveGeese()
         { input >> index; }
         catch (ios_base::failure &)
         {
-            if (input.eof()) throw;
-            else
-            {
-                view->printError(ErrorType::InvalidInput);
-                continue;
-            }
+            view->printError(ErrorType::InvalidInput);
+            continue;
         }
 
         if (gameBoard->getGeese()->tryMoveTo(index))
@@ -247,12 +244,8 @@ void Game::stealFromOthers(Player *player, int geesePosition)
         { input >> colorStr; }
         catch (ios_base::failure &)
         {
-            if (input.eof()) throw;
-            else
-            {
-                view->printError(ErrorType::InvalidInput);
-                continue;
-            }
+            view->printError(ErrorType::InvalidInput);
+            continue;
         }
 
         try
@@ -356,12 +349,8 @@ void Game::duringTurn(Player *player)
             { input >> index; }
             catch (ios_base::failure &)
             {
-                if (input.eof()) throw;
-                else
-                {
-                    view->printError(ErrorType::InvalidInput);
-                    continue;
-                }
+                view->printError(ErrorType::InvalidInput);
+                continue;
             }
 
             if (cmd == "build-road" && (minEdgeIndex <= index && index <= maxEdgeIndex))
@@ -383,12 +372,8 @@ void Game::duringTurn(Player *player)
             { input >> fileName; }
             catch (ios_base::failure &)
             {
-                if (input.eof()) throw;
-                else
-                {
-                    view->printError(ErrorType::InvalidInput);
-                    continue;
-                }
+                view->printError(ErrorType::InvalidInput);
+                continue;
             }
 
             save(fileName);
@@ -410,12 +395,8 @@ void Game::tradeWithOthers(Player *player)
     { input >> colorStr >> takeStr >> giveStr; }
     catch (ios_base::failure &)
     {
-        if (input.eof()) throw;
-        else
-        {
-            view->printError(ErrorType::InvalidInput);
-            return;
-        }
+        view->printError(ErrorType::InvalidInput);
+        return;
     }
 
     try
@@ -445,16 +426,8 @@ bool Game::endGame()
         { input >> response; }
         catch (ios::failure &)
         {
-            if (input.eof())
-            {
-                save();
-                return false;
-            }
-            else
-            {
-                view->printError(ErrorType::InvalidInput);
-                continue;
-            }
+            view->printError(ErrorType::InvalidInput);
+            continue;
         }
 
         if (response == "yes")
@@ -544,4 +517,3 @@ void Game::read(const string &fileName)
     file >> geesePosition;
     gameBoard->getGeese()->setPosition(geesePosition);
 }
-
