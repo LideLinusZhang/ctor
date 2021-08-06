@@ -26,6 +26,8 @@ public:
     // Should only be used for reading game from file.
     void setBuilding(BuildingType buildingType, Player* buildingOwner);
 
+    std::vector<int> getEdgeIndices();
+
     Player* getOwner() const;
     BuildingType getType() const;
     void build(Player* player); // Check if resource is sufficient, build, and deduct resources.
