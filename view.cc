@@ -10,7 +10,7 @@ View::View(ostream &output, ostream &error) : output{output}, error{error} {}
 
 void View::printMessage(const string &message) const
 {
-    output << message << endl;
+    output << message;
 }
 
 void View::printPrompt(const string &prompt) const
