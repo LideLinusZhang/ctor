@@ -15,7 +15,13 @@ void View::printMessage(const string &message) const
 
 void View::printPrompt(const string &prompt) const
 {
-    output << prompt << endl << "¿ ";
+    output << prompt << endl;
+    printPrompt();
+}
+
+void View::printPrompt() const
+{
+    output << "¿ ";
 }
 
 void View::printError(ErrorType type) const
@@ -122,5 +128,3 @@ void View::printBoard(const Board *board) const
         output << endl;
     }
 }
-
-

@@ -121,7 +121,7 @@ void Game::beginTurn(Player *player)
 {
     ostringstream message;
 
-    message << "Builder " << toString(player->getColor()) << "\'s turn.";
+    message << "Builder " << toString(player->getColor()) << "\'s turn." << endl;
     view->printMessage(message.str());
 
     int rollResult;
@@ -334,6 +334,8 @@ void Game::duringTurn(Player *player)
 
     while (true)
     {
+        view->printPrompt();
+
         try
         { input >> cmd; }
         catch (ios_base::failure &)

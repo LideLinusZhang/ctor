@@ -17,7 +17,10 @@ public:
     void printError(ErrorType type) const;
     // Use this to print a prompt that requires a user response.
     // A newline and the prompt symbol '¿' will be printed.
-    void printPrompt(const std::string &prompt = std::string()) const;
+    void printPrompt(const std::string &prompt) const;
+    // Use this to print a prompt that requires a user response.
+    // Only the prompt symbol '¿' will be printed.
+    void printPrompt() const;
     // Use this to print a message that does not require a user response.
     // A newline will NOT be printed at the end.
     void printMessage(const std::string &message) const;
