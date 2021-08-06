@@ -59,10 +59,15 @@ void Game::initPlayers()
 
 bool Game::play()
 {
-    for (int i = 0; i < totalPlayers; i++)
-        buildInitial(players[i].get());
-    for (int i = totalPlayers - 1; i >= 0; i--)
-        buildInitial(players[i].get());
+    if(currentPlayerIndex==-1)
+    {
+        for (int i = 0; i < totalPlayers; i++)
+            buildInitial(players[i].get());
+        for (int i = totalPlayers - 1; i >= 0; i--)
+            buildInitial(players[i].get());
+
+        currentPlayerIndex=0;
+    }
 
     gameBoard->print();
 
@@ -116,7 +121,7 @@ void Game::beginTurn(Player *player)
 {
     ostringstream message;
 
-    message << "Builder " << toString(player->getColor()) << "\'s turn." << endl;
+    message << "Builder " << toString(player->getColor()) << "\'s turn.";
     view->printMessage(message.str());
 
     int rollResult;
@@ -143,6 +148,8 @@ int Game::roll()
 
     while (true)
     {
+        view->printPrompt();
+
         try
         { input >> cmd; }
         catch (ios_base::failure &)
@@ -297,7 +304,7 @@ void Game::obtainResources(int rollResult)
             // will not equal to the resource number in the snapshot.
             if (players[i]->getResource(type) != resourcesSnapshot[i][type])
             {
-                int numGained = resourcesSnapshot[i][type] - players[i]->getResource(type);
+                int numGained = players[i]->getResource(type) - resourcesSnapshot[i][type];
                 if (!thisPlayerGainedResource)
                 {
                     thisPlayerGainedResource = true;
