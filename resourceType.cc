@@ -36,6 +36,8 @@ string toString(ResourceType type)
             return "heat";
         case WiFi:
             return "WiFi";
+        default:
+            throw invalid_argument("type");
     }
 }
 
