@@ -391,7 +391,7 @@ void Game::tradeWithOthers(Player *player)
     ResourceType take, give;
 
     try
-    { input >> colorStr >> takeStr >> giveStr; }
+    { input >> colorStr >> giveStr >> takeStr; }
     catch (ios_base::failure &)
     {
         view->printError(ErrorType::InvalidInput);
@@ -408,6 +408,37 @@ void Game::tradeWithOthers(Player *player)
     {
         view->printError(ErrorType::InvalidInput);
         return;
+    }
+
+    while (true)
+    {
+        ostringstream message;
+        message << toString(player->getColor()) << " offers " << colorStr << " for ";
+        message << "one " << giveStr << " for one " << takeStr << "." << endl;
+        view->printMessage(message.str());
+
+        message.str(string());
+        message << "Does " << colorStr << " accept this offer?";
+        view->printPrompt(message.str());
+
+        string response;
+        try
+        { input >> response; }
+        catch (ios_base::failure &)
+        {
+            view->printError(ErrorType::InvalidInput);
+            continue;
+        }
+
+        if (response == "yes")
+            break;
+        else if (response == "no")
+            return;
+        else
+        {
+            view->printError(ErrorType::InvalidInput);
+            continue;
+        }
     }
 
     player->trade(players[static_cast<int>(otherColor)].get(), give, take);
@@ -458,7 +489,7 @@ void Game::read(const string &fileName)
 {
     ifstream file(fileName);
 
-    int curTurn=-1;
+    int curTurn = -1;
     file >> curTurn;
     currentPlayerIndex = curTurn;
     file.get();
