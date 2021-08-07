@@ -7,6 +7,7 @@ enum ErrorType
     InvalidRoll,
     InvalidCommand,
     InsufficientResource,
+    InsufficientResourceOther,
     InvalidInput, // Fallback error option
 };
 

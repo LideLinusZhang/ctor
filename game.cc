@@ -225,6 +225,9 @@ void Game::stealFromOthers(Player *player, int geesePosition)
     bool first = true;
     for (auto p : playersToSteal)
     {
+        if (p == player || p->getTotalResources() == 0)
+            continue;
+
         if (!first)
             message << ", ";
         else
@@ -390,6 +393,7 @@ void Game::tradeWithOthers(Player *player)
     string colorStr, takeStr, giveStr;
     Color otherColor;
     ResourceType take, give;
+    Player *other;
 
     try
     { input >> colorStr >> giveStr >> takeStr; }
@@ -408,6 +412,19 @@ void Game::tradeWithOthers(Player *player)
     catch (invalid_argument &)
     {
         view->printError(ErrorType::InvalidInput);
+        return;
+    }
+
+    if (player->getResource(give) == 0)
+    {
+        view->printError(ErrorType::InsufficientResource);
+        return;
+    }
+
+    other = players[static_cast<int>(otherColor)].get();
+    if (other->getResource(take) == 0)
+    {
+        view->printError(ErrorType::InsufficientResourceOther);
         return;
     }
 
@@ -442,7 +459,7 @@ void Game::tradeWithOthers(Player *player)
         }
     }
 
-    player->trade(players[static_cast<int>(otherColor)].get(), give, take);
+    player->trade(other, give, take);
 }
 
 bool Game::endGame()
