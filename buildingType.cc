@@ -1,4 +1,5 @@
 #include "buildingType.h"
+#include <stdexcept>
 
 char toChar(BuildingType type)
 {
@@ -10,6 +11,8 @@ char toChar(BuildingType type)
             return 'H';
         case Tower:
             return 'T';
+        default:
+            throw std::invalid_argument("type");
     }
 }
 
@@ -23,5 +26,7 @@ BuildingType toBuildingType(char c)
             return House;
         case 'T':
             return Tower;
+        default:
+            throw std::invalid_argument("type");
     }
 }

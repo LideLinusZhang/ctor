@@ -5,21 +5,29 @@ using namespace std;
 
 string toStringAllCaps(ResourceType type)
 {
+    string str;
     switch (type)
     {
         case Brick:
-            return "BRICK";
+            str = "BRICK";
+            break;
         case Energy:
-            return "ENERGY";
+            str = "ENERGY";
+            break;
         case Glass:
-            return "GLASS";
+            str = "GLASS";
+            break;
         case Heat:
-            return "HEAT";
+            str = "HEAT";
+            break;
         case WiFi:
-            return "WIFI";
+            str = "WIFI";
+            break;
         case Park:
-            return "PARK";
+            str = "PARK";
+            break;
     }
+    return str;
 }
 
 string toString(ResourceType type)

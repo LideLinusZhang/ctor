@@ -5,32 +5,44 @@ using namespace std;
 
 string toString(Color color)
 {
+    string str;
     switch (color)
     {
         case Blue:
-            return "Blue";
+            str = "Blue";
+            break;
         case Red:
-            return "Red";
+            str = "Red";
+            break;
         case Orange:
-            return "Orange";
+            str = "Orange";
+            break;
         case Yellow:
-            return "Yellow";
+            str = "Yellow";
+            break;
     }
+    return str;
 }
 
 char toChar(Color color)
 {
+    char c;
     switch (color)
     {
         case Blue:
-            return 'B';
+            c = 'B';
+            break;
         case Red:
-            return 'R';
+            c = 'R';
+            break;
         case Orange:
-            return 'O';
+            c = 'O';
+            break;
         case Yellow:
-            return 'Y';
+            c = 'Y';
+            break;
     }
+    return c;
 }
 
 Color toColor(const string &str)
