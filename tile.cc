@@ -45,9 +45,12 @@ std::vector<Player *> Tile::getResidenceOwners() const
     for (int i : vertices)
     {
         Player *player = board->getVertex(i)->getOwner();
+
+        if(player == nullptr)
+            continue;
+
         bool isDupe = any_of(owners.begin(), owners.end(),
                              [player](Player *other) -> bool { return other == player; });
-
         if (!isDupe)
             owners.push_back(player);
     }
