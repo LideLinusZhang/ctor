@@ -13,18 +13,13 @@ class View;
 class Player
 {
     Color color;
-    int points = 0;
     std::map<ResourceType, int> resources; // index: resource type, value: resource count
     std::vector<int> buildings; // value: vertex index, in ascending order
     std::vector<int> roads;
     View *view;
     Board *board;
-
-    int getTotalResources() const;
 public:
     Player(View *view, Board *board, Color color);
-    Player(View *view, Board *board, Color color, int points, std::map<ResourceType, int> resources,
-           std::vector<int> buildings);
 
     void addBuilding(int vertexIndex); // Add an already-built building to the player's profile.
     void addRoad(int edgeIndex);
@@ -32,6 +27,7 @@ public:
     void setResource(ResourceType type, int count);
 
     int getResource(ResourceType type) const;
+    int getTotalResources() const;
     int getBuildingPoint() const;
     Color getColor() const;
 

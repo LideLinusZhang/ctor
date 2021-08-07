@@ -16,17 +16,10 @@ Player::Player(View *view, Board *board, Color color)
         resources.insert({static_cast<ResourceType>(i), 0});
 }
 
-Player::Player(View *view, Board *board, Color color, int points, std::map<ResourceType, int> resources,
-               std::vector<int> buildings)
-        : color{color}, points{points}, resources{move(resources)}, buildings{move(buildings)}, view{view}, board{board}
-{
-}
-
 void Player::addBuilding(int vertexIndex)
 {
     buildings.emplace_back(vertexIndex);
     sort(buildings.begin(), buildings.end());
-    points++;
 }
 
 void Player::addRoad(int edgeIndex)
@@ -47,7 +40,26 @@ int Player::getResource(ResourceType type) const
 
 int Player::getBuildingPoint() const
 {
-    return points;
+    int point = 0;
+    for(auto i : buildings)
+    {
+        Vertex* building = board->getVertex(i);
+        switch (building->getType())
+        {
+            case BuildingType::Basement:
+                point+=1;
+                break;
+            case BuildingType::House:
+                point+=2;
+                break;
+            case BuildingType::Tower:
+                point+=3;
+                break;
+            default:
+                continue;
+        }
+    }
+    return point;
 }
 
 int Player::getTotalResources() const
@@ -140,7 +152,7 @@ void Player::steal(Player *other)
 void Player::printStatus() const
 {
     ostringstream message;
-    message << ::toString(color) << " has " << points << " building points";
+    message << ::toString(color) << " has " << getBuildingPoint() << " building points";
     for (auto i : resources)
     {
         if (i.first == ResourceType::WiFi)
