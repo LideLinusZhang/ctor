@@ -68,9 +68,9 @@ bool Game::play()
             buildInitial(players[i].get());
 
         currentPlayerIndex = 0;
-    }
 
-    gameBoard->print();
+        gameBoard->print();
+    }
 
     for (;; currentPlayerIndex = (currentPlayerIndex + 1) % 4)
     {
