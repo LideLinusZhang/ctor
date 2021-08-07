@@ -22,6 +22,7 @@ void View::printPrompt(const string &prompt) const
 void View::printPrompt() const
 {
     output << "¿ ";
+    output.flush();
 }
 
 void View::printError(ErrorType type) const
