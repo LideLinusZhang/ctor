@@ -42,7 +42,7 @@ void View::printError(ErrorType type) const
             error << "You do not have enough resources." << endl;
             break;
         case ErrorType::InsufficientResourceOther:
-            error << "You do not have enough resources." << endl;
+            error << "The other builder do not have enough resources." << endl;
             break;
         case ErrorType::InvalidInput:
             error << "Invalid input." << endl;
