@@ -47,7 +47,6 @@ std::string Board::toString() const
 
     for (int i = minTileIndex; i <= maxTileIndex; i++)
     {
-        oss << i << " ";
         oss << static_cast<int>(tiles[i]->getType()) << " ";
         oss << tiles[i]->getValue();
         if (i != maxTileIndex)
