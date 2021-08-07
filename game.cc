@@ -512,8 +512,7 @@ void Game::read(const string &fileName)
             players[i]->setResource(type, num);
         }
 
-        string c;
-        char typeChar;
+        string c, typeChar;
         int index;
 
         playerData >> c; // read in 'r'.
@@ -535,7 +534,7 @@ void Game::read(const string &fileName)
         while (!playerData.eof())
         {
             playerData >> index >> typeChar;
-            BuildingType type = toBuildingType(type);
+            BuildingType type = toBuildingType(typeChar[0]);
 
             gameBoard->getVertex(index)->setBuilding(type, player);
             player->addBuilding(index);
