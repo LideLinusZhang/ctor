@@ -231,7 +231,8 @@ void Game::stealFromOthers(Player *player, int geesePosition)
             first = false;
         message << toString(p->getColor());
     }
-
+    message << "." << endl;
+    view->printMessage(message.str());
 
     string colorStr;
     Color color;
