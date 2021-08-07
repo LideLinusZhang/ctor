@@ -8,8 +8,8 @@
 
 using namespace std;
 
-Vertex::Vertex(View *view, Board *board, const std::vector<int> & edgeIndices, int index)
-: view(view), board(board), index{index}, edgeIndices(edgeIndices) {}
+Vertex::Vertex(View *view, Board *board, int index, const std::vector<int> &edgeIndices)
+        : view(view), board(board), index{index}, edgeIndices(edgeIndices) {}
 
 Player *Vertex::getOwner() const
 {
@@ -41,13 +41,17 @@ void Vertex::build(Player *player)
 
     if (brick_num >= 1 && energy_num >= 1 && glass_num >= 1 && wifi_num >= 1)
     {
-        owner = player;
-        type = BuildingType::Basement;
+        setBuilding(BuildingType::Basement, player);
+
+        player->addBuilding(index);
+
         player->setResource(ResourceType::Brick, --brick_num);
         player->setResource(ResourceType::Energy, --energy_num);
         player->setResource(ResourceType::Glass, --glass_num);
         player->setResource(ResourceType::WiFi, --wifi_num);
     }
+    else
+        view->printError(ErrorType::InsufficientResource);
 }
 
 void Vertex::improve(Player *player)
@@ -66,9 +70,12 @@ void Vertex::improve(Player *player)
         if (glass_num >= 2 && heat_num >= 3)
         {
             type = BuildingType::House;
+
             player->setResource(ResourceType::Glass, glass_num - 2);
             player->setResource(ResourceType::Heat, heat_num - 3);
         }
+        else
+            view->printError(ErrorType::InsufficientResource);
     }
     else if (BuildingType::House == type)
     {
@@ -82,12 +89,15 @@ void Vertex::improve(Player *player)
         if (brick_num >= 3 && energy_num >= 2 && glass_num >= 2 && wifi_num >= 1 && heat_num >= 2)
         {
             type = BuildingType::Tower;
+
             player->setResource(ResourceType::Brick, brick_num - 3);
             player->setResource(ResourceType::Energy, energy_num - 2);
             player->setResource(ResourceType::Glass, glass_num - 2);
             player->setResource(ResourceType::WiFi, wifi_num - 1);
             player->setResource(ResourceType::Heat, heat_num - 2);
         }
+        else
+            view->printError(ErrorType::InsufficientResource);
     }
 }
 
@@ -100,6 +110,7 @@ bool Vertex::trySetBuilding(BuildingType buildingType, Player *buildingOwner)
     }
 
     setBuilding(buildingType, buildingOwner);
+    buildingOwner->addBuilding(index);
     return true;
 }
 
@@ -122,12 +133,12 @@ bool Vertex::isAdjacentToBuilding() const
 {
     vector<int> adjacentVertexIdx;
 
-    for(auto i : edgeIndices)
+    for (auto i : edgeIndices)
     {
-        Edge* edge = board->getEdge(i);
-        for(auto j : edge->getAdjacentVertexIdx())
+        Edge *edge = board->getEdge(i);
+        for (auto j : edge->getAdjacentVertexIdx())
         {
-            if(j!=index)
+            if (j != index)
                 adjacentVertexIdx.push_back(j);
         }
     }

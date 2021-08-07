@@ -22,7 +22,7 @@ class Vertex
     // Check if this building is adjacent to any building.
     bool isAdjacentToBuilding() const;
 public:
-    Vertex(View* view, Board* board, const std::vector<int> & edgeIndices, int index);
+    Vertex(View* view, Board* board, int index, const std::vector<int> & edgeIndices);
 
     // Try to set this vertex to a building without deducting resources.
     // If successful, return true. Otherwise, return false.
