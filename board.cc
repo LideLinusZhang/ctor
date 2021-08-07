@@ -11,13 +11,13 @@ using namespace std;
 
 Board::Board(View *view) : view{view}, geese{make_shared<Geese>()}
 {
-    for (int i =0;i<totalVertices;i++)
-        vertices.push_back(std::make_shared<Vertex>(view, this, vertexAdjacentEdges[i], i));
+    for (int i = 0; i < totalVertices; i++)
+        vertices.push_back(std::make_shared<Vertex>(view, this, i, vertexAdjacentEdges[i]));
 
-    for (auto &i: edgeAdjacentVertexIdx)
+    for (int i = 0; i < totalEdges; i++)
     {
-        std::vector<int> adjVertices(i, i + edgeAdjacentVertexNum);
-        edges.push_back(std::make_shared<Edge>(view, this, adjVertices));
+        std::vector<int> adjVertices(edgeAdjacentVertexIdx[i], edgeAdjacentVertexIdx[i] + edgeAdjacentVertexNum);
+        edges.push_back(std::make_shared<Edge>(view, this, i, adjVertices));
     }
 }
 
