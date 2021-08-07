@@ -303,7 +303,7 @@ void Game::obtainResources(int rollResult)
                     thisPlayerGainedResource = true;
                     anyPlayerGainedResource = true;
                     auto color = static_cast<Color>(i);
-                    message << "Builder " << color << " gained:" << endl;
+                    message << "Builder " << toString(color) << " gained:" << endl;
                 }
 
                 message << numGained << " " << toStringAllCaps(type) << endl;
