@@ -3,16 +3,21 @@
 #include "vertex.h"
 #include "player.h"
 #include "buildingType.h"
+#include "geese.h"
 #include <sstream>
 #include <algorithm>
 
 using namespace std;
 
-Tile::Tile(Board *board, std::vector<int> vertices, ResourceType type, int value)
-        : board(board), vertices(move(vertices)), type(type), value(value) {}
+Tile::Tile(Board *board, std::vector<int> vertices, ResourceType type, int index, int value)
+        : board(board), vertices(move(vertices)), type(type), index{index}, value(value) {}
 
 void Tile::obtainResource()
 {
+    // If geese is on this tile, no resource can be obtained.
+    if (board->getGeese()->getPosition() == index)
+        return;
+
     // Add resources to all players who have building around this tile.
     for (int vertex : vertices)
     {
@@ -46,7 +51,7 @@ std::vector<Player *> Tile::getResidenceOwners() const
     {
         Player *player = board->getVertex(i)->getOwner();
 
-        if(player == nullptr)
+        if (player == nullptr)
             continue;
 
         bool isDupe = any_of(owners.begin(), owners.end(),

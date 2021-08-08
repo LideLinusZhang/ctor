@@ -12,9 +12,10 @@ class Tile
     Board* board;
     std::vector<int> vertices;
     ResourceType type;
+    int index;
     int value; // value = 7 for Park
 public:
-    Tile(Board* board, std::vector<int> vertices, ResourceType type, int value);
+    Tile(Board* board, std::vector<int> vertices, ResourceType type, int index, int value);
 
     void obtainResource(); // Add resources to all players who have building around this tile.
     ResourceType getType() const;

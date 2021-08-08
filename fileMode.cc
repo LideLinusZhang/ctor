@@ -47,7 +47,7 @@ int FileMode::createLayout(Board *board)
 
         vector<int> vertices = vector<int>(tileSurroundingVertexIdx[i],
                                            tileSurroundingVertexIdx[i] + tileSurroundingVertexNum);
-        tiles.emplace_back(std::make_shared<Tile>(board, vertices, type, value));
+        tiles.emplace_back(std::make_shared<Tile>(board, vertices, type, i, value));
     }
 
     setLayout(board, tiles);

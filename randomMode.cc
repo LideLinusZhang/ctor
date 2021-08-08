@@ -73,7 +73,7 @@ int RandomMode::createLayout(Board *board)
 
         vector<int> vertices = vector<int>(tileSurroundingVertexIdx[i],
                                            tileSurroundingVertexIdx[i] + tileSurroundingVertexNum);
-        tiles.emplace_back(std::make_shared<Tile>(board, vertices, resources[i], values[i]));
+        tiles.emplace_back(std::make_shared<Tile>(board, vertices, resources[i], i, values[i]));
     }
 
     setLayout(board, tiles);
