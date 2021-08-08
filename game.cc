@@ -376,7 +376,10 @@ void Game::duringTurn(Player *player)
         else if (cmd == "trade")
             tradeWithOthers(player);
         else if (cmd == "next")
+        {
+            clearInput();
             return;
+        }
         else if (cmd == "save")
         {
             try

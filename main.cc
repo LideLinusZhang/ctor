@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
                 file.close();
                 break;
         }
-    } while (!g->play());
+    } while (g->play());
 
     return 0;
 }
