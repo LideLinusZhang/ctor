@@ -32,7 +32,7 @@ vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources)
     for (int i = 2; i < 13; i++)
     {
         values.push_back(i);
-        if (i != 2 && i != 12 && i != 7)
+        if (i != 2 && i != 12 && i != parkValue)
         {
             values.push_back(i);
         }
@@ -40,21 +40,21 @@ vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources)
     auto rng = Random::getRandomEngine();
     shuffle(values.begin(), values.end(), rng);
     int parkIndex = 0;
-    int sevenIndex = 0;
+    int parkValueIndex = 0;
     for (int i = 0; i < totalTiles; i++)
     {
         if (resources[i] == ResourceType::Park)
         {
             parkIndex = i;
         }
-        if (values[i] == 7)
+        if (values[i] == parkValue)
         {
-            sevenIndex = i;
+            parkValueIndex = i;
         }
     }
     int temp = values[parkIndex];
-    values[parkIndex] = values[sevenIndex];
-    values[sevenIndex] = temp;
+    values[parkIndex] = values[parkValueIndex];
+    values[parkValueIndex] = temp;
     return values;
 }
 

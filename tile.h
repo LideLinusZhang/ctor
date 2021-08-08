@@ -9,6 +9,8 @@ class Board;
 
 class Player;
 
+const int parkValue = 7;
+
 class Tile
 {
     Board *board;
