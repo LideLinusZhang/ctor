@@ -214,6 +214,16 @@ void Game::stealFromOthers(Player *player, int geesePosition)
     Tile *geeseTile = gameBoard->getTile(geesePosition);
     vector<Player *> playersToSteal = geeseTile->getResidenceOwners();
 
+    for (auto i = playersToSteal.begin(); i != playersToSteal.end();)
+    {
+        if (*i == player || (*i)->getTotalResources() == 0)
+        {
+            i = playersToSteal.erase(i);
+            continue;
+        }
+        ++i;
+    }
+
     if (playersToSteal.empty())
     {
         message << "Builder" << toString(player->getColor()) << " has no builders to steal from." << endl;
@@ -225,9 +235,6 @@ void Game::stealFromOthers(Player *player, int geesePosition)
     bool first = true;
     for (auto p : playersToSteal)
     {
-        if (p == player || p->getTotalResources() == 0)
-            continue;
-
         if (!first)
             message << ", ";
         else
