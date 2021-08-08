@@ -110,6 +110,9 @@ void Game::buildInitial(Player *player)
         catch (ios_base::failure &)
         {
             view->printError(ErrorType::InvalidInput);
+            input.clear();
+            clearInput();
+            continue;
         }
 
         if (!(minVertexIndex <= index && index <= maxVertexIndex))
@@ -156,7 +159,7 @@ int Game::roll()
     {
         view->printPrompt();
 
-        input >> cmd;
+        getline(input, cmd);
 
         if (cmd == "roll")
         {
@@ -196,6 +199,8 @@ int Game::moveGeese()
         catch (ios_base::failure &)
         {
             view->printError(ErrorType::InvalidInput);
+            input.clear();
+            clearInput();
             continue;
         }
 
@@ -250,13 +255,7 @@ void Game::stealFromOthers(Player *player, int geesePosition)
     {
         view->printPrompt("Choose a builder to steal from.");
 
-        try
-        { input >> colorStr; }
-        catch (ios_base::failure &)
-        {
-            view->printError(ErrorType::InvalidInput);
-            continue;
-        }
+        getline(input, colorStr);
 
         try
         { color = toColor(colorStr); }
@@ -360,6 +359,8 @@ void Game::duringTurn(Player *player)
             catch (ios_base::failure &)
             {
                 view->printError(ErrorType::InvalidInput);
+                input.clear();
+                clearInput();
                 continue;
             }
 
@@ -383,6 +384,8 @@ void Game::duringTurn(Player *player)
             catch (ios_base::failure &)
             {
                 view->printError(ErrorType::InvalidInput);
+                input.clear();
+                clearInput();
                 continue;
             }
 
@@ -392,6 +395,8 @@ void Game::duringTurn(Player *player)
             view->printMessage(helpMessage);
         else
             view->printError(ErrorType::InvalidCommand);
+
+        clearInput();
     }
 }
 
@@ -407,6 +412,8 @@ void Game::tradeWithOthers(Player *player)
     catch (ios_base::failure &)
     {
         view->printError(ErrorType::InvalidInput);
+        input.clear();
+        clearInput();
         return;
     }
 
@@ -447,13 +454,7 @@ void Game::tradeWithOthers(Player *player)
         view->printPrompt(message.str());
 
         string response;
-        try
-        { input >> response; }
-        catch (ios_base::failure &)
-        {
-            view->printError(ErrorType::InvalidInput);
-            continue;
-        }
+        getline(input, response);
 
         if (response == "yes")
             break;
@@ -477,13 +478,7 @@ bool Game::endGame()
     {
         view->printPrompt("Would you like to play again?");
 
-        try
-        { input >> response; }
-        catch (ios::failure &)
-        {
-            view->printError(ErrorType::InvalidInput);
-            continue;
-        }
+        getline(input, response);
 
         if (response == "yes")
             return true;
