@@ -81,15 +81,16 @@ bool Game::play()
 
         beginTurn(currentPlayer);
 
+        bool hasWinner;
         try
-        { duringTurn(currentPlayer); }
+        { hasWinner = duringTurn(currentPlayer); }
         catch (ios_base::failure &)
         {
             save();
             return false;
         }
 
-        if (currentPlayer->getBuildingPoint() >= 10)
+        if (hasWinner)
             return endGame();
     }
 }
@@ -326,7 +327,7 @@ void Game::obtainResources(int rollResult)
     view->printMessage(message.str());
 }
 
-void Game::duringTurn(Player *player)
+bool Game::duringTurn(Player *player)
 {
     string cmd;
 
@@ -378,7 +379,7 @@ void Game::duringTurn(Player *player)
         else if (cmd == "next")
         {
             clearInput();
-            return;
+            return false;
         }
         else if (cmd == "save")
         {
@@ -400,6 +401,9 @@ void Game::duringTurn(Player *player)
             view->printError(ErrorType::InvalidCommand);
 
         clearInput();
+
+        if(player->getBuildingPoint()>=minWinningPoint)
+            return true;
     }
 }
 

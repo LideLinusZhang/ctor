@@ -18,6 +18,7 @@ class BoardLayoutFactory;
 class Dice;
 
 const int totalPlayers = 4;
+const int minWinningPoint = 10;
 
 class Game : public Controller
 {
@@ -43,7 +44,7 @@ class Game : public Controller
     void stealFromOthers(Player *player, int geesePosition);
     void obtainResources(int rollResult);
 
-    void duringTurn(Player *player);
+    bool duringTurn(Player *player); // true: we have a winner, false: continue playing.
     void tradeWithOthers(Player *player);
 
     bool endGame(); // true: play again, false: just exit.

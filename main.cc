@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
             mode = GameMode::PureRandom;
         else
         {
+
             return 0;
         }
     }
