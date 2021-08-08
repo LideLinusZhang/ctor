@@ -29,10 +29,10 @@ const string helpMessage = "Valid commands:\n"
                            "save <file>\n"
                            "help\n";
 
-Game::Game(istream &input) : Controller(input), view{make_shared<View>()},
-                             loaded{make_unique<LoadedDice>(view.get(), input)},
-                             fair{make_unique<FairDice>()}, gameBoard{make_shared<Board>(view.get())}
+Game::Game(istream &input) : Controller(input), view{make_shared<View>()}, fair{make_unique<FairDice>()}
 {
+    loaded = make_unique<LoadedDice>(view.get(), input);
+    gameBoard = make_shared<Board>(view.get());
 }
 
 Game::Game(const string &fileName, istream &input) : Game(input)

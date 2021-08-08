@@ -7,5 +7,5 @@ set(CMAKE_CXX_FLAGS "-Wall -Werror=vla -flto -fuse-linker-plugin")
 add_executable(ctor view.cc fairDice.cc loadedDice.cc game.cc
         player.cc randomGen.cc tile.cc vertex.cc geese.cc
         edge.cc randomMode.cc fileMode.cc boardLayoutFactory.cc
-        controller.cc color.cc resourceType.cc
+        controller.cc color.cc resourceType.cc adjacencyTables.h errorType.h
         board.cc boardPrinters.h boardPrinters.cc main.cc buildingType.cc)
