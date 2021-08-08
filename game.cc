@@ -505,7 +505,9 @@ void Game::save(const string &fileName)
 
 void Game::read(const string &fileName)
 {
-    ifstream file(fileName);
+    ifstream file;
+    file.exceptions(ifstream::failbit | ifstream::badbit);
+    file.open(fileName);
 
     int curTurn = -1;
     file >> curTurn;

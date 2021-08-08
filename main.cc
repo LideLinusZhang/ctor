@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
     do
     {
         ifstream file;
+        file.exceptions(ifstream::badbit | ifstream::failbit);
         switch (mode)
         {
             case GameMode::PureRandom:
