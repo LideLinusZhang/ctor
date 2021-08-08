@@ -41,19 +41,19 @@ int Player::getResource(ResourceType type) const
 int Player::getBuildingPoint() const
 {
     int point = 0;
-    for(auto i : buildings)
+    for (auto i : buildings)
     {
-        Vertex* building = board->getVertex(i);
+        Vertex *building = board->getVertex(i);
         switch (building->getType())
         {
             case BuildingType::Basement:
-                point+=1;
+                point += 1;
                 break;
             case BuildingType::House:
-                point+=2;
+                point += 2;
                 break;
             case BuildingType::Tower:
-                point+=3;
+                point += 3;
                 break;
             default:
                 continue;

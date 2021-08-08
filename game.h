@@ -30,7 +30,8 @@ class Game : public Controller
     std::shared_ptr<Dice> fair;
 
     // Game components
-    int currentPlayerIndex = -1;
+    static const int gameBeginningPlayerIndex = -1; // The index before building initial buildings.
+    int currentPlayerIndex = gameBeginningPlayerIndex;
     std::vector<std::shared_ptr<Player>> players;
     std::shared_ptr<Board> gameBoard;
 
@@ -48,7 +49,7 @@ class Game : public Controller
     bool endGame(); // true: play again, false: just exit.
 
     void save(const std::string &fileName = "backup.sv");
-    void initPlayers(); // Initialize players to their default state.
+    void initPlayers(); // Add players in their default state to the empty player vector.
     void read(const std::string &fileName); // Read the entire class from file.
 
     explicit Game(std::istream &input); // Only initiate dices.

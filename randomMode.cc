@@ -13,9 +13,9 @@ vector<ResourceType> RandomMode::shuffleResource()
     resources.reserve(totalTiles);
 
     auto rng = Random::getRandomEngine();
-    uniform_int_distribution<int> dist(0,4);
+    uniform_int_distribution<int> dist(0, 4);
 
-    for(int i = 0; i< totalTiles-1;i++)
+    for (int i = 0; i < totalTiles - 1; i++)
     {
         auto type = static_cast<ResourceType>(dist(rng));
         resources.push_back(type);

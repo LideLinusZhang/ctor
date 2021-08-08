@@ -10,5 +10,5 @@ Controller::Controller(istream &input) : input{input}
 void Controller::clearInput()
 {
     string ignoredLine;
-    getline(input,ignoredLine);
+    getline(input, ignoredLine);
 }

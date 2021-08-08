@@ -60,7 +60,7 @@ void Game::initPlayers()
 
 bool Game::play()
 {
-    if (currentPlayerIndex == -1)
+    if (currentPlayerIndex == gameBeginningPlayerIndex)
     {
         for (int i = 0; i < totalPlayers; i++)
             buildInitial(players[i].get());
@@ -159,7 +159,7 @@ int Game::roll()
     {
         view->printPrompt();
 
-        getline(input, cmd);
+        input >> cmd;
 
         if (cmd == "roll")
         {
@@ -255,7 +255,7 @@ void Game::stealFromOthers(Player *player, int geesePosition)
     {
         view->printPrompt("Choose a builder to steal from.");
 
-        getline(input, colorStr);
+        input >> colorStr;
 
         try
         { color = toColor(colorStr); }
@@ -457,7 +457,7 @@ void Game::tradeWithOthers(Player *player)
         view->printPrompt(message.str());
 
         string response;
-        getline(input, response);
+        input >> response;
 
         if (response == "yes")
             break;
@@ -481,10 +481,16 @@ bool Game::endGame()
     {
         view->printPrompt("Would you like to play again?");
 
-        getline(input, response);
+        input >> response;
 
         if (response == "yes")
+        {
+            players.clear();
+            initPlayers();
+            gameBoard->reset();
+            currentPlayerIndex = gameBeginningPlayerIndex;
             return true;
+        }
         else if (response == "no")
             return false;
         else

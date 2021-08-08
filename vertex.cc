@@ -149,3 +149,9 @@ bool Vertex::isAdjacentToBuilding() const
     else
         return false;
 }
+
+void Vertex::reset()
+{
+    type = BuildingType::None;
+    owner = nullptr;
+}
