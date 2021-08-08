@@ -38,9 +38,7 @@ void Edge::buildRoad(Player *p)
             }
         }
         if (is_link)
-        {
             break;
-        }
     }
 
     if (!is_link)
@@ -83,4 +81,10 @@ void Edge::setRoad(Player *roadOwner)
 const std::vector<int> &Edge::getAdjacentVertexIdx() const
 {
     return adjacentVertexIndices;
+}
+
+void Edge::reset()
+{
+    owner = nullptr;
+    road = false;
 }

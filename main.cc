@@ -64,33 +64,35 @@ int main(int argc, char *argv[])
     shared_ptr<Game> g;
     shared_ptr<BoardLayoutFactory> factory;
 
-    do
+    ifstream file;
+    file.exceptions(ifstream::badbit | ifstream::failbit);
+
+    switch (mode)
     {
-        ifstream file;
-        file.exceptions(ifstream::badbit | ifstream::failbit);
-        switch (mode)
-        {
-            case GameMode::PureRandom:
-                factory = make_shared<RandomMode>();
-                g = make_shared<Game>(factory);
-                break;
-            case GameMode::CustomLayout:
-                file.open(boardFileName);
-                factory = make_shared<FileMode>(file);
-                g = make_shared<Game>(factory);
-                file.close();
-                break;
-            case GameMode::LoadGame:
-                g = make_shared<Game>(loadFileName);
-                break;
-            case GameMode::Default:
-                file.open(defaultLayoutFileName);
-                factory = make_shared<FileMode>(file);
-                g = make_shared<Game>(factory);
-                file.close();
-                break;
-        }
-    } while (g->play());
+        case GameMode::PureRandom:
+            factory = make_shared<RandomMode>();
+            g = make_shared<Game>(factory);
+            break;
+        case GameMode::CustomLayout:
+            file.open(boardFileName);
+            factory = make_shared<FileMode>(file);
+            g = make_shared<Game>(factory);
+            file.close();
+            break;
+        case GameMode::LoadGame:
+            g = make_shared<Game>(loadFileName);
+            break;
+        case GameMode::Default:
+            file.open(defaultLayoutFileName);
+            factory = make_shared<FileMode>(file);
+            g = make_shared<Game>(factory);
+            file.close();
+            break;
+    }
+
+    bool continueGame = true;
+    while (continueGame)
+        continueGame = g->play();
 
     return 0;
 }

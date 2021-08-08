@@ -41,8 +41,9 @@ public:
     Tile *getTile(int index) const;
     Edge *getEdge(int index) const;
     Vertex *getVertex(int index) const;
-
     Geese *getGeese() const;
+
+    void reset(); //Set all board elements to their initial state (the state at the beginning of a game).
 
     void print() const;
     std::string toString() const;

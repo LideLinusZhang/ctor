@@ -60,3 +60,23 @@ Geese *Board::getGeese() const
 {
     return geese.get();
 }
+
+void Board::reset()
+{
+    int geesePosition = 0;
+    for (int i = 0; i < totalTiles; i++)
+    {
+        if (tiles[i]->getType() == ResourceType::Park)
+        {
+            geesePosition = i;
+            break;
+        }
+    }
+    geese->setPosition(geesePosition);
+
+    for (auto &v : vertices)
+        v->reset();
+
+    for (auto &e : edges)
+        e->reset();
+}

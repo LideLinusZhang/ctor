@@ -5,15 +5,17 @@
 #include <vector>
 
 class View;
+
 class Board;
+
 class Player;
 
 class Vertex
 {
-    View* view;
-    Board* board;
-    int index;
-    Player* owner = nullptr;
+    View *view;
+    Board *board;
+    const int index;
+    Player *owner = nullptr;
     BuildingType type = BuildingType::None;
     const std::vector<int> &edgeIndices;
 
@@ -22,21 +24,23 @@ class Vertex
     // Check if this building is adjacent to any building.
     bool isAdjacentToBuilding() const;
 public:
-    Vertex(View* view, Board* board, int index, const std::vector<int> & edgeIndices);
+    Vertex(View *view, Board *board, int index, const std::vector<int> &edgeIndices);
 
     // Try to set this vertex to a building without deducting resources.
     // If successful, return true. Otherwise, return false.
     // Should only be used for setting initial residences at the beginning of a game.
-    bool trySetBuilding(BuildingType buildingType, Player* buildingOwner);
+    bool trySetBuilding(BuildingType buildingType, Player *buildingOwner);
     // Set this vertex to a building without deducting resources.
     // Should only be used for reading game from file.
-    void setBuilding(BuildingType buildingType, Player* buildingOwner);
+    void setBuilding(BuildingType buildingType, Player *buildingOwner);
 
     const std::vector<int> &getEdgeIndices() const;
-    Player* getOwner() const;
+    Player *getOwner() const;
     BuildingType getType() const;
 
-    void build(Player* player); // Check if resource is sufficient, build, and deduct resources.
-    void improve(Player* player); // Check if resource is sufficient, improve, and deduct resources.
+    void build(Player *player); // Check if resource is sufficient, build, and deduct resources.
+    void improve(Player *player); // Check if resource is sufficient, improve, and deduct resources.
+    void reset(); // Reset this vertex by removing the building on it.
 };
+
 #endif //CTOR_VERTEX_H
