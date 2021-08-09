@@ -13,11 +13,11 @@ const int parkValue = 7;
 
 class Tile
 {
-    Board *board;
-    std::vector<int> vertices;
-    ResourceType type;
-    int index;
-    int value; // value = 7 for Park
+    const Board *board;
+    const std::vector<int> vertices;
+    const ResourceType type;
+    const int index;
+    const int value; // value = 7 for Park
 public:
     Tile(Board *board, std::vector<int> vertices, ResourceType type, int index, int value);
 

@@ -11,8 +11,8 @@ class Player;
 
 class Edge
 {
-    View *view;
-    Board *board;
+    const View *view;
+    const Board *board;
     const int index;
     bool road = false;
     Player *owner = nullptr;
@@ -26,7 +26,7 @@ public:
     // Should only be used for reading game from file.
     void setRoad(Player *roadOwner);
     // Check if resource is sufficient, build, and deduct resources.
-    void buildRoad(Player *);
+    void buildRoad(Player *player);
     // Reset this edge by removing the road on it.
     void reset();
 

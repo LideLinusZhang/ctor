@@ -59,7 +59,7 @@ public:
     explicit Game(std::shared_ptr<BoardLayoutFactory> factory, std::istream &input = std::cin);
 
     bool play(); // true: play again, false: just exit.
-    ~Game() = default;
+    ~Game() override = default;
 };
 
 #endif //CTOR_GAME_H

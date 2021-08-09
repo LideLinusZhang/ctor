@@ -12,12 +12,12 @@ class View;
 
 class Player
 {
-    Color color;
+    const Color color;
     std::map<ResourceType, int> resources; // index: resource type, value: resource count
     std::vector<int> buildings; // value: vertex index, in ascending order
     std::vector<int> roads;
-    View *view;
-    Board *board;
+    const View *view;
+    const Board *board;
 public:
     Player(View *view, Board *board, Color color);
 

@@ -12,8 +12,8 @@ class Player;
 
 class Vertex
 {
-    View *view;
-    Board *board;
+    const View *view;
+    const Board *board;
     const int index;
     Player *owner = nullptr;
     BuildingType type = BuildingType::None;

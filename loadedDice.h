@@ -14,7 +14,7 @@ public:
     explicit LoadedDice(View *view, std::istream &input);
 
     int roll() override;
-    ~LoadedDice() = default;
+    ~LoadedDice() override = default;
 };
 
 #endif //CTOR_LOADEDDICE_H
