@@ -103,7 +103,7 @@ void Vertex::improve(Player *player)
 
 bool Vertex::trySetBuilding(BuildingType buildingType, Player *buildingOwner)
 {
-    if (this->type != BuildingType::None)
+    if (this->type != BuildingType::None || isAdjacentToBuilding())
     {
         view->printError(ErrorType::InvalidBuildOrImprove);
         return false;
