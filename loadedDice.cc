@@ -18,14 +18,10 @@ int LoadedDice::roll()
         { input >> roll; }
         catch (ios_base::failure &)
         {
-            if (input.eof())
-                throw;
-            else
-            {
-                input.clear();
-                view->printError(ErrorType::InvalidRoll);
-                continue;
-            }
+            input.clear();
+            clearInput();
+            view->printError(ErrorType::InvalidRoll);
+            continue;
         }
 
         if (2 <= roll && roll <= 12)
