@@ -12,3 +12,5 @@ void Controller::clearInput()
     string ignoredLine;
     getline(input, ignoredLine);
 }
+
+Controller::~Controller() = default;

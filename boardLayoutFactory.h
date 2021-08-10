@@ -14,7 +14,7 @@ class BoardLayoutFactory
 {
 protected:
     // Set the board's layout by moving tiles vector.
-    static void setLayout(Board *board, std::vector<std::shared_ptr<Tile>> &tiles);
+    static void setLayout(Board *board, std::vector<std::unique_ptr<Tile>> &tiles);
 public:
     // Create layout for board, returning tile index of the park.
     virtual int createLayout(Board *board) = 0;

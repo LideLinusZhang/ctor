@@ -60,7 +60,7 @@ vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources)
 
 int RandomMode::createLayout(Board *board)
 {
-    vector<std::shared_ptr<Tile>> tiles;
+    vector<std::unique_ptr<Tile>> tiles;
     vector<ResourceType> resources = shuffleResource();
     vector<int> values = shuffleValues(resources);
 
@@ -73,7 +73,7 @@ int RandomMode::createLayout(Board *board)
 
         vector<int> vertices = vector<int>(tileSurroundingVertexIdx[i],
                                            tileSurroundingVertexIdx[i] + tileSurroundingVertexNum);
-        tiles.emplace_back(std::make_shared<Tile>(board, vertices, resources[i], i, values[i]));
+        tiles.emplace_back(std::make_unique<Tile>(board, vertices, resources[i], i, values[i]));
     }
 
     setLayout(board, tiles);

@@ -29,10 +29,10 @@ const string helpMessage = "Valid commands:\n"
                            "save <file>\n"
                            "help\n";
 
-Game::Game(istream &input) : Controller(input), view{make_shared<View>()}, fair{make_unique<FairDice>()}
+Game::Game(istream &input) : Controller(input), view{make_unique<View>()}, fair{make_unique<FairDice>()}
 {
     loaded = make_unique<LoadedDice>(view.get(), input);
-    gameBoard = make_shared<Board>(view.get());
+    gameBoard = make_unique<Board>(view.get());
 }
 
 Game::Game(const string &fileName, istream &input) : Game(input)
@@ -41,7 +41,7 @@ Game::Game(const string &fileName, istream &input) : Game(input)
     read(fileName);
 }
 
-Game::Game(shared_ptr<BoardLayoutFactory> factory, istream &input) : Game(input)
+Game::Game(unique_ptr<BoardLayoutFactory> factory, istream &input) : Game(input)
 {
     boardFactory = move(factory);
     int geeseIndex = boardFactory->createLayout(gameBoard.get());
@@ -53,7 +53,7 @@ void Game::initPlayers()
 {
     for (int i = 0; i < totalPlayers; i++)
     {
-        auto player = make_shared<Player>(view.get(), gameBoard.get(), static_cast<Color>(i));
+        auto player = make_unique<Player>(view.get(), gameBoard.get(), static_cast<Color>(i));
         players.emplace_back(move(player));
     }
 }
@@ -153,7 +153,7 @@ void Game::beginTurn(Player *player)
 int Game::roll()
 {
     string cmd;
-    shared_ptr<Dice> dice(nullptr);
+    Dice* dice = nullptr;
     int rollResult;
 
     while (true)
@@ -173,9 +173,9 @@ int Game::roll()
             }
         }
         else if (cmd == "load")
-            dice = loaded;
+            dice = loaded.get();
         else if (cmd == "fair")
-            dice = fair;
+            dice = fair.get();
         else
             view->printError(ErrorType::InvalidCommand);
     }
@@ -576,7 +576,7 @@ void Game::read(const string &fileName)
         }
     }
 
-    boardFactory = make_shared<FileMode>(file);
+    boardFactory = make_unique<FileMode>(file);
     boardFactory->createLayout(gameBoard.get());
 
     int geesePosition;

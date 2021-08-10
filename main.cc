@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    shared_ptr<Game> g;
-    shared_ptr<BoardLayoutFactory> factory;
+    unique_ptr<Game> g;
+    unique_ptr<BoardLayoutFactory> factory;
 
     ifstream file;
     file.exceptions(ifstream::badbit | ifstream::failbit);
@@ -71,22 +71,22 @@ int main(int argc, char *argv[])
     switch (mode)
     {
         case GameMode::PureRandom:
-            factory = make_shared<RandomMode>();
-            g = make_shared<Game>(factory);
+            factory = make_unique<RandomMode>();
+            g = make_unique<Game>(move(factory));
             break;
         case GameMode::CustomLayout:
             file.open(boardFileName);
-            factory = make_shared<FileMode>(file);
-            g = make_shared<Game>(factory);
+            factory = make_unique<FileMode>(file);
+            g = make_unique<Game>(move(factory));
             file.close();
             break;
         case GameMode::LoadGame:
-            g = make_shared<Game>(loadFileName);
+            g = make_unique<Game>(loadFileName);
             break;
         case GameMode::Default:
             file.open(defaultLayoutFileName);
-            factory = make_shared<FileMode>(file);
-            g = make_shared<Game>(factory);
+            factory = make_unique<FileMode>(file);
+            g = make_unique<Game>(move(factory));
             file.close();
             break;
     }

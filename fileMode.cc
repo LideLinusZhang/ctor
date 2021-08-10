@@ -11,7 +11,7 @@ FileMode::FileMode(std::istream &file) : file{file}
 
 int FileMode::createLayout(Board *board)
 {
-    std::vector<std::shared_ptr<Tile>> tiles;
+    std::vector<std::unique_ptr<Tile>> tiles;
     int resource = 0;
     int value = 0;
     ResourceType type;
@@ -47,7 +47,7 @@ int FileMode::createLayout(Board *board)
 
         vector<int> vertices = vector<int>(tileSurroundingVertexIdx[i],
                                            tileSurroundingVertexIdx[i] + tileSurroundingVertexNum);
-        tiles.emplace_back(std::make_shared<Tile>(board, vertices, type, i, value));
+        tiles.emplace_back(std::make_unique<Tile>(board, vertices, type, i, value));
     }
 
     setLayout(board, tiles);

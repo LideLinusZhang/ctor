@@ -3,18 +3,13 @@
 
 #include <vector>
 #include <memory>
-
-class View;
-
-class Tile;
+#include "view.h"
+#include "tile.h"
+#include "vertex.h"
+#include "edge.h"
+#include "geese.h"
 
 class BoardLayoutFactory;
-
-class Vertex;
-
-class Geese;
-
-class Edge;
 
 const int totalTiles = 19;
 const int minTileIndex = 0;
@@ -31,10 +26,10 @@ const int maxVertexIndex = 53;
 class Board
 {
     View *view;
-    std::vector<std::shared_ptr<Tile>> tiles;
-    std::vector<std::shared_ptr<Edge>> edges;
-    std::vector<std::shared_ptr<Vertex>> vertices;
-    std::shared_ptr<Geese> geese;
+    std::vector<std::unique_ptr<Tile>> tiles;
+    std::vector<std::unique_ptr<Edge>> edges;
+    std::vector<std::unique_ptr<Vertex>> vertices;
+    std::unique_ptr<Geese> geese;
 public:
     explicit Board(View *view);
 
