@@ -27,7 +27,7 @@ void Edge::buildRoad(Player *p)
             is_link = true;
             break;
         }
-        std::vector<int> vEdgeIndices = v->getEdgeIndices();
+        std::vector<int> vEdgeIndices = v->getAdjacentEdgeIdx();
         for (int j : vEdgeIndices)
         {
             Edge *e = board->getEdge(j);

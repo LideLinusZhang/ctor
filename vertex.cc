@@ -21,7 +21,7 @@ BuildingType Vertex::getType() const
     return type;
 }
 
-const std::vector<int> &Vertex::getEdgeIndices() const
+const std::vector<int> &Vertex::getAdjacentEdgeIdx() const
 {
     return edgeIndices;
 }

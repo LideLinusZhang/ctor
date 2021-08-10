@@ -34,7 +34,7 @@ public:
     // Should only be used for reading game from file.
     void setBuilding(BuildingType buildingType, Player *buildingOwner);
 
-    const std::vector<int> &getEdgeIndices() const;
+    const std::vector<int> &getAdjacentEdgeIdx() const;
     Player *getOwner() const;
     BuildingType getType() const;
 
