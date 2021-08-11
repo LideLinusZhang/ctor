@@ -3,7 +3,7 @@
 
 #include <string>
 
-const int resourceTypeCount = 5;
+const int totalResourceTypes = 5;
 
 enum ResourceType
 {

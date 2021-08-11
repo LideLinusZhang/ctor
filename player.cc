@@ -12,7 +12,7 @@ using namespace std;
 Player::Player(View *view, Board *board, Color color)
         : color{color}, view{view}, board{board}
 {
-    for (int i = 0; i < resourceTypeCount; i++)
+    for (int i = 0; i < totalResourceTypes; i++)
         resources.insert({static_cast<ResourceType>(i), 0});
 }
 
@@ -182,7 +182,7 @@ std::string Player::toString()
 {
     ostringstream oss;
 
-    for (int i = 0; i < resourceTypeCount; i++)
+    for (int i = 0; i < totalResourceTypes; i++)
         oss << resources[static_cast<ResourceType>(i)] << " ";
 
     oss << "r ";

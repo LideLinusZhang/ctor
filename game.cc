@@ -279,7 +279,7 @@ void Game::obtainResources(int rollResult)
     for (int i = 0; i < totalPlayers; i++)
     {
         resourcesSnapshot.emplace_back(map<ResourceType, int>());
-        for (int j = 0; j < resourceTypeCount; j++)
+        for (int j = 0; j < totalResourceTypes; j++)
         {
             auto type = static_cast<ResourceType>(j);
             resourcesSnapshot[i].insert({type, players[i]->getResource(type)});
@@ -300,7 +300,7 @@ void Game::obtainResources(int rollResult)
     for (int i = 0; i < totalPlayers; i++)
     {
         bool thisPlayerGainedResource = false;
-        for (int j = 0; j < resourceTypeCount; j++)
+        for (int j = 0; j < totalResourceTypes; j++)
         {
             auto type = static_cast<ResourceType>(j);
             // If a player gains resources, his current resource number
@@ -539,7 +539,7 @@ void Game::read(const string &fileName)
         istringstream playerData(playerDataLine);
         playerData.exceptions(ios_base::failbit);
 
-        for (int j = 0; j < resourceTypeCount; j++)
+        for (int j = 0; j < totalResourceTypes; j++)
         {
             auto type = static_cast<ResourceType>(j);
             int num;

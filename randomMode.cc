@@ -4,6 +4,7 @@
 #include "randomMode.h"
 #include "adjacencyTables.h"
 #include "tile.h"
+#include "dice.h"
 
 using namespace std;
 
@@ -12,25 +13,10 @@ vector<ResourceType> RandomMode::shuffleResource()
     vector<ResourceType> resources;
     resources.reserve(totalTiles);
 
-    for (int i = 0; i < 3; i++)
+    for(int type = 0; type < totalResourceTypes; type++)
     {
-        resources.push_back(ResourceType::WiFi);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        resources.push_back(ResourceType::Heat);
-    }
-    for (int i = 0; i < 4; i++)
-    {
-        resources.push_back(ResourceType::Brick);
-    }
-    for (int i = 0; i < 4; i++)
-    {
-        resources.push_back(ResourceType::Energy);
-    }
-    for (int i = 0; i < 4; i++)
-    {
-        resources.push_back(ResourceType::Glass);
+        for (int i = 0; i < tileNumberByResource[type]; i++)
+            resources.push_back(static_cast<ResourceType>(type));
     }
     resources.push_back(ResourceType::Park);
 
@@ -41,10 +27,10 @@ vector<ResourceType> RandomMode::shuffleResource()
 vector<int> RandomMode::shuffleValues(std::vector<ResourceType> resources)
 {
     vector<int> values;
-    for (int i = 2; i < 13; i++)
+    for (int i = minRoll; i <= maxRoll; i++)
     {
         values.push_back(i);
-        if (i != 2 && i != 12 && i != parkValue)
+        if (i != minRoll && i != maxRoll && i != parkValue)
         {
             values.push_back(i);
         }

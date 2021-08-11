@@ -24,7 +24,7 @@ int LoadedDice::roll()
             continue;
         }
 
-        if (2 <= roll && roll <= 12)
+        if (minRoll <= roll && roll <= maxRoll)
             return roll;
         view->printError(ErrorType::InvalidRoll);
     }

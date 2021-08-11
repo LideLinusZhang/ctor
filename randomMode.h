@@ -6,6 +6,8 @@
 
 class View;
 
+const int tileNumberByResource[totalResourceTypes] {4, 4, 4, 3, 3}; // Ordered as in ResourceType
+
 class RandomMode : public BoardLayoutFactory
 {
 public:
