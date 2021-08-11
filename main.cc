@@ -11,6 +11,16 @@ using namespace std;
 
 const string defaultLayoutFileName = "layout.txt";
 
+const string usage = "Available command-line options:\n"
+                     "-seed xxx\n"
+                     "  sets the random number generator’s seed to xxx.\n"
+                     "-load xxx\n"
+                     "  loads the game saved in file xxx.\n"
+                     "-board xxx\n"
+                     "  loads the game with the board specified in the file xxx instead of using random generation.\n"
+                     "-random-board\n"
+                     "  starts a game with a randomly generated board.";
+
 enum GameMode
 {
     Default,
@@ -57,8 +67,8 @@ int main(int argc, char *argv[])
             mode = GameMode::PureRandom;
         else
         {
-
-            return 0;
+            cerr<<usage<<endl;
+            return 22; // EINVAL: invalid argument.
         }
     }
 
