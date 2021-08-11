@@ -12,17 +12,29 @@ vector<ResourceType> RandomMode::shuffleResource()
     vector<ResourceType> resources;
     resources.reserve(totalTiles);
 
-    auto rng = Random::getRandomEngine();
-    uniform_int_distribution<int> dist(0, 4);
-
-    for (int i = 0; i < totalTiles - 1; i++)
+    for (int i = 0; i < 3; i++)
     {
-        auto type = static_cast<ResourceType>(dist(rng));
-        resources.push_back(type);
+        resources.push_back(ResourceType::WiFi);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        resources.push_back(ResourceType::Heat);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        resources.push_back(ResourceType::Brick);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        resources.push_back(ResourceType::Energy);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        resources.push_back(ResourceType::Glass);
     }
     resources.push_back(ResourceType::Park);
 
-    shuffle(resources.begin(), resources.end(), rng);
+    shuffle(resources.begin(), resources.end(), Random::getRandomEngine());
     return resources;
 }
 
