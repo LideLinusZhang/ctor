@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
             {
                 mode = GameMode::CustomLayout;
                 i++;
-                loadFileName = argv[i];
+                boardFileName = argv[i];
             }
             else
                 i++;
